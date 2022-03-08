@@ -1,0 +1,78 @@
+{
+	"build_configs": [
+		{
+			"name": "test",
+			"build_dir": "smalltest",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "master"
+				}
+			]
+		},
+		{
+			"name": "main",
+			"build_dir": "main",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "master"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				}
+			]
+		},
+		{
+			"name": "serial",
+			"build_dir": "feat_serial",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/serialization"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "feature/serialization"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "feature/serialization"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "feature/serialization"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "feature/serialization"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "feature/serialization"
+				}
+			]
+		}
+	]
+}
