@@ -1,95 +1,8 @@
 #!/usr/bin/env python3
 import argparse
 import json
-import os
-import shutil
+from utils.configclasses import Config
 from argparse import RawDescriptionHelpFormatter
-from git import Repo
-from git.remote import RemoteProgress
-from pathlib import Path
-
-hdps_repo_root = "https://github.com/hdps/"
-
-
-class Progress(RemoteProgress):
-    def update(self, op_code, cur_count, max_count=None, message=""):
-        print(self._cur_line, end="\r")
-        if op_code & self.END:
-            print("\n")
-
-
-def onerror(func, path, exc_info):
-    """
-    Error handler for ``shutil.rmtree``.
-
-    If the error is due to an access error (read only file)
-    it attempts to add write permission and then retries.
-    This happens on Windows removing the .git dir.
-
-    If the error is for another reason it re-raises the error.
-
-    Usage : ``shutil.rmtree(path, onerror=onerror)``
-
-    (Thank you stackoverflow! https://stackoverflow.com/a/2656405/584201)
-    """
-    import stat
-
-    # Is the error an access error?
-    if not os.access(path, os.W_OK):
-        os.chmod(path, stat.S_IWUSR)
-        func(path)
-    else:
-        raise
-
-
-class HdpsRepo:
-    def __init__(self, repo_config: dict, default_branch: str = None):
-        self.repo_url = f"{hdps_repo_root}{repo_config['repo']}"
-        self.repo_name = repo_config["repo"]
-        self.branch = repo_config.get("branch", default_branch)
-
-    def __str__(self):
-        return f"repo: {self.repo_url},\tbranch: {self.branch}"
-
-    def use(self, force=False, stash=False):
-        print(f"Cloning from: {self.repo_url}")
-        Repo.clone_from(
-            self.repo_url,
-            to_path=self.repo_name,
-            branch=self.branch,
-            progress=Progress(),
-        )
-
-
-class Config:
-    def __init__(self, build_config: dict):
-        self.name = build_config["name"]
-        self.build_dir = build_config["build_dir"]
-        self.branch = build_config.get("branch", None)
-        self.repos = []
-        self.branch = build_config.get("branch", None)
-        for repo_config in build_config["hdps_repos"]:
-            repo = HdpsRepo(repo_config)
-            self.repos.append(repo)
-
-    def __str__(self):
-        res_str = f"name: {self.name}\n"
-        res_str += f"build dir: {self.build_dir}\n"
-        if self.branch is not None:
-            res_str += f"branch: {self.branch}\n"
-        res_str += "hdps_repos: \n"
-        for repo in self.repos:
-            res_str += "\t" + str(repo) + "\n"
-        return res_str
-
-    def use(self, clean=True, force=False, stash=False):
-        if clean and Path(self.build_dir).exists():
-            shutil.rmtree(self.build_dir, onerror=onerror)
-        if not Path(self.build_dir).exists():
-            Path(self.build_dir).mkdir()
-        os.chdir(self.build_dir)
-        for repo in self.repos:
-            repo.use(force, stash)
 
 
 def get_config_dict(config_input: dict) -> dict:
@@ -101,10 +14,17 @@ def get_config_dict(config_input: dict) -> dict:
 
 
 def list(args: argparse.Namespace):
+    """Implement the list subcommand
+
+    Parameters
+    ----------
+    args : argparse.Namespace
+        Parsed arguments for the list subcommand.
+    """
     with open("config.json") as cp:
         config_input = json.load(cp)
         configs = get_config_dict(config_input)
-        if args.config_name is None:
+        if args.config_name == "":
             for config in configs:
                 print(config)
         else:
@@ -113,6 +33,13 @@ def list(args: argparse.Namespace):
 
 
 def use(args: argparse.Namespace):
+    """Implement the use subcommand
+
+    Parameters
+    ----------
+    args : argparse.Namespace
+        Parsed arguments for the use subcommand.
+    """
     with open("config.json") as cp:
         config_input = json.load(cp)
         configs = get_config_dict(config_input)
@@ -120,7 +47,7 @@ def use(args: argparse.Namespace):
         if config is None:
             print(f"Configuration named: {args.config_name} was not found")
             return
-        config.use(args.clean, args.force, args.stash)
+        config.use(args.clean, args.stash)
 
 
 if __name__ == "__main__":
@@ -155,9 +82,10 @@ if __name__ == "__main__":
         "list", help="List all HDPS development configurations"
     )
     parser_list.add_argument(
-        "--config_name",
+        "config_name",
         type=str,
-        default=None,
+        default="",
+        nargs="?",
         help="List the details of the specific configuration",
     )
     parser_list.set_defaults(func=list)
@@ -174,17 +102,12 @@ if __name__ == "__main__":
     )
     parser_use.add_argument(
         "--clean",
-        default=True,
+        default=False,
         help="Delete and recreate the directory, the default behavior",
     )
     parser_use.add_argument(
-        "--force",
-        default=False,
-        help="Force overwritting any changes in the hdps subproject directories",
-    )
-    parser_use.add_argument(
         "--stash",
-        default=False,
+        default=True,
         help="Stash any changes in the hdps subproject directories",
     )
     parser_use.set_defaults(func=use)

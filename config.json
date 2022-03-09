@@ -1,7 +1,7 @@
 {
 	"build_configs": [
 		{
-			"name": "test",
+			"name": "test1",
 			"build_dir": "smalltest",
 			"hdps_repos": [
 				{
@@ -11,6 +11,20 @@
 				{
 					"repo": "CsvLoader",
 					"branch": "master"
+				}
+			]
+		},
+		{
+			"name": "test2",
+			"build_dir": "smalltest",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/serialization"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "feature/serialization"
 				}
 			]
 		},
