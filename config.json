@@ -9,19 +9,24 @@
 		},
 		"HDF5Loader": {
 			"dependencies": [
-				"HDPS"
+				"HDPS",
+				"PointData",
+				"ClusterData"
 			]
 		},
 		"ImageLoaderPlugin": {
 			"dependencies": [
 				"HDPS",
+				"PointData",
 				"ImageData"
 			]
 		},
 		"ImageViewerPlugin": {
 			"dependencies": [
 				"HDPS",
-				"ImageData"
+				"ImageData",
+				"PointData",
+				"ClusterData"
 			]
 		},
 		"t-SNE-Analysis": {
@@ -34,6 +39,89 @@
 				"HsneAnalysisPlugin": [
 					"HDPS",
 					"ImageData",
+					"PointData"
+				]
+			}
+		},
+		"ENVILoader": {
+			"dependencies": [
+				"HDPS",
+				"ImageData",
+				"PointData"
+			]
+		},
+		"VolumeLoaderPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		},
+		"HeatMap": {
+			"sub_project_dependencies": {
+				"HeatMapPlugin": [
+					"HDPS",
+					"ClusterData",
+					"PointData"
+				]
+			}
+		},
+		"Scatterplot": {
+			"sub_project_dependencies": {
+				"ScatterplotPlugin": [
+					"HDPS",
+					"ClusterData",
+					"PointData"
+				]
+			}
+		},
+		"VolumeViewerPlugin": {
+			"dependencies": [
+				"HDPS",
+				"ImageData",
+				"PointData"
+			]
+		},
+		"ClustersFromPointsPlugin": {
+			"dependencies": [
+				"HDPS",
+				"ClusterData",
+				"PointData"
+			]
+		},
+		"ParallelCoordinatesPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		},
+		"BinIO": {
+			"sub_project_dependencies": {
+				"BinLoader": [
+					"HDPS",
+					"PointData"
+				],
+				"BinExporter": [
+					"HDPS",
+					"PointData"
+				]
+			}
+		},
+		"ExamplePlugins": {
+			"sub_project_dependencies": {
+				"ExampleAnalysisPlugin": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleDataPlugin": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleLoaderPlugin": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleViewPlugin": [
+					"HDPS",
 					"PointData"
 				]
 			}
@@ -90,6 +178,72 @@
 				},
 				{
 					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				}
+			]
+		},
+		{
+			"name": "allmaster",
+			"build_dir": "allmaster",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				},
+				{
+					"repo": "ENVILoader",
+					"branch": "main"
+				},
+				{
+					"repo": "VolumeLoaderPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "HeatMap",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "VolumeViewerPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ParallelCoordinatesPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "master"
+				},
+				{
+					"repo": "ExamplePlugins",
+					"branch": "master"
+				},
+				{
+					"repo": "HDF5Loader",
 					"branch": "master"
 				}
 			]

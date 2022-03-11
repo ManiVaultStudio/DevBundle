@@ -19,10 +19,11 @@ repositories to facilitate project development.
 
 For HDPS you will need to manually add one or more of the following definitions (depending on your bundle) in the CMake GUI:
 
-* HDPS_INSTALL_DIR (environment variable)
-* QT_DIR (lib/cmake/Qt5)
-* Qt5_DIR (lib/cmake/Qt5)
-* FREEIMAGE_ROOT_DIR (directory including lib, bin and include dirs)
+* HDPS_INSTALL_DIR - for HDPS (environment variable)
+* QT_DIR - for HDPS (lib/cmake/Qt5)
+* Qt5_DIR - for HDPS (lib/cmake/Qt5)
+* FREEIMAGE_ROOT_DIR for ImageLoader (directory including lib, bin and include dirs)
+* VTK_DIR - for VolumeViewer (lib/cmake/vtk-9.1)
 ## An example of using the DevBundle - makeproject
 
 Example: main
