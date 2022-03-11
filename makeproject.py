@@ -7,8 +7,9 @@ from argparse import RawDescriptionHelpFormatter
 
 def get_config_dict(config_input: dict) -> dict:
     configs = {}
+    repo_info = config_input.get("repo_info", {})
     for build_config in config_input["build_configs"]:
-        c = Config(build_config)
+        c = Config(build_config, repo_info)
         configs[c.name] = c
     return configs
 

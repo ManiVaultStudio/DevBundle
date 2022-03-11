@@ -1,4 +1,44 @@
 {
+	"cmake_requirements": {},
+	"repo_info": {
+		"CsvLoader": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		},
+		"HDF5Loader": {
+			"dependencies": [
+				"HDPS"
+			]
+		},
+		"ImageLoaderPlugin": {
+			"dependencies": [
+				"HDPS",
+				"ImageData"
+			]
+		},
+		"ImageViewerPlugin": {
+			"dependencies": [
+				"HDPS",
+				"ImageData"
+			]
+		},
+		"t-SNE-Analysis": {
+			"sub_project_dependencies": {
+				"TsneAnalysisPlugin": [
+					"HDPS",
+					"ImageData",
+					"PointData"
+				],
+				"HsneAnalysisPlugin": [
+					"HDPS",
+					"ImageData",
+					"PointData"
+				]
+			}
+		}
+	},
 	"build_configs": [
 		{
 			"name": "test1",
@@ -41,10 +81,6 @@
 					"branch": "master"
 				},
 				{
-					"repo": "HDF5Loader",
-					"branch": "master"
-				},
-				{
 					"repo": "ImageLoaderPlugin",
 					"branch": "master"
 				},
@@ -68,10 +104,6 @@
 				},
 				{
 					"repo": "CsvLoader",
-					"branch": "feature/serialization"
-				},
-				{
-					"repo": "HDF5Loader",
 					"branch": "feature/serialization"
 				},
 				{
