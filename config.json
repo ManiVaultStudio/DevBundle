@@ -245,6 +245,10 @@
 				{
 					"repo": "HDF5Loader",
 					"branch": "master"
+				},
+				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "master"
 				}
 			]
 		},
