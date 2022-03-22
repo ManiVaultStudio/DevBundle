@@ -125,6 +125,12 @@
 					"PointData"
 				]
 			}
+		},
+		"DimensionsViewerPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
 		}
 	},
 	"build_configs": [
