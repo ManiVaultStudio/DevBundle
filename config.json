@@ -283,6 +283,24 @@
 					"branch": "feature/serialization"
 				}
 			]
+		},
+		{
+			"name": "ActionLinking",
+			"build_dir": "ActionLinking",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/action_linking"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "feature/action_linking"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "feature/action_linking"
+				}
+			]
 		}
 	]
 }
