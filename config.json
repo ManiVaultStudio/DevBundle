@@ -299,6 +299,14 @@
 				{
 					"repo": "ImageViewerPlugin",
 					"branch": "feature/action_linking"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "feature/action_linking"
+				},
+				{
+					"repo": "MeanShiftClustering",
+					"branch": "master"
 				}
 			]
 		}
