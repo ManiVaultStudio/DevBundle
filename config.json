@@ -1,196 +1,8 @@
 {
-	"cmake_requirements": {},
-	"repo_info": {
-		"CsvLoader": {
-			"dependencies": [
-				"HDPS",
-				"PointData"
-			]
-		},
-		"HDF5Loader": {
-			"dependencies": [
-				"HDPS",
-				"PointData",
-				"ClusterData"
-			]
-		},
-		"ImageLoaderPlugin": {
-			"dependencies": [
-				"HDPS",
-				"PointData",
-				"ImageData"
-			]
-		},
-		"ImageViewerPlugin": {
-			"dependencies": [
-				"HDPS",
-				"ImageData",
-				"PointData",
-				"ClusterData"
-			]
-		},
-		"t-SNE-Analysis": {
-			"sub_project_dependencies": {
-				"TsneAnalysisPlugin": [
-					"HDPS",
-					"ImageData",
-					"PointData"
-				],
-				"HsneAnalysisPlugin": [
-					"HDPS",
-					"ImageData",
-					"PointData"
-				]
-			}
-		},
-		"ENVILoader": {
-			"dependencies": [
-				"HDPS",
-				"ImageData",
-				"PointData"
-			]
-		},
-		"VolumeLoaderPlugin": {
-			"dependencies": [
-				"HDPS",
-				"PointData"
-			]
-		},
-		"HeatMap": {
-			"sub_project_dependencies": {
-				"HeatMapPlugin": [
-					"HDPS",
-					"ClusterData",
-					"PointData"
-				]
-			}
-		},
-		"Scatterplot": {
-			"sub_project_dependencies": {
-				"ScatterplotPlugin": [
-					"HDPS",
-					"ClusterData",
-					"PointData"
-				]
-			}
-		},
-		"VolumeViewerPlugin": {
-			"dependencies": [
-				"HDPS",
-				"ImageData",
-				"PointData"
-			]
-		},
-		"ClustersFromPointsPlugin": {
-			"dependencies": [
-				"HDPS",
-				"ClusterData",
-				"PointData"
-			]
-		},
-		"ParallelCoordinatesPlugin": {
-			"dependencies": [
-				"HDPS",
-				"PointData"
-			]
-		},
-		"BinIO": {
-			"sub_project_dependencies": {
-				"BinLoader": [
-					"HDPS",
-					"PointData"
-				],
-				"BinExporter": [
-					"HDPS",
-					"PointData"
-				]
-			}
-		},
-		"ExamplePlugins": {
-			"sub_project_dependencies": {
-				"ExampleAnalysisPlugin": [
-					"HDPS",
-					"PointData"
-				],
-				"ExampleDataPlugin": [
-					"HDPS",
-					"PointData"
-				],
-				"ExampleLoaderPlugin": [
-					"HDPS",
-					"PointData"
-				],
-				"ExampleViewPlugin": [
-					"HDPS",
-					"PointData"
-				]
-			}
-		},
-		"DimensionsViewerPlugin": {
-			"dependencies": [
-				"HDPS",
-				"PointData"
-			]
-		}
-	},
-	"build_configs": [
+	"build_bundles": [
 		{
-			"name": "test1",
-			"build_dir": "smalltest",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "master"
-				},
-				{
-					"repo": "CsvLoader",
-					"branch": "master"
-				}
-			]
-		},
-		{
-			"name": "test2",
-			"build_dir": "smalltest",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "feature/serialization"
-				},
-				{
-					"repo": "CsvLoader",
-					"branch": "feature/serialization"
-				}
-			]
-		},
-		{
-			"name": "main",
-			"build_dir": "main",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "master"
-				},
-				{
-					"repo": "CsvLoader",
-					"branch": "master"
-				},
-				{
-					"repo": "ImageLoaderPlugin",
-					"branch": "master"
-				},
-				{
-					"repo": "ImageViewerPlugin",
-					"branch": "master"
-				},
-				{
-					"repo": "t-SNE-Analysis",
-					"branch": "master"
-				}
-			]
-		},
-		{
-			"name": "allmaster",
-			"build_dir": "allmaster",
+			"name": "allmain",
+			"build_dir": "allmain",
 			"hdps_repos": [
 				{
 					"repo": "core",
@@ -251,15 +63,37 @@
 				{
 					"repo": "HDF5Loader",
 					"branch": "master"
+				}
+			]
+		},
+		{
+			"name": "smallmain",
+			"build_dir": "smallmain",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
 				},
 				{
-					"repo": "DimensionsViewerPlugin",
+					"repo": "CsvLoader",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "t-SNE-Analysis",
 					"branch": "master"
 				}
 			]
 		},
 		{
-			"name": "serial",
+			"name": "branchexample",
 			"build_dir": "feat_serial",
 			"hdps_repos": [
 				{
@@ -285,6 +119,20 @@
 			]
 		},
 		{
+			"name": "smalltest",
+			"build_dir": "smalltest",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "master"
+				}
+			]
+		},
+		{
 			"name": "ActionLinking",
 			"build_dir": "ActionLinking",
 			"hdps_repos": [
@@ -301,14 +149,187 @@
 					"branch": "feature/action_linking"
 				},
 				{
-					"repo": "Scatterplot",
-					"branch": "feature/action_linking"
-				},
-				{
 					"repo": "MeanShiftClustering",
 					"branch": "master"
 				}
 			]
 		}
-	]
+	],
+	"repo_info": {
+		"core": {
+			"binaries": [
+				"QT5152"
+			]
+		},
+		"CsvLoader": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		},
+		"HDF5Loader": {
+			"dependencies": [
+				"HDPS",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"ImageLoaderPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData",
+				"ImageData"
+			],
+			"binaries": [
+				"FreeImage3180"
+			]
+		},
+		"ImageViewerPlugin": {
+			"dependencies": [
+				"HDPS",
+				"ImageData",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"t-SNE-Analysis": {
+			"sub_project_dependencies": {
+				"TsneAnalysisPlugin": [
+					"HDPS",
+					"ImageData",
+					"PointData"
+				],
+				"HsneAnalysisPlugin": [
+					"HDPS",
+					"ImageData",
+					"PointData"
+				]
+			}
+		},
+		"ENVILoader": {
+			"dependencies": [
+				"HDPS",
+				"ImageData",
+				"PointData"
+			]
+		},
+		"VolumeLoaderPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		},
+		"HeatMap": {
+			"sub_project_dependencies": {
+				"HeatMapPlugin": [
+					"HDPS",
+					"ClusterData",
+					"PointData"
+				]
+			}
+		},
+		"Scatterplot": {
+			"sub_project_dependencies": {
+				"ScatterplotPlugin": [
+					"HDPS",
+					"ClusterData",
+					"PointData"
+				]
+			}
+		},
+		"VolumeViewerPlugin": {
+			"binaries": [
+				"VTK910"
+			],
+			"dependencies": [
+				"HDPS",
+				"ImageData",
+				"PointData"
+			]
+		},
+		"ClustersFromPointsPlugin": {
+			"dependencies": [
+				"HDPS",
+				"ClusterData",
+				"PointData"
+			]
+		},
+		"ParallelCoordinatesPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		},
+		"BinIO": {
+			"sub_project_dependencies": {
+				"BinLoader": [
+					"HDPS",
+					"PointData"
+				],
+				"BinExporter": [
+					"HDPS",
+					"PointData"
+				]
+			}
+		},
+		"ExamplePlugins": {
+			"sub_project_dependencies": {
+				"ExampleAnalysisPlugin": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleDataPlugin": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleLoaderPlugin": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleViewPlugin": [
+					"HDPS",
+					"PointData"
+				]
+			}
+		},
+		"DimensionsViewerPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		}
+	},
+	"prebuilt_binaries": {
+		"QT5152": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/5.15.2/stable/0/package/d087f699e8b1ebf5eed62da5ba34100e360b38a8/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"Qt5_DIR": "5.15.2/msvc2019_64/lib/cmake/Qt5",
+				"QT_DIR": "5.15.2/msvc2019_64/lib/cmake/Qt5"
+			},
+			"bin_path": "5.15.2/msvc2019_64/bin"
+		},
+		"VTK910": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/280db47f62d23506cc4b2da3822ee607b1ead65d/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"VTK_DIR": "lib/cmake/vtk-9.1"
+			},
+			"bin_path": "bin"
+		},
+		"FreeImage3180": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/4a5c0a134220be2f83450e0d12175db326cb51a4/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"FREEIMAGE_ROOT_DIR": ""
+			},
+			"bin_path": "bin"
+		}
+	}
 }

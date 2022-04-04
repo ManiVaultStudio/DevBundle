@@ -1,7 +1,11 @@
-## What is DevBundle - makeproject
+## What is DevBundle - makeproject?
 
 This project allows you create one or more development bundles of HDPS 
-repositories to facilitate project development.
+repositories to facilitate project development. It clones the repos and 
+generates a CMakeLists.txt file that can be used to COnfigure, Generate, Open Project.
+
+If you use the prebuilt binaries the CMake will include all the necessary variables for
+
 
 ## Functionality 
 
@@ -10,14 +14,110 @@ repositories to facilitate project development.
 * List bundles defined: *makeproject list*
 * List a bundle definition: *makeproject list main*
 * Make a new bundle from the config *makeproject use main*
+* Use either https (default) or ssh to clone the repo 
+* Get prebuilt binaries
+* Set CMake variables (as per configuration) in the top-level CMakeLists.txt
+* Set debug and release environment paths if using prebuilt binaries
+
+
+### Usage examples
+
+The configuration contains 4 predefined bundles: 
+| Bundle name   | Repos                                                                  | Branches              |
+| ------------- | ---------------------------------------------------------------------- | --------------------- |
+| allmain       | core + all plugins                                                     | main or master        |
+| smallmain     | core + CsvLoader, ImageLoaderPlugin, ImageViewerPlugin, t-SNE-Analysis | main or master        |
+| branchexample | core + CsvLoader, ImageLoaderPlugin, ImageViewerPlugin, t-SNE-Analysis | feature/serialization |
+| smalltest     | core + CsvLoader                                                       | main or master        |
+
+1) List the predefined bundles: 
+   ```
+   >python makeproject.py list
+   allmain
+   smallmain
+   branchexample
+   smalltest
+   ```
+
+2) Use the `smalltest` **with https authentication**
+   ```
+    > python makeproject.py use smalltest
+    Cloning from: https://github.com/hdps/core
+    ...
+    Cloning from: https://github.com/hdps/CsvLoader
+    ...
+    Downloading QT5152
+    Downloaded: D:\Projects\DevBundle\binaries\QT5152.tgz
+    Making CMakeLists.txt
+    ```
+
+3) Use the `smalltest` **with ssh authentication**
+
+   **Tip**: With SSH on Windows (using Windows Git in a cmd prompt) you can launch an ssh_agent to hold the passphrase thus: 
+   ```
+   > start-ssh-agent.cmd
+   Found ssh-agent at 26736
+   Found ssh-agent socket at /tmp/ssh-q1vvuXxLLGyX/agent.1044
+   Enter passphrase for /c/Users/<login_name>/.ssh/id_rsa:
+   Identity added: /c/Users/<login_name>/.ssh/id_rsa (/c/Users/<login_name>/.ssh/id_rsa)
+   Identity added: /c/Users/<login_name>/.ssh/id_ed25519 (<git-id>)
+   ```
+
+   ```
+   > python makeproject.py use smalltest --ssh
+   Cloning from: git@github.com:hdps/core.git
+   ...
+   Cloning from: git@github.com:hdps/CsvLoader.git
+   ...
+   Downloading QT5152
+   Downloaded: D:\Projects\DevBundle\binaries\QT5152.tgz
+   Making CMakeLists.txt
+   ```
+
+4) Skip specific binaries 
+
+```
+> python makeproject.py use smalltest --skip_binary QT5152
+```
+
+The resulting CMakeLists.txt will not contain the entries for Qt. (Se )
+
+
+### Understanding the `config.json` file
+
+The `config.json` provided contains a working example of all HDPS plugins (a `build_config`) together with the core on the main branch called `allmaster`. There are in addition a number of other configurations for illustration or testing.
+
+`config.json` contains three major sections: `build_bundles`, `repo_info` and `prebuilt_binaries`. 
+
+
+#### 1.  `build_bundles`
+
+&nbsp;&nbsp;&nbsp;&nbsp; A `build_bundle` defines a set of HDPS `core` plus plugins to be used in the bundle project. It defines a `name` which should be a meaningful string, a `build_dir` which will contain the `source`, `build` and `install` 
+directories and a list of `hdps_repos` used in the bundle project.
+
+&nbsp;&nbsp;&nbsp;&nbsp; `build_dir` will be created relative to the path where the `makeproject.py` script is run.
+
+
+#### 2. `repo_info`
+
+&nbsp;&nbsp;&nbsp;&nbsp;`repo_info` is a central list of all HDPS repos describing subprojects, if any, that are defined in the repo and their project dependencies and binary dependencies. This is essential for creating a top-level CMakeLists.txt with the correct build order dependencies.
+
+&nbsp;&nbsp;&nbsp;&nbsp; This section shall be maintained to reflect the current status of the HDPS projects. (Note: at the moment there is no provision for different dependencies between main and branches - as a workaround a copy of this file can be created.)
+
+&nbsp;&nbsp;&nbsp;&nbsp; These dependencies only need to be listed once for each repo that will be using in the `build_bundles`.
+
+#### 3. `prebuilt_binaries`
+
+&nbsp;&nbsp;&nbsp;&nbsp; Named `<binary_name>` 3rd party binaries available prebuilt in the LKEB Artifactory software repository. These are downloaded and unpacked into the common `binaries` subdirectory. If there is no `--skip_binary <binary_name>`on the command line the associated CMake variables will be defined. The presencene of a `bin_path` causes the path to be appended to the debug/release environments to be able to execute the compiled bundle in one step.
+
+&nbsp;&nbsp;&nbsp;&nbsp; Binaries are downloaded to `<binary_name>.tgz` in the `binaries`common directory and unpacked to a subdirectory with the `<binary_name>`.
 
 ### Coming soon
 * Support for overwriting and existing directory (recommend that each bundle is in a separate dir in this release)
-* Support for CMake defines.
 
 ## Notes
 
-For HDPS you will need to manually add one or more of the following definitions (depending on your bundle) in the CMake GUI:
+If you don't use the prebuilt binaries for HDPS you will need to manually add one or more of the following definitions (depending on your bundle) in the CMake GUI:
 
 * HDPS_INSTALL_DIR - for HDPS (environment variable)
 * QT_DIR - for HDPS (lib/cmake/Qt5)
@@ -29,14 +129,6 @@ For HDPS you will need to manually add one or more of the following definitions 
 Example: main
 
 List the all defined projects. These are some default test projects defined in the )
-
-```shell
-> py makeproject.py list
-test1
-test2
-main
-serial
-```
 
 List the details of main
 
@@ -56,82 +148,6 @@ hdps_repos:
                 project: TsneAnalysisPlugin, dependencies: HDPS ImageData PointData
                 project: HsneAnalysisPlugin, dependencies: HDPS ImageData PointData
 ```
-
-Make the bundle
-
-```shell
-> py makeproject.py use main
-Cloning from: https://github.com/hdps/core
-remote: Counting objects: 100% (4908/4908), done.
-
-remote: Compressing objects: 100% (2909/2909), done.
-
-Receiving objects: 100% (14299/14299), 32.57 MiB | 2.96 MiB/s, done.
-
-Resolving deltas: 100% (9978/9978), done.
-
-remote: Counting objects: 100% (277/277), done.
-
-remote: Compressing objects: 100% (123/123), done.
-
-Receiving objects: 100% (6330/6330), 13.82 MiB | 3.05 MiB/s, done.
-
-Resolving deltas: 100% (4581/4581), done.
-
-remote: Counting objects: 100% (488/488), done.
-
-remote: Compressing objects: 100% (192/192), done.
-
-Receiving objects: 100% (3641/3641), 1.55 MiB | 3.04 MiB/s, done.
-
-Resolving deltas: 100% (2562/2562), done.
-
-Receiving objects: 100% (183/183), 45.51 KiB | 1.98 MiB/s, done.
-
-Resolving deltas: 100% (119/119), done.
-
-Cloning from: https://github.com/hdps/CsvLoader
-remote: Counting objects: 100% (79/79), done.
-
-remote: Compressing objects: 100% (48/48), done.
-
-Receiving objects: 100% (79/79), 17.13 KiB | 3.43 MiB/s, done.
-
-Resolving deltas: 100% (36/36), done.
-
-Cloning from: https://github.com/hdps/ImageLoaderPlugin
-remote: Counting objects: 100% (495/495), done.
-
-remote: Compressing objects: 100% (192/192), done.
-
-Receiving objects: 100% (3686/3686), 9.36 MiB | 2.13 MiB/s, done.
-
-Resolving deltas: 100% (2897/2897), done.
-
-Cloning from: https://github.com/hdps/ImageViewerPlugin
-remote: Counting objects: 100% (618/618), done.
-
-remote: Compressing objects: 100% (417/417), done.
-
-Receiving objects: 100% (6506/6506), 1.63 MiB | 2.77 MiB/s, done.
-
-Resolving deltas: 100% (5328/5328), done.
-
-Cloning from: https://github.com/hdps/t-SNE-Analysis
-remote: Counting objects: 100% (1985/1985), done.
-
-remote: Compressing objects: 100% (1224/1224), done.
-
-Receiving objects: 100% (2733/2733), 71.08 MiB | 3.11 MiB/s, done.
-
-Resolving deltas: 100% (1817/1817), done.
-
-Making CMakeLists.txt
-```
-
-At this point the subdirectory (in this case called main) will contain all the 
-cloned repos at the desired branch and a top-level CMakeLists.txt.
-
 
 
 

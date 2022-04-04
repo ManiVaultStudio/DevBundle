@@ -1,7 +1,10 @@
-smalltest
-main
-test1
-test2
+smallmain
+allmain
 allmaster
+feat_serial
+smalltest
+binaries
+ActionLinking
 **/__pycache__
 .vs/
+.vscode/

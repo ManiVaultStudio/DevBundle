@@ -8,8 +8,9 @@ from argparse import RawDescriptionHelpFormatter
 def get_config_dict(config_input: dict) -> dict:
     configs = {}
     repo_info = config_input.get("repo_info", {})
-    for build_config in config_input["build_configs"]:
-        c = Config(build_config, repo_info)
+    binary_config = config_input.get("prebuilt_binaries", {})
+    for build_config in config_input["build_bundles"]:
+        c = Config(build_config, repo_info, binary_config)
         configs[c.name] = c
     return configs
 
@@ -48,7 +49,7 @@ def use(args: argparse.Namespace):
         if config is None:
             print(f"Configuration named: {args.config_name} was not found")
             return
-        config.use(args.clean, args.stash)
+        config.use(not args.no_clean, not args.no_stash, args.skip_binary, args.ssh)
 
 
 if __name__ == "__main__":
@@ -102,14 +103,31 @@ if __name__ == "__main__":
         help="The name of the configuration to retrieve",
     )
     parser_use.add_argument(
-        "--clean",
-        default=False,
-        help="Delete and recreate the directory, the default behavior",
+        "--no_clean",
+        action="store_true",
+        help="Don't delete an existing directory, the default behavior is deletion",
     )
     parser_use.add_argument(
-        "--stash",
-        default=True,
-        help="Stash any changes in the hdps subproject directories",
+        "--no_stash",
+        action="store_true",
+        help="""
+Don't stash changes in the hdps subproject directories
+default is to stash when not cleaning""",
+    )
+    parser_use.add_argument(
+        "--skip_binary",
+        action="append",
+        default=[],
+        help="""
+If you prefer to use your own versions
+skip specific 3-party binaries. e.g.
+--skip_binary QT5152 --skip_binary FreeImage3180
+        """,
+    )
+    parser_use.add_argument(
+        "--ssh",
+        action="store_true",
+        help="Use SSH (instead of the default http) for git access",
     )
     parser_use.set_defaults(func=use)
     args = parser.parse_args()
