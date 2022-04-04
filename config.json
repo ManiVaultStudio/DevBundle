@@ -63,6 +63,10 @@
 				{
 					"repo": "HDF5Loader",
 					"branch": "master"
+				},
+				{
+					"repo": "MeanShiftClustering",
+					"branch": "master"
 				}
 			]
 		},
