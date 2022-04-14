@@ -246,7 +246,10 @@ class Config:
         self, build_config: dict, common_dependencies: dict, binary_config
     ) -> None:
         self.name = build_config["name"]
-        self.build_dir = Path(build_config["build_dir"]).resolve()
+        self.build_dir = Path(
+            Path(__file__).parents[1], build_config["build_dir"]
+        ).resolve()
+        print(f"Build dir = {self.build_dir}")
         self.source_dir = Path(self.build_dir, "source")
         self.install_dir = Path(self.build_dir, "install")
         self.solution_dir = Path(self.build_dir, "build")
