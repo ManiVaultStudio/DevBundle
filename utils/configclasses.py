@@ -7,6 +7,7 @@ import tarfile
 from git import Repo
 from git.remote import RemoteProgress
 from pathlib import Path
+from typing import List, Set, Dict, Tuple, Optional
 
 
 class Progress(RemoteProgress):
@@ -59,7 +60,7 @@ class Binaries:
         self.config = binary_config
         self.bin_root = bin_root
 
-    def get_bin_names(self) -> list[str]:
+    def get_bin_names(self) -> List[str]:
         return list(self.config.keys())
 
     def get_bin_info(self, bin_name: str) -> dict:
@@ -102,7 +103,7 @@ class Binaries:
         os.chdir(name)
         tarfile.open(tar_path).extractall(".")
 
-    def use_binary(self, bin_name: str, skip: bool = False) -> list[tuple]:
+    def use_binary(self, bin_name: str, skip: bool = False) -> List[tuple]:
         if bin_name not in self.config:
             raise RuntimeError(
                 f"{bin_name} is not a defined binary - check the config file for errors"
@@ -280,7 +281,7 @@ class Config:
         self,
         clean: bool = False,
         stash: bool = True,
-        skip_binaries: list[str] = [],
+        skip_binaries: List[str] = [],
         ssh: bool = False,
     ) -> None:
         """Switch all the repos to this configuration.
@@ -355,7 +356,7 @@ class CMakeFileBuilder:
         cmakepath = Path(".", "CMakeLists.txt")
         cmakepath.rename(f"CMakeLists.{version_num:03}")
 
-    def make(self, cmake_vars: list[tuple]) -> None:
+    def make(self, cmake_vars: List[tuple]) -> None:
         self.save_numbered_cmakefile()
         print(f"Making {self.cmakelistspath}")
         with open(str(self.cmakelistspath), "a") as cf:
