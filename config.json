@@ -67,6 +67,14 @@
 				{
 					"repo": "MeanShiftClustering",
 					"branch": "master"
+				},
+				{
+					"repo": "Joint-t-SNE-Analysis",
+					"branch": "master"
+				},
+				{
+					"repo": "SimianViewerPlugin",
+					"branch": "master"
 				}
 			]
 		},
