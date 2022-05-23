@@ -37,6 +37,10 @@
 					"branch": "master"
 				},
 				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "master"
+				},
+				{
 					"repo": "Scatterplot",
 					"branch": "master"
 				},
