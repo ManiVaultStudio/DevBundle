@@ -256,7 +256,8 @@
 	"repo_info": {
 		"core": {
 			"binaries": [
-				"QT5152"
+				"QT5152",
+				"QT622"
 			]
 		},
 		"CsvLoader": {
