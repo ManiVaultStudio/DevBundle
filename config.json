@@ -405,10 +405,10 @@
 				"Macos": "T.B.D"
 			},
 			"cmake_variables": {
-				"Qt5_DIR": "5.15.2/msvc2019_64/lib/cmake/Qt5",
-				"QT_DIR": "5.15.2/msvc2019_64/lib/cmake/Qt5"
+				"Qt5_DIR": "+5.15.2/msvc2019_64/lib/cmake/Qt5",
+				"QT_DIR": "+5.15.2/msvc2019_64/lib/cmake/Qt5"
 			},
-			"bin_path": "5.15.2/msvc2019_64/bin"
+			"bin_path": "+5.15.2/msvc2019_64/bin"
 		},
 		"QT622": {
 			"binaries": {
@@ -416,10 +416,10 @@
 				"Macos": "T.B.D"
 			},
 			"cmake_variables": {
-				"Qt6_DIR": "6.2.2/msvc2019_64/lib/cmake/Qt6",
-				"QT_DIR": "6.2.2/msvc2019_64/lib/cmake/Qt6"
+				"Qt6_DIR": "+6.2.2/msvc2019_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.2.2/msvc2019_64/lib/cmake/Qt6"
 			},
-			"bin_path": "6.2.2/msvc2019_64/bin"
+			"bin_path": "+6.2.2/msvc2019_64/bin"
 		},
 		"VTK910": {
 			"binaries": {
@@ -427,9 +427,9 @@
 				"Macos": "T.B.D"
 			},
 			"cmake_variables": {
-				"VTK_DIR": "lib/cmake/vtk-9.1"
+				"VTK_DIR": "+lib/cmake/vtk-9.1"
 			},
-			"bin_path": "bin"
+			"bin_path": "+bin"
 		},
 		"FreeImage3180": {
 			"binaries": {
@@ -439,7 +439,7 @@
 			"cmake_variables": {
 				"FREEIMAGE_ROOT_DIR": ""
 			},
-			"bin_path": "bin"
+			"bin_path": "+bin"
 		}
 	}
 }

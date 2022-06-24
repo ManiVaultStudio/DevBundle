@@ -120,39 +120,41 @@ class Binaries:
         variables: list[tuple] = []
         if "cmake_variables" not in bin_info:
             return variables
-        # variables tuple contains
-        # 0) cmake variable name + 1) corresponding path
-        # last tuple can be
-        # 0) None + 1) bin_path
-        # if there is a bin_path
+
+        # If a variable starts with + then the path to the binary dir is prepended
+        # otherwise the variable gets the given value
+        #
+        # The variables tuple returned contains
+        # 0) cmake variable name + 1) variable value (possibly a path)
+        #
+        # If there is a bin_path the last tuple can be
+        # 0) None + 1) bin_path - bin paths are always prepended (?does this make sense?)
+
         for variable_name in bin_info["cmake_variables"].keys():
             if not skip:
+                variable_value = bin_info["cmake_variables"][variable_name]
+                if variable_value.startswith("+"):
+                    variable_value = str(
+                        Path(
+                            self.bin_root,
+                            bin_name,
+                            variable_value[1:],
+                        )
+                    ).replace("\\", "/")
+                variables.append((variable_name, variable_value))
 
-                variables.append(
-                    (
-                        variable_name,
-                        str(
-                            Path(
-                                self.bin_root,
-                                bin_name,
-                                bin_info["cmake_variables"][variable_name],
-                            )
-                        ).replace("\\", "/"),
-                        str(
-                            Path(self.bin_root, bin_name, bin_info["bin_path"])
-                        ).replace("\\", "/"),
-                    )
-                )
         bin_path = bin_info.get("bin_path", None)
         if bin_path:
-            variables.append(
-                (
-                    None,
-                    str(Path(self.bin_root, bin_name, bin_info["bin_path"])).replace(
-                        "\\", "/"
-                    ),
-                )
-            )
+            variable_value = bin_info["binpath"]
+            if variable_value.startswith("+"):
+                variable_value = str(
+                    Path(
+                        self.bin_root,
+                        bin_name,
+                        variable_value[1:],
+                    )
+                ).replace("\\", "/")
+            variables.append((None, variable_value))
         return variables
 
 
