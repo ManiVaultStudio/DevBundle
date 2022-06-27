@@ -256,8 +256,8 @@
 	"repo_info": {
 		"core": {
 			"binaries": [
-				"QT5152",
-				"QT622"
+				"QT631",
+				"ZLib128"
 			]
 		},
 		"CsvLoader": {
@@ -408,7 +408,7 @@
 				"Qt5_DIR": "+5.15.2/msvc2019_64/lib/cmake/Qt5",
 				"QT_DIR": "+5.15.2/msvc2019_64/lib/cmake/Qt5"
 			},
-			"bin_path": "+5.15.2/msvc2019_64/bin"
+			"binpath": "+5.15.2/msvc2019_64/bin"
 		},
 		"QT622": {
 			"binaries": {
@@ -419,7 +419,20 @@
 				"Qt6_DIR": "+6.2.2/msvc2019_64/lib/cmake/Qt6",
 				"QT_DIR": "+6.2.2/msvc2019_64/lib/cmake/Qt6"
 			},
-			"bin_path": "+6.2.2/msvc2019_64/bin"
+			"binpath": "+6.2.2/msvc2019_64/bin"
+		},
+		"QT631": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.1/stable/0/package/32337ff87d7ce7732bf6a3f4d5ed445bc27b241a/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"Qt6_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake"
+			},
+			"binpath": "+6.3.1/msvc2019_64/bin"
 		},
 		"VTK910": {
 			"binaries": {
@@ -429,7 +442,7 @@
 			"cmake_variables": {
 				"VTK_DIR": "+lib/cmake/vtk-9.1"
 			},
-			"bin_path": "+bin"
+			"binpath": "+bin"
 		},
 		"FreeImage3180": {
 			"binaries": {
@@ -437,9 +450,19 @@
 				"Macos": "T.B.D"
 			},
 			"cmake_variables": {
-				"FREEIMAGE_ROOT_DIR": ""
+				"FREEIMAGE_ROOT_DIR": "+"
 			},
-			"bin_path": "+bin"
+			"binpath": "+bin"
+		},
+		"ZLib128": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/_/zlib/1.2.8/_/0/package/3fb49604f9c2f729b85ba3115852006824e72cab/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"ZLIB_ROOT": "+"
+			},
+			"binpath": "+lib"
 		}
 	}
 }
