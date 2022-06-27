@@ -49,7 +49,7 @@ def use(args: argparse.Namespace):
         if config is None:
             print(f"Configuration named: {args.config_name} was not found")
             return
-        config.use(not args.no_clean, not args.no_stash, args.skip_binary, args.ssh)
+        config.use(args.skip_binary, args.ssh, args.mode)
 
 
 if __name__ == "__main__":
@@ -103,16 +103,16 @@ if __name__ == "__main__":
         help="The name of the configuration to retrieve",
     )
     parser_use.add_argument(
-        "--no_clean",
-        action="store_true",
-        help="Don't delete an existing directory, the default behavior is deletion",
-    )
-    parser_use.add_argument(
-        "--no_stash",
-        action="store_true",
+        "--mode",
+        choices=["clean", "cmake_only", "develop"],
+        default="clean",
         help="""
-Don't stash changes in the hdps subproject directories
-default is to stash when not cleaning""",
+modes behaviours are are follows:
+
+    clean (the default): Delete and then clone all the repo directories.
+    cmake_only: Leave the repos as-is and only recreate the top-level cmake.
+    develop: Intended for developer, change preserving, details T.B.D.
+        """,
     )
     parser_use.add_argument(
         "--skip_binary",

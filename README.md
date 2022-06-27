@@ -112,8 +112,14 @@ directories and a list of `hdps_repos` used in the bundle project.
 
 &nbsp;&nbsp;&nbsp;&nbsp; Binaries are downloaded to `<binary_name>.tgz` in the `binaries`common directory and unpacked to a subdirectory with the `<binary_name>`.
 
+### Modes
+
+Accesses using the **--mode** switch. Currently two modes are supported: **clean** (the default) and **cmake_only**. e.g. **python makeproject.py use smalltest --mode cmake_only**
+
+1. **clean**: Remove and reclone all repos
+2. **cmake_only**: Leave repos intact onlbuild cmake file 
 ### Coming soon
-* Support for overwriting and existing directory (recommend that each bundle is in a separate dir in this release)
+* One or more **develop** modes. These will support controlled preservation/overwriting of developer changes on a per repo basis
 
 ## Notes
 

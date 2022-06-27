@@ -210,7 +210,7 @@ class HdpsRepo:
             res_str += f"\n\t\tbinaries: {' '.join(self.__binaries)}"
         return res_str
 
-    def use(self, clean=False, stash=True, ssh=False):
+    def use(self, mode="clean", ssh=False):
         """Switch the build repo in the current directory
         to the latest configured branch. Changes can be
         forcibly overwritten or stashed. If changes are encountered
@@ -218,11 +218,13 @@ class HdpsRepo:
 
         Parameters
         ----------
-        clean : bool, optional
-            Forcibly overwrite changes, by default False
-        stash : bool, optional
-            Stash any changes, by default True
+        "mode" : bool, optional
+            Behaviour, by default clean
+        ssh : bool, optional
+            Use ssh for github access (instead of https)
         """
+        if mode == "cmake_only":
+            return
         if Path(self.repo_name).exists():
             repo = Repo(self.repo_name)
             print(f"Checkout: {self.repo_name}:{self.branch}")
@@ -284,10 +286,9 @@ class Config:
 
     def use(
         self,
-        clean: bool = False,
-        stash: bool = True,
         skip_binaries: List[str] = [],
         ssh: bool = False,
+        mode: str = "clean",
     ) -> None:
         """Switch all the repos to this configuration.
         Optionally clean everything first and reclone.
@@ -296,29 +297,33 @@ class Config:
 
         Parameters
         ----------
-        clean : bool, optional
-            delete an existing configuration, by default False
-        stash : bool, optional
-            stash changes in existing configuration, by default False
         skip_binaries: list(str), optional
             skip using these 3rd party binaries
+        ssh: bool, optional
+            use ssh for git authentication
+        mode: str, optional
+            default "clean"
+            clean: remove existing repos
+            cmake_only: leave all repos perform cmake only
+            develop: Preserve changes : TBD
         """
-        if clean and self.build_dir.exists():
-            shutil.rmtree(self.build_dir, onerror=onerror)
-        if not self.build_dir.exists():
-            self.build_dir.mkdir(parents=True)
-        if not self.source_dir.exists():
-            self.source_dir.mkdir()
-        if not self.install_dir.exists():
-            self.install_dir.mkdir()
-        if not self.solution_dir.exists():
-            self.solution_dir.mkdir()
+        if mode != "cmake_only":
+            if mode == "clean" and self.build_dir.exists():
+                shutil.rmtree(self.build_dir, onerror=onerror)
+            if not self.build_dir.exists():
+                self.build_dir.mkdir(parents=True)
+            if not self.source_dir.exists():
+                self.source_dir.mkdir()
+            if not self.install_dir.exists():
+                self.install_dir.mkdir()
+            if not self.solution_dir.exists():
+                self.solution_dir.mkdir()
         os.chdir(str(self.source_dir))
         skip_binaries = set(skip_binaries)
         binaries: set[str] = set()
         # Get all the repos
         for repo in self.repos:
-            repo.use(clean, stash, ssh)
+            repo.use(mode, ssh)
             binaries = binaries | set(repo.binaries)
         # and any binaries they need
         # the setup returns cmake variables and values
