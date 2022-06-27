@@ -145,7 +145,7 @@ class Binaries:
 
         bin_path = bin_info.get("bin_path", None)
         if bin_path:
-            variable_value = bin_info["binpath"]
+            variable_value = bin_info["bin_path"]
             if variable_value.startswith("+"):
                 variable_value = str(
                     Path(
