@@ -91,75 +91,7 @@
 					"branch": "feature/qt_6"
 				},
 				{
-					"repo": "CsvLoader",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ImageLoaderPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ImageViewerPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "t-SNE-Analysis",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ENVILoader",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "VolumeLoaderPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "HeatMap",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "DimensionsViewerPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "Scatterplot",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "VolumeViewerPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ClustersFromPointsPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ParallelCoordinatesPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "BinIO",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ExamplePlugins",
-					"branch": "feature/qt_6"
-				},
-				{
 					"repo": "HDF5Loader",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "MeanShiftClustering",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "Joint-t-SNE-Analysis",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "SimianViewerPlugin",
 					"branch": "feature/qt_6"
 				}
 			]
@@ -430,13 +362,15 @@
 				"Qt6_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
 				"QT_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
 				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake"
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
+				"QT_MAJOR_VERSION": "6",
+				"CMAKE_PREFIX_PATH+": "+6.3.1/msvc2019_64/"
 			},
 			"bin_path": "+6.3.1/msvc2019_64/bin"
 		},
 		"VTK910": {
 			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/280db47f62d23506cc4b2da3822ee607b1ead65d/0/conan_package.tgz",
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/8b2121bd73ec3e8f80c9704861a0203cbadfd319/0/conan_package.tgz",
 				"Macos": "T.B.D"
 			},
 			"cmake_variables": {
