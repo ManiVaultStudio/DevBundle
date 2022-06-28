@@ -384,7 +384,11 @@ endif()\n\n"""
                 if setting[0] is None:
                     bin_paths.append(setting[1])
                 else:
-                    cf.write(f'set({setting[0]} {setting[1]} CACHE PATH "")\n')
+                    # if name ends with + this is a list to append
+                    if setting[0][-1] == "+":
+                        cf.write(f"list(APPEND {setting[0][:-1]} {setting[1]})\n")
+                    else:
+                        cf.write(f'set({setting[0]} {setting[1]} CACHE PATH "")\n')
 
             for repo in self.config.repos:
                 cf.write(f"add_subdirectory({repo.repo_name})\n")
