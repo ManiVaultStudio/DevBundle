@@ -112,6 +112,9 @@ directories and a list of `hdps_repos` used in the bundle project.
 
 &nbsp;&nbsp;&nbsp;&nbsp; Binaries are downloaded to `<binary_name>.tgz` in the `binaries`common directory and unpacked to a subdirectory with the `<binary_name>`.
 
+&nbsp;&nbsp;&nbsp;&nbsp; `cmake_variables` definitions 
+&nbsp;&nbsp;&nbsp;&nbsp; - a variable name ending with `+` will be taken as a list to append to (i.e. generates: `list(APPEND <var> <value>)`).</br>
+&nbsp;&nbsp;&nbsp;&nbsp; - a variable name beginning with `+` will be prepended with the path to the binary, directory otherwise provide an absolute path.
 ### Modes
 
 Accesses using the **--mode** switch. Currently two modes are supported: **clean** (the default) and **cmake_only**. e.g. **python makeproject.py use smalltest --mode cmake_only**
