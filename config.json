@@ -5,7 +5,7 @@
 			"build_dir": "allmain",
 			"hdps_repos": [
 				{
-					"repo": "CoreQt5",
+					"repo": "core",
 					"branch": "master"
 				},
 				{
@@ -73,10 +73,6 @@
 					"branch": "master"
 				},
 				{
-					"repo": "Joint-t-SNE-Analysis",
-					"branch": "master"
-				},
-				{
 					"repo": "SimianViewerPlugin",
 					"branch": "master"
 				}
@@ -87,7 +83,7 @@
 			"build_dir": "allqt6",
 			"hdps_repos": [
 				{
-					"repo": "CoreQt6",
+					"repo": "core",
 					"branch": "feature/qt_6"
 				},
 				{
@@ -225,39 +221,12 @@
 					"branch": "master"
 				}
 			]
-		},
-		{
-			"name": "ActionLinking",
-			"build_dir": "ActionLinking",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "feature/action_linking"
-				},
-				{
-					"repo": "ImageLoaderPlugin",
-					"branch": "feature/action_linking"
-				},
-				{
-					"repo": "ImageViewerPlugin",
-					"branch": "feature/action_linking"
-				},
-				{
-					"repo": "MeanShiftClustering",
-					"branch": "master"
-				}
-			]
 		}
 	],
 	"repo_info": {
-		"CoreQt5": {
+		"core": {
 			"binaries": [
 				"QT5152",
-				"ZLib128"
-			]
-		},
-		"CoreQt6": {
-			"binaries": [
 				"QT631",
 				"ZLib128"
 			]
@@ -288,9 +257,7 @@
 		"ImageViewerPlugin": {
 			"dependencies": [
 				"HDPS",
-				"ImageData",
-				"PointData",
-				"ClusterData"
+				"ImageData"
 			]
 		},
 		"t-SNE-Analysis": {
