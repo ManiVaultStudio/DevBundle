@@ -5,7 +5,7 @@
 			"build_dir": "allmain",
 			"hdps_repos": [
 				{
-					"repo": "core",
+					"repo": "CoreQt5",
 					"branch": "master"
 				},
 				{
@@ -87,7 +87,71 @@
 			"build_dir": "allqt6",
 			"hdps_repos": [
 				{
-					"repo": "core",
+					"repo": "CoreQt6",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "ENVILoader",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "VolumeLoaderPlugin",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "HeatMap",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "VolumeViewerPlugin",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "ParallelCoordinatesPlugin",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "ExamplePlugins",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "MeanShiftClustering",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "SimianViewerPlugin",
 					"branch": "feature/qt_6"
 				},
 				{
@@ -186,7 +250,13 @@
 		}
 	],
 	"repo_info": {
-		"core": {
+		"CoreQt5": {
+			"binaries": [
+				"QT5152",
+				"ZLib128"
+			]
+		},
+		"CoreQt6": {
 			"binaries": [
 				"QT631",
 				"ZLib128"
@@ -274,8 +344,7 @@
 			],
 			"dependencies": [
 				"HDPS",
-				"ImageData",
-				"PointData"
+				"ImageData"
 			]
 		},
 		"ClustersFromPointsPlugin": {
@@ -364,8 +433,7 @@
 				"QT_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
 				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
 				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
-				"QT_MAJOR_VERSION": "6",
-				"CMAKE_PREFIX_PATH+": "+6.3.1/msvc2019_64/"
+				"QT_MAJOR_VERSION": "6"
 			},
 			"bin_path": "+6.3.1/msvc2019_64/bin"
 		},
