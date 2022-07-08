@@ -221,12 +221,21 @@
 					"branch": "master"
 				}
 			]
+		},
+		{
+			"name": "lookandfeel",
+			"build_dir": "lookandfeel",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/look_and_feel"
+				}
+			]
 		}
 	],
 	"repo_info": {
 		"core": {
 			"binaries": [
-				"QT5152",
 				"QT631",
 				"ZLib128"
 			]
@@ -301,13 +310,14 @@
 				"ScatterplotPlugin": [
 					"HDPS",
 					"ClusterData",
-					"PointData"
+					"PointData",
+					"ColorData"
 				]
 			}
 		},
 		"VolumeViewerPlugin": {
 			"binaries": [
-				"VTK910"
+				"VTK910QT6"
 			],
 			"dependencies": [
 				"HDPS",
@@ -404,7 +414,17 @@
 			},
 			"bin_path": "+6.3.1/msvc2019_64/bin"
 		},
-		"VTK910": {
+		"VTK910QT5": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/280db47f62d23506cc4b2da3822ee607b1ead65d/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"VTK_DIR": "+lib/cmake/vtk-9.1"
+			},
+			"bin_path": "+bin"
+		},
+		"VTK910QT6": {
 			"binaries": {
 				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/8b2121bd73ec3e8f80c9704861a0203cbadfd319/0/conan_package.tgz",
 				"Macos": "T.B.D"
