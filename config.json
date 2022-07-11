@@ -79,84 +79,6 @@
 			]
 		},
 		{
-			"name": "allqt6",
-			"build_dir": "allqt6",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "CsvLoader",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ImageLoaderPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ImageViewerPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "t-SNE-Analysis",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ENVILoader",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "VolumeLoaderPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "HeatMap",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "DimensionsViewerPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "Scatterplot",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "VolumeViewerPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ClustersFromPointsPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ParallelCoordinatesPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "BinIO",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "ExamplePlugins",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "MeanShiftClustering",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "SimianViewerPlugin",
-					"branch": "feature/qt_6"
-				},
-				{
-					"repo": "HDF5Loader",
-					"branch": "feature/qt_6"
-				}
-			]
-		},
-		{
 			"name": "smallmain",
 			"build_dir": "smallmain",
 			"hdps_repos": [
@@ -236,8 +158,7 @@
 	"repo_info": {
 		"core": {
 			"binaries": [
-				"QT631",
-				"ZLib128"
+				"QT5152"
 			]
 		},
 		"CsvLoader": {
@@ -317,7 +238,7 @@
 		},
 		"VolumeViewerPlugin": {
 			"binaries": [
-				"VTK910QT6"
+				"VTK910QT5"
 			],
 			"dependencies": [
 				"HDPS",
