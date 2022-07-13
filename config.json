@@ -153,6 +153,10 @@
 				{
 					"repo": "HDF5Loader",
 					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "Joint-t-SNE-Analysis",
+					"branch": "feature/qt_6"
 				}
 			]
 		},
@@ -373,6 +377,21 @@
 			"dependencies": [
 				"HDPS",
 				"PointData"
+			]
+		},
+		"Joint-t-SNE-Analysis": {
+			"sub_project_dependencies": {
+				"JointTsneAnalysisPlugin": [
+					"HDPS",
+					"PointData"
+				]
+			}
+		},
+		"SimianViewerPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData",
+				"ClusterData"
 			]
 		}
 	},
