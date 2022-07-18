@@ -80,7 +80,15 @@ The configuration contains 4 predefined bundles:
 > python makeproject.py use smalltest --skip_binary QT5152
 ```
 
-The resulting CMakeLists.txt will not contain the entries for Qt. (Se )
+In this example the resulting `CMakeLists.txt` will not contain the entries for Qt. You may wish to do this to speed up the install process and if you have a pre-installed version of the binary in question. You will have to manually set the required CMake variables if you do this. To see what the required CMake variables are see the details of the binary your are skipping in the `config.json` file
+
+5) Use your own configuration file
+
+To avoid altering the default `config.json` make a copy under another name edit as required  and supply that file name using the `--cfg_file` option. For example if the file is called `my_cfg.json`:
+
+```
+python makeproject.py --cfg_file my_cfg.json use my_bundle_name
+```
 
 
 ### Understanding the `config.json` file
@@ -96,6 +104,29 @@ The `config.json` provided contains a working example of all HDPS plugins (a `bu
 directories and a list of `hdps_repos` used in the bundle project.
 
 &nbsp;&nbsp;&nbsp;&nbsp; `build_dir` will be created relative to the path where the `makeproject.py` script is run.
+
+##### 1.1 Using a local development repo
+
+A `build_bundle` contains a list of `hdps_repos`. Each repo is usually defined using the repo name and branch. However if you have already checked out a repo for development purposes or are creating a new plugin that is not yet in GitHub it may be useful to point to a local path. This can be achieved using the `local` property in the repos configuration. For example if I have MyNewPlugin locally I can include it in a bundle thus: 
+
+```
+	"build_bundles": [
+		{
+			"name": "myplugin_dev",
+			"build_dir": "myplugin_dev",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/qt_6"
+				},
+				{
+					"repo": "MyNewPlugin",
+					"branch": "feature/qt_6",
+					"local": "D:/Projects/MyNewPlugin"
+				}
+			]
+		},
+```
 
 
 #### 2. `repo_info`

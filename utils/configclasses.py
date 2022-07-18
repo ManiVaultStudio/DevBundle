@@ -2,6 +2,7 @@ import os
 import platform
 import shutil
 import re
+import subprocess
 import requests
 import tarfile
 from git import Repo
@@ -167,6 +168,11 @@ class HdpsRepo:
     def __init__(self, repo_config: dict, repo_info: dict, default_branch: str = None):
         self.repo_url = f"{self.hdps_repo_root}{repo_config['repo']}"
         self.repo_ssh = f"{self.hdps_repo_root_ssh}{repo_config['repo']}.git"
+        self.repo_local = None
+        # Local allow the user to configure a local path
+        if "local" in repo_config:
+            self.repo_local = repo_config["local"]
+
         self.repo_name = repo_config["repo"]
         self.project_dependencies = {}
         self.__binaries = []
@@ -210,6 +216,29 @@ class HdpsRepo:
             res_str += f"\n\t\tbinaries: {' '.join(self.__binaries)}"
         return res_str
 
+    def is_dirty(self, source_dir: Path):
+        """Check that the repo has no changes that have not been
+        committed or any untracked files.
+
+        Params:
+        -------
+        source_dir: the root of the source e.e. parent directory of the cloned
+        repositories. The directory is assumed to exist.
+
+        Returns: False is there is any discrepancy
+        """
+        curdir = Path.cwd()
+        dirty = False
+        try:
+            os.chdir(str(source_dir))
+            print(f"Checking: {Path(source_dir, self.repo_name)}")
+            if Path(self.repo_name).exists():
+                repo = Repo(self.repo_name)
+                dirty = repo.is_dirty(untracked_files=True)
+        finally:
+            os.chdir(curdir)
+        return dirty
+
     def use(self, mode="clean", ssh=False):
         """Switch the build repo in the current directory
         to the latest configured branch. Changes can be
@@ -218,12 +247,14 @@ class HdpsRepo:
 
         Parameters
         ----------
-        "mode" : bool, optional
+        "mode" : str, optional
             Behaviour, by default clean
         ssh : bool, optional
             Use ssh for github access (instead of https)
         """
         if mode == "cmake_only":
+            return
+        if self.repo_local:  # A local repo does not need to be cloned
             return
         if Path(self.repo_name).exists():
             repo = Repo(self.repo_name)
@@ -240,6 +271,42 @@ class HdpsRepo:
                 progress=Progress(),
             )
 
+    def update(self, source_dir, ssh):
+        """Run git pull on this repo. This may raise a
+        UserWarning exception
+
+        Params
+        ------
+        source_dir: The repository directory parent
+        ssh: To use ssh or not
+
+        Returns
+        -------
+        None
+
+        :raises UserException: To notify that the git pull failed.
+        """
+        curdir = Path.cwd()
+        try:
+            if self.repo_local:  # A local repo will not be updated
+                return
+            if Path(source_dir, self.repo_name).exists():
+                os.chdir(Path(source_dir, self.repo_name))
+                repo = Repo(".")
+                print(f"Pulling latest: {self.repo_name}:{self.branch}")
+                try:
+                    repo.git.pull()
+                except Exception as e:
+                    # Handling consists of informing the user
+                    print(f"git pull failed due to: {e.message}")
+                    raise UserWarning(
+                        f"git pull {self.repo_name} failed due to: {e.message}"
+                    )
+        finally:
+            os.chdir(curdir)
+
+    # handle it
+
 
 class Config:
     """A development configuration comprising multiple HDPS
@@ -253,7 +320,7 @@ class Config:
         self.build_dir = Path(
             Path(__file__).parents[1], build_config["build_dir"]
         ).resolve()
-        print(f"Build dir = {self.build_dir}")
+        # print(f"Build dir = {self.build_dir}")
         self.source_dir = Path(self.build_dir, "source")
         self.install_dir = Path(self.build_dir, "install")
         self.solution_dir = Path(self.build_dir, "build")
@@ -284,11 +351,21 @@ class Config:
             res_str += "\t" + str(repo) + "\n"
         return res_str
 
+    def _get_dirty_repo_list(self, source_dir) -> List[HdpsRepo]:
+        dirty: List[HdpsRepo] = []
+        if not source_dir.exists():
+            return dirty
+        for repo in self.repos:
+            if repo.is_dirty(source_dir):
+                dirty.append(repo)
+        return dirty
+
     def use(
         self,
         skip_binaries: List[str] = [],
         ssh: bool = False,
         mode: str = "clean",
+        cmake: bool = False,
     ) -> None:
         """Switch all the repos to this configuration.
         Optionally clean everything first and reclone.
@@ -305,10 +382,32 @@ class Config:
             default "clean"
             clean: remove existing repos
             cmake_only: leave all repos perform cmake only
-            develop: Preserve changes : TBD
+            update_only: Perform git pull on all repos - to update.
+                    May fail if there are local changes.
         """
+        if mode == "update_only":
+            errors = []
+            for repo in self.repos:
+                try:
+                    repo.update(self.source_dir, ssh)
+                except UserWarning as w:
+                    errors.append(w)
+            if len(errors) > 0:
+                print("There were errors during the update")
+                for e in errors:
+                    print(e.message)
+
         if mode != "cmake_only":
             if mode == "clean" and self.build_dir.exists():
+                dirty_repos = self._get_dirty_repo_list(self.source_dir)
+                if len(dirty_repos) > 0:
+                    print("\n***CHANGES PREVENT REPOSITORY CLEANING**")
+                    print("========================================")
+                    print("The following repos have local changes or untracked files:")
+                    for repo in dirty_repos:
+                        print(f"{repo.repo_name}")
+                    print("Resolve these issues manually before running ")
+                    return
                 shutil.rmtree(self.build_dir, onerror=onerror)
             if not self.build_dir.exists():
                 self.build_dir.mkdir(parents=True)
@@ -331,7 +430,7 @@ class Config:
         for binary in binaries:
             cmake_vars.extend(self.binaries.use_binary(binary, binary in skip_binaries))
         os.chdir(str(self.source_dir))
-        self.cmakebuilder.make(cmake_vars)
+        self.cmakebuilder.make(cmake_vars, cmake)
 
 
 class CMakeFileBuilder:
@@ -366,7 +465,7 @@ class CMakeFileBuilder:
         cmakepath = Path(".", "CMakeLists.txt")
         cmakepath.rename(f"CMakeLists.{version_num:03}")
 
-    def make(self, cmake_vars: List[tuple]) -> None:
+    def make(self, cmake_vars: List[tuple], cmake: bool) -> None:
         self.save_numbered_cmakefile()
         print(f"Making {self.cmakelistspath}")
         with open(str(self.cmakelistspath), "a") as cf:
@@ -391,7 +490,14 @@ endif()\n\n"""
                         cf.write(f'set({setting[0]} {setting[1]} CACHE PATH "")\n')
 
             for repo in self.config.repos:
-                cf.write(f"add_subdirectory({repo.repo_name})\n")
+                if repo.repo_local:
+                    # must add a binary dir if the repo is not in the tree
+                    Path(".").parent
+                    cf.write(
+                        f"add_subdirectory({repo.repo_local} {Path(Path('.').resolve().parent, 'build', repo.repo_name).as_posix()})\n"
+                    )
+                else:
+                    cf.write(f"add_subdirectory({repo.repo_name})\n")
             cf.write("\n")
             cf.write(
                 "set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT HDPS)\n"
@@ -406,3 +512,16 @@ endif()\n\n"""
                     cf.write(
                         f"add_dependencies({project} {' '.join(repo.project_dependencies[project])})\n"
                     )
+        if cmake:
+            print(
+                f"Starting Cmake GUI source {self.config.source_dir} build {self.config.solution_dir}"
+            )
+            subprocess.run(
+                [
+                    "cmake-gui",
+                    "-S",
+                    f"{self.config.source_dir}",
+                    "-B",
+                    f"{self.config.solution_dir}",
+                ]
+            )
