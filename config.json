@@ -319,6 +319,13 @@
 				"PointData",
 				"ClusterData"
 			]
+		},
+		"MeanShiftClusteringPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData",
+				"ClusterData"
+			]
 		}
 	},
 	"prebuilt_binaries": {
