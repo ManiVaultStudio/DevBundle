@@ -149,12 +149,36 @@
 			]
 		},
 		{
-			"name": "lookandfeel",
-			"build_dir": "lookandfeel",
+			"name": "multi_input_plugin",
+			"build_dir": "multi_input_plugin",
 			"hdps_repos": [
 				{
 					"repo": "core",
-					"branch": "feature/look_and_feel"
+					"branch": "feature/multi_input_plugin"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "feature/multi_input_plugin"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "feature/multi_input_plugin"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "feature/multi_input_plugin"
+				},
+				{
+					"repo": "MeanShiftClustering",
+					"branch": "feature/multi_input_plugin"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				},
+				{
+					"repo": "PointDataConversionPlugin",
+					"branch": "feature/multi_input_plugin"
 				}
 			]
 		}
@@ -321,6 +345,12 @@
 				"HDPS",
 				"PointData",
 				"ClusterData"
+			]
+		},
+		"PointDataConversionPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
 			]
 		}
 	},
