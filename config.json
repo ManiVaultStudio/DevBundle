@@ -79,10 +79,6 @@
 				{
 					"repo": "Joint-t-SNE-Analysis",
 					"branch": "master"
-				},
-				{
-					"repo": "PcaPlugin",
-					"branch": "main"
 				}
 			]
 		},
@@ -325,13 +321,6 @@
 				"HDPS",
 				"PointData",
 				"ClusterData"
-			]
-		}
-		,
-		"PcaPlugin": {
-			"dependencies": [
-				"HDPS",
-				"PointData"
 			]
 		}
 	},
