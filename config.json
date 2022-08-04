@@ -327,6 +327,13 @@
 				"ClusterData"
 			]
 		}
+		,
+		"PcaPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		}
 	},
 	"prebuilt_binaries": {
 		"QT5152": {
