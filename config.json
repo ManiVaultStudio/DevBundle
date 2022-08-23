@@ -344,7 +344,8 @@
 			"sub_project_dependencies": {
 				"MeanShiftClusteringPlugin": [
 					"HDPS",
-					"PointData"
+					"PointData",
+					"ClusterData"
 				]
 			}
 		},
