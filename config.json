@@ -79,6 +79,10 @@
 				{
 					"repo": "Joint-t-SNE-Analysis",
 					"branch": "master"
+				},
+				{
+					"repo": "PointDataConversionPlugin",
+					"branch": "main"
 				}
 			]
 		},
