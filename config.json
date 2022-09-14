@@ -75,7 +75,76 @@
 				{
 					"repo": "SimianViewerPlugin",
 					"branch": "master"
+				},
+				{
+					"repo": "ClusterDifferentialExpressionPlugin",
+					"branch": "main" 
 				}
+			]
+		},
+		{
+			"name": "simian_project",
+			"build_dir": "simian_project",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "SimianViewerPlugin",
+					"branch": "master" 
+				},
+				{
+					"repo": "ClusterDifferentialExpressionPlugin",
+					"branch": "main" 
+				}
+				
+			]
+		},		
+		{
+			"name": "joint_tsne_project",
+			"build_dir": "joint_tsne_project",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "JointTsneLib",
+					"branch": "master"
+				},				
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				},
+				{
+					"repo": "Joint-t-SNE-Analysis",
+					"branch": "master" 
+				}			
 			]
 		},
 		{
@@ -383,11 +452,27 @@
 			"sub_project_dependencies": {
 				"JointTsneAnalysisPlugin": [
 					"HDPS",
-					"PointData"
+					"PointData",
+					"hdidimensionalityreduction",
+					"hdidata",
+					"hdiutils"
 				]
 			}
 		},
 		"SimianViewerPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"PcaPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		},
+		"ClusterDifferentialExpressionPlugin": {
 			"dependencies": [
 				"HDPS",
 				"PointData",
