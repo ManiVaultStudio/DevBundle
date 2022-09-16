@@ -120,7 +120,7 @@
 				},
 				{
 					"repo": "ParallelCoordinatesPlugin",
-					"branch": "master"
+					"branch": "feature/fix_resolve_data"
 				},
 				{
 					"repo": "MeanShiftClustering",
