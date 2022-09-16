@@ -108,7 +108,7 @@
 				},
 				{
 					"repo": "DimensionsViewerPlugin",
-					"branch": "master"
+					"branch": "feature/fix_resolve_data"
 				},
 				{
 					"repo": "Scatterplot",
@@ -116,7 +116,7 @@
 				},
 				{
 					"repo": "ClustersFromPointsPlugin",
-					"branch": "main"
+					"branch": "feature/fix_resolve_data"
 				},
 				{
 					"repo": "ParallelCoordinatesPlugin",
