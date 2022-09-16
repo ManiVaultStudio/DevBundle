@@ -87,6 +87,52 @@
 			]
 		},
 		{
+			"name": "fix_resolve_data",
+			"build_dir": "fix_resolve_data",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/fix_resolve_data"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "feature/fix_resolve_data"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "feature/fix_resolve_data"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "feature/fix_resolve_data"
+				},
+				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "feature/fix_resolve_data"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ParallelCoordinatesPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "MeanShiftClustering",
+					"branch": "feature/fix_resolve_data"
+				},
+				{
+					"repo": "PointDataConversionPlugin",
+					"branch": "feature/fix_resolve_data"
+				}
+			]
+		},
+		{
 			"name": "smallmain",
 			"build_dir": "smallmain",
 			"hdps_repos": [
