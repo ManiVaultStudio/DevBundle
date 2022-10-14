@@ -79,7 +79,12 @@ class Binaries:
         if Path(".", local_name).exists():
             return Path(".", local_name).resolve()
         pemPath = Path(Path(__file__).parents[0], "artifactory.pem")
-        with requests.get(url, stream=True, verify=pemPath) as req:
+        with requests.get(
+            url,
+            stream=True,
+            verify=pemPath,
+            auth=("hdpsreader", "4ead0nlyAccess"),
+        ) as req:
             req.raise_for_status()
             with open(f"{local_name}", mode="wb") as tarf:
                 for chunk in req.iter_content(chunk_size=8192):
