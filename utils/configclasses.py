@@ -5,7 +5,7 @@ import re
 import subprocess
 import requests
 import tarfile
-from git import Repo
+from git import Repo, GitCommandError
 from git.remote import RemoteProgress
 from pathlib import Path
 from typing import List, Set, Dict, Tuple, Optional
@@ -261,20 +261,24 @@ class HdpsRepo:
             return
         if self.repo_local:  # A local repo does not need to be cloned
             return
-        if Path(self.repo_name).exists():
-            repo = Repo(self.repo_name)
-            print(f"Checkout: {self.repo_name}:{self.branch}")
-            repo.git.checkout(self.branch)
-        else:
-            source = self.repo_url if not ssh else self.repo_ssh
-            print(f"Cloning from: {source}")
-            Repo.clone_from(
-                source,
-                to_path=self.repo_name,
-                branch=self.branch,
-                multi_options=["--recurse-submodules"],
-                progress=Progress(),
-            )
+        try:
+            if Path(self.repo_name).exists():
+                repo = Repo(self.repo_name)
+                print(f"Checkout: {self.repo_name}:{self.branch}")
+                repo.git.checkout(self.branch)
+            else:
+                source = self.repo_url if not ssh else self.repo_ssh
+                print(f"Cloning from: {source}")
+                Repo.clone_from(
+                    source,
+                    to_path=self.repo_name,
+                    branch=self.branch,
+                    multi_options=["--recurse-submodules"],
+                    progress=Progress(),
+                )
+        except GitCommandError as ex:
+            print(f"git command failed due to {str(ex)}")
+            raise UserWarning(f"git command failed\n{str(ex)}")
 
     def update(self, source_dir, ssh):
         """Run git pull on this repo. This may raise a
@@ -301,11 +305,11 @@ class HdpsRepo:
                 print(f"Pulling latest: {self.repo_name}:{self.branch}")
                 try:
                     repo.git.pull()
-                except Exception as e:
+                except GitCommandError as ex:
                     # Handling consists of informing the user
-                    print(f"git pull failed due to: {e.message}")
+                    print(f"git pull failed due to: {str(ex)}")
                     raise UserWarning(
-                        f"git pull {self.repo_name} failed due to: {e.message}"
+                        f"git pull {self.repo_name} failed due to: {str(ex)}"
                     )
         finally:
             os.chdir(curdir)

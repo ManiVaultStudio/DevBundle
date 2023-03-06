@@ -156,7 +156,7 @@
 	"repo_info": {
 		"core": {
 			"binaries": [
-				"QT631",
+				"QT632",
 				"ZLib128"
 			]
 		},
@@ -352,6 +352,21 @@
 		"QT631": {
 			"binaries": {
 				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.1/stable/0/package/32337ff87d7ce7732bf6a3f4d5ed445bc27b241a/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"CMAKE_PREFIX_PATH+": "+6.3.1/msvc2019_64",
+				"Qt6_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
+				"QT_MAJOR_VERSION": "6"
+			},
+			"bin_path": "+6.3.1/msvc2019_64/bin"
+		},
+		"QT632": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/022b1d420cc8a03b01f26057630738d5676470ad/0/conan_package.tgz",
 				"Macos": "T.B.D"
 			},
 			"cmake_variables": {
