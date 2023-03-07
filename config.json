@@ -370,14 +370,14 @@
 				"Macos": "T.B.D"
 			},
 			"cmake_variables": {
-				"CMAKE_PREFIX_PATH+": "+6.3.1/msvc2019_64",
-				"Qt6_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
-				"QT_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
+				"CMAKE_PREFIX_PATH+": "+6.3.2/msvc2019_64",
+				"Qt6_DIR": "+6.3.2/msvc2019_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.3.2/msvc2019_64/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.2/msvc2019_64/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.2/msvc2019_64/lib/cmake",
 				"QT_MAJOR_VERSION": "6"
 			},
-			"bin_path": "+6.3.1/msvc2019_64/bin"
+			"bin_path": "+6.3.2/msvc2019_64/bin"
 		},
 		"VTK910QT5": {
 			"binaries": {
