@@ -87,6 +87,24 @@
 			]
 		},
 		{
+			"name": "redesign_group_action",
+			"build_dir": "redesign_group_action",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "master"
+				}
+			]
+		},
+		{
 			"name": "smallmain",
 			"build_dir": "smallmain",
 			"hdps_repos": [
