@@ -92,7 +92,33 @@
 			"hdps_repos": [
 				{
 					"repo": "core",
-					"branch": "master"
+					"branch": "feature/redesign_group_action"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "feature/redesign_group_action"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "feature/redesign_group_action"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "feature/redesign_group_action"
+				},
+				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "feature/redesign_group_action"
+				}
+			]
+		},
+		{
+			"name": "serialize_action_linkages",
+			"build_dir": "serialize_action_linkages",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/serialize_action_linkages"
 				},
 				{
 					"repo": "Scatterplot",
