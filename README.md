@@ -27,6 +27,12 @@ If you use the prebuilt binaries the CMake will include all the necessary variab
   ```
 * Include a [separate, local, (i.e. not downloaded) directory](#11-using-a-local-development-repo) into the bundle definition 
 
+### Requirements
+The project needs two python modules which can be installed with:
+```
+pip install gitpython
+pip install requests
+```
 
 ### Usage examples
 
