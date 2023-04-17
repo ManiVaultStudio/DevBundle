@@ -122,15 +122,15 @@
 				},
 				{
 					"repo": "Scatterplot",
-					"branch": "master"
+					"branch": "feature/serialize_action_linkages"
 				},
 				{
 					"repo": "BinIO",
-					"branch": "master"
+					"branch": "feature/serialize_action_linkages"
 				},
 				{
 					"repo": "ExamplePlugins",
-					"branch": "master"
+					"branch": "feature/serialize_action_linkages"
 				}
 			]
 		},
@@ -334,6 +334,9 @@
 				"ExampleViewPlugin": [
 					"HDPS",
 					"PointData"
+				],
+				"ExampleViewPlugin": [
+					"HDPS"
 				]
 			}
 		},
