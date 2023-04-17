@@ -127,6 +127,10 @@
 				{
 					"repo": "BinIO",
 					"branch": "master"
+				},
+				{
+					"repo": "ExamplePlugins",
+					"branch": "master"
 				}
 			]
 		},
