@@ -335,8 +335,13 @@
 					"HDPS",
 					"PointData"
 				],
-				"ExampleViewPlugin": [
-					"HDPS"
+				"ExampleTransformation": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleWriter": [
+					"HDPS",
+					"PointData"
 				]
 			}
 		},
