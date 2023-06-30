@@ -167,8 +167,8 @@ class Binaries:
 class HdpsRepo:
     """A class holding the configuration of an HDPS related repo"""
 
-    hdps_repo_root = "https://github.com/hdps/"
-    hdps_repo_root_ssh = "git@github.com:hdps/"
+    hdps_repo_root = "https://github.com/ManiVaultStudio/"
+    hdps_repo_root_ssh = "git@github.com:ManiVaultStudio/"
 
     def __init__(self, repo_config: dict, repo_info: dict, default_branch: str = None):
         self.repo_url = f"{self.hdps_repo_root}{repo_config['repo']}"
