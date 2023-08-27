@@ -113,24 +113,104 @@
 			]
 		},
 		{
-			"name": "serialize_action_linkages",
-			"build_dir": "serialize_action_linkages",
+			"name": "serialize_action_linkages_master",
+			"build_dir": "serialize_action_linkages_master",
 			"hdps_repos": [
 				{
 					"repo": "core",
-					"branch": "feature/serialize_action_linkages"
+					"branch": "master"
 				},
 				{
 					"repo": "Scatterplot",
-					"branch": "feature/serialize_action_linkages"
+					"branch": "master"
 				},
 				{
 					"repo": "BinIO",
+					"branch": "master"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "PointDataConversionPlugin",
 					"branch": "feature/serialize_action_linkages"
 				},
 				{
-					"repo": "ExamplePlugins",
+					"repo": "ClustersFromPointsPlugin",
 					"branch": "feature/serialize_action_linkages"
+				},
+				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "feature/serialize_action_linkages"
+				}
+			]
+		},
+		{
+			"name": "progress_management",
+			"build_dir": "progress_management",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/progress_management"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "master"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "feature/progress_management"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "main"
+				}
+			]
+		},
+		{
+			"name": "allmain_348",
+			"build_dir": "allmain_348",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "master"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "master"
 				}
 			]
 		},
@@ -335,13 +415,8 @@
 					"HDPS",
 					"PointData"
 				],
-				"ExampleTransformationPlugin": [
-					"HDPS",
-					"PointData"
-				],
-				"ExampleWriterPlugin": [
-					"HDPS",
-					"PointData"
+				"ExampleActionsViewPlugin": [
+					"HDPS"
 				]
 			}
 		},
