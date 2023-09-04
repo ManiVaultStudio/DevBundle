@@ -414,9 +414,6 @@
 				"ExampleViewPlugin": [
 					"HDPS",
 					"PointData"
-				],
-				"ExampleActionsViewPlugin": [
-					"HDPS"
 				]
 			}
 		},
