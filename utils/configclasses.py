@@ -5,6 +5,7 @@ import re
 import subprocess
 import requests
 import tarfile
+from typing import TypedDict
 from git import Repo, GitCommandError
 from git.remote import RemoteProgress
 from pathlib import Path
@@ -50,6 +51,104 @@ def onerror(func, path, exc_info):
     else:
         raise
 
+def get_system_name() -> str:
+        system_name = "Windows"
+        if platform.system() == "Darwin":
+            system_name = "Macos"
+        if platform.system() == "Linux":
+            system_name = "Linux"
+        return system_name
+
+class Binary:
+    """
+    The detailed configuration for a prebuilt binary 
+    including the associated cmake variables.
+    Largely a wrapper for the dictionary that supports
+
+    """
+
+    def __init__(self, name: str, binary_config: dict, bin_root: Path):
+        self.name = name
+        self.config = binary_config
+        self.bin_root = bin_root
+
+    def __str__(self) -> str:
+        result = f"Binary: {self.name}"
+        result += f"\n Url: {self.bin_url}"
+        result += f"\n BinPath: {self.bin_path}"
+        cmake_vars = self.cmake_variables
+        result += f"\n CMake variables: "
+        for var_tup in cmake_vars:
+            result += f"\n\t {var_tup[0]}: {var_tup[1]}"
+        return result
+    
+    def _abs_path(self, path: str) -> str :
+        new_path = path
+        if path.startswith("+"):
+            new_path = str(
+                Path(
+                    self.bin_root,
+                    self.name,
+                    path[1:],
+                )
+            ).replace("\\", "/")
+        return new_path
+
+    @property
+    def cmake_variables(self) -> List[tuple]:
+        """
+            Retun a list of tuples of CMake var name and value
+
+            The config can have a sequence of common cmake_variables 
+            and system specific cmake_variables: cmake_variables_<SYSTEM>,
+            <SYSTEM> is one of Windows, Macos or Linux.
+
+            Where the variable name is both in common and system specific
+            the system specific variable over writes the common value
+        """
+        var_dict = dict()
+        system_name = get_system_name()
+        specific_variables = f"cmake_variables_{system_name}"
+
+        if "cmake_variables" in self.config:
+            for variable_name in self.config["cmake_variables"].keys():
+                variable_value = self._abs_path(self.config["cmake_variables"][variable_name])
+                var_dict[variable_name] = [variable_value]
+
+        if specific_variables in self.config:
+            for variable_name in self.config["cmake_variables"].keys():
+                variable_value = self._abs_path(self.config[specific_variables][variable_name])
+                var_dict[variable_name] = [variable_value]     
+
+        variables: list[tuple] = []
+        for var_name in var_dict: 
+            variables.append((var_name, var_dict[var_name]))
+
+        return variables
+
+
+    @property
+    def bin_url(self) -> str:
+        """
+            Returns the url that can be used to fetch the package from artifactory
+        """
+        system_name = get_system_name()
+        system_binaries = self.config["binaries"]
+        return system_binaries.get(system_name, "T.B.D")
+    
+    @property
+    def bin_path(self) -> str:
+        """
+            Returns an absolute bin path
+        """
+        system_name = get_system_name()
+        system_binary_path = f"bin_path_{system_name}"
+        return self._abs_path(self.config.get(system_binary_path, self.config["bin_path"]))
+    
+
+class BinaryDict(TypedDict):
+    name: str
+    binary : Binary
 
 class Binaries:
     """A class holding configuration for a pre-built binary
@@ -57,19 +156,33 @@ class Binaries:
     names and values.
     """
 
-    def __init__(self, binary_config: dict, bin_root: Path):
-        self.config = binary_config
+    def __init__(self, binary_configs: dict, bin_root: Path, in_factory: bool = False):
+        self.raw_config = binary_configs
+        self.binaries = BinaryDict()
         self.bin_root = bin_root
+        if not in_factory:
+            for name in binary_configs:
+                self.binaries[name] = Binary(name, binary_configs[name], bin_root)
 
-    def get_bin_names(self) -> List[str]:
-        return list(self.config.keys())
+    def __str__(self) -> str:
+        """Get a readable string version of the binary info configuration.
 
-    def get_bin_info(self, bin_name: str) -> dict:
-        if bin_name not in self.config:
-            raise RuntimeError(
-                f"{bin_name} is not a defined binary - check the config file for errors"
-            )
-        return self.config[bin_name]
+        Returns
+        -------
+        str
+            The readable string
+        """
+        result = ""
+        for bin_name in self.binaries:
+            result += f"\n\n {str(self.binaries[bin_name])}"
+
+        return result
+    
+    def get_subset(self, names: List[str]):
+        subset = Binaries(self.raw_config, self.bin_root, in_factory = True)
+        for name in names:
+            subset.binaries[name] = Binary(name, self.raw_config[name], self.bin_root)
+        return subset
 
     def download(self, name: str, url: str) -> Path:
         if not self.bin_root.exists():
@@ -109,59 +222,23 @@ class Binaries:
         os.chdir(name)
         tarfile.open(tar_path).extractall(".")
 
-    def use_binary(self, bin_name: str, skip: bool = False) -> List[tuple]:
-        if bin_name not in self.config:
+    def use_binary(self, bin_name: str):
+        if bin_name not in self.raw_config:
             raise RuntimeError(
                 f"{bin_name} is not a defined binary - check the config file for errors"
             )
-        bin_info = self.config[bin_name]
-        system = "Windows"
-        if platform.system() == "Darwin":
-            system = "Macos"
-        bin_url = bin_info["binaries"][system]
-        print(f"Downloading {bin_name}")
-        tar_path = self.download(bin_name, bin_url)
-        print(f"Downloaded: {tar_path}")
-        self.unpack(tar_path, bin_name)
-        variables: list[tuple] = []
-        if "cmake_variables" not in bin_info:
-            return variables
+        binary = self.binaries[bin_name]
+        bin_url = binary.bin_url
+        if bin_url is not None:
+            print(f"Downloading {bin_name}")
+            tar_path = self.download(bin_name, bin_url)
+            print(f"Downloaded: {tar_path}")
+            self.unpack(tar_path, bin_name)
 
-        # If a variable starts with + then the path to the binary dir is prepended
-        # otherwise the variable gets the given value
-        #
-        # The variables tuple returned contains
-        # 0) cmake variable name + 1) variable value (possibly a path)
-        #
-        # If there is a bin_path the last tuple can be
-        # 0) None + 1) bin_path - bin paths are always prepended (?does this make sense?)
-
-        for variable_name in bin_info["cmake_variables"].keys():
-            if not skip:
-                variable_value = bin_info["cmake_variables"][variable_name]
-                if variable_value.startswith("+"):
-                    variable_value = str(
-                        Path(
-                            self.bin_root,
-                            bin_name,
-                            variable_value[1:],
-                        )
-                    ).replace("\\", "/")
-                variables.append((variable_name, variable_value))
-
-        bin_path = bin_info.get("bin_path", None)
-        if bin_path:
-            variable_value = bin_info["bin_path"]
-            if variable_value.startswith("+"):
-                variable_value = str(
-                    Path(
-                        self.bin_root,
-                        bin_name,
-                        variable_value[1:],
-                    )
-                ).replace("\\", "/")
-            variables.append((None, variable_value))
+    def get_cmake_variables(self, bin_name: str, skip: bool = False):
+        variables = self.binaries[bin_name].cmake_variables
         return variables
+
 
 
 class HdpsRepo:
@@ -171,6 +248,7 @@ class HdpsRepo:
     hdps_repo_root_ssh = "git@github.com:ManiVaultStudio/"
 
     def __init__(self, repo_config: dict, repo_info: dict, default_branch: str = None):
+        self.enabled = not repo_config.get("disable", False)
         self.repo_url = f"{self.hdps_repo_root}{repo_config['repo']}"
         self.repo_ssh = f"{self.hdps_repo_root_ssh}{repo_config['repo']}.git"
         self.repo_local = None
@@ -215,8 +293,8 @@ class HdpsRepo:
         if len(self.project_dependencies) > 0:
             for project in self.project_dependencies:
                 res_str += f"\n\t\tproject: {project}\tdependencies: {' '.join(self.project_dependencies[project])}"
-        else:
-            print(f"\n\t\tproject_name: {self.repo_name}")
+        # else:
+        #    print(f"\n\t\tproject_name: {self.repo_name}")
         if len(self.__binaries) > 0:
             res_str += f"\n\t\tbinaries: {' '.join(self.__binaries)}"
         return res_str
@@ -236,7 +314,7 @@ class HdpsRepo:
         dirty = False
         try:
             os.chdir(str(source_dir))
-            print(f"Checking: {Path(source_dir, self.repo_name)}")
+            print(f"Checking for changes: {Path(source_dir, self.repo_name)}")
             if Path(self.repo_name).exists():
                 repo = Repo(self.repo_name)
                 dirty = repo.is_dirty(untracked_files=True)
@@ -339,7 +417,8 @@ class Config:
         self.branch = build_config.get("branch", None)
         for repo_config in build_config["hdps_repos"]:
             repo = HdpsRepo(repo_config, common_dependencies)
-            self.repos.append(repo)
+            if repo.enabled:
+                self.repos.append(repo)
         self.cmakebuilder = CMakeFileBuilder(self)
         self.binaries = Binaries(binary_config, self.bin_root)
 
@@ -358,6 +437,15 @@ class Config:
         res_str += "hdps_repos: \n"
         for repo in self.repos:
             res_str += "\t" + str(repo) + "\n"
+
+        # Get all the binaries used by the
+        # repos in this config 
+        binaries_set: set[str] = set()
+        for repo in self.repos:
+            binaries_set = binaries_set | set(repo.binaries)
+
+        used_binaries = self.binaries.get_subset(binaries_set)
+        res_str += str(used_binaries)
         return res_str
 
     def _get_dirty_repo_list(self, source_dir) -> List[HdpsRepo]:
@@ -437,7 +525,8 @@ class Config:
         # the setup returns cmake variables and values
         cmake_vars = []
         for binary in binaries:
-            cmake_vars.extend(self.binaries.use_binary(binary, binary in skip_binaries))
+            self.binaries.use_binary(binary)
+            cmake_vars.extend(self.binaries.get_cmake_variables(binary, binary in skip_binaries))
         os.chdir(str(self.source_dir))
         self.cmakebuilder.make(cmake_vars, cmake)
 

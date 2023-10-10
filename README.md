@@ -104,7 +104,7 @@ In this example the resulting `CMakeLists.txt` will not contain the entries for 
 To avoid altering the default `config.json` make a copy under another name edit as required  and supply that file name using the `--cfg_file` option. For example if the file is called `my_cfg.json`:
 
 ```
-python makeproject.py --cfg_file my_cfg.json use my_bundle_name
+python makeproject.py use --cfg_file my_cfg.json my_bundle_name
 ```
 
 
