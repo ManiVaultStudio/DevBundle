@@ -1,6 +1,24 @@
 {
 	"build_bundles": [
 		{
+			"name": "basic",
+			"build_dir": "basic",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				}
+			]
+		},
+		{
 			"name": "allmain",
 			"build_dir": "allmain",
 			"hdps_repos": [
