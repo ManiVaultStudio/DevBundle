@@ -1,8 +1,8 @@
 {
 	"build_bundles": [
 		{
-			"name": "rel_1_0",
-			"build_dir": "rel_1_0",
+			"name": "rel_0_9",
+			"build_dir": "rel_0_9",
 			"hdps_repos": [
 				{
 					"repo": "core",
