@@ -374,10 +374,32 @@
 				"ExampleViewPlugin": [
 					"HDPS",
 					"PointData"
+				],
+				"ExampleTransformationPlugin": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleViewOpenGLPlugin": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleWriterPlugin": [
+					"HDPS",
+					"PointData"
+				],
+				"ExampleViewJSPlugin": [
+					"HDPS",
+					"PointData"
 				]
 			}
 		},
 		"DimensionsViewerPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData"
+			]
+		},
+		"PcaPlugin": {
 			"dependencies": [
 				"HDPS",
 				"PointData"
@@ -398,6 +420,27 @@
 				"ClusterData"
 			]
 		},
+		"SimianViewerScatterplotPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"SimianViewerMultExpCompPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"SimianViewerPairExpCompPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData",
+				"ClusterData"
+			]
+		},
 		"MeanShiftClustering": {
 			"sub_project_dependencies": {
 				"MeanShiftClusteringPlugin": [
@@ -406,6 +449,13 @@
 					"ClusterData"
 				]
 			}
+		},
+		"ViewerScatterplotPlugin": {
+			"dependencies": [
+				"HDPS",
+				"PointData",
+				"ClusterData"
+			]
 		},
 		"PointDataConversionPlugin": {
 			"dependencies": [
