@@ -236,34 +236,34 @@
 		},
 		"CrossSpeciesViewer": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData",
 				"ClusterData"
 			]
 		},
 		"HierarchicalClusterSelectionPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData",
 				"ClusterData"
 			]
 		}, 
 		"CsvLoader": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData"
 			]
 		},
 		"HDF5Loader": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData",
 				"ClusterData"
 			]
 		},
 		"ImageLoaderPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData",
 				"ImageData"
 			],
@@ -273,19 +273,19 @@
 		},
 		"ImageViewerPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"ImageData"
 			]
 		},
 		"t-SNE-Analysis": {
 			"sub_project_dependencies": {
 				"TsneAnalysisPlugin": [
-					"HDPS",
+					"MV_Application",
 					"ImageData",
 					"PointData"
 				],
 				"HsneAnalysisPlugin": [
-					"HDPS",
+					"MV_Application",
 					"ImageData",
 					"PointData"
 				]
@@ -293,21 +293,21 @@
 		},
 		"ENVILoader": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"ImageData",
 				"PointData"
 			]
 		},
 		"VolumeLoaderPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData"
 			]
 		},
 		"HeatMap": {
 			"sub_project_dependencies": {
 				"HeatMapPlugin": [
-					"HDPS",
+					"MV_Application",
 					"ClusterData",
 					"PointData"
 				]
@@ -316,7 +316,7 @@
 		"Scatterplot": {
 			"sub_project_dependencies": {
 				"ScatterplotPlugin": [
-					"HDPS",
+					"MV_Application",
 					"ClusterData",
 					"PointData",
 					"ColorData"
@@ -328,31 +328,31 @@
 				"VTK910QT6"
 			],
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"ImageData"
 			]
 		},
 		"ClustersFromPointsPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"ClusterData",
 				"PointData"
 			]
 		},
 		"ParallelCoordinatesPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData"
 			]
 		},
 		"BinIO": {
 			"sub_project_dependencies": {
 				"BinLoader": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				],
 				"BinExporter": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				]
 			}
@@ -360,83 +360,83 @@
 		"ExamplePlugins": {
 			"sub_project_dependencies": {
 				"ExampleAnalysisPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				],
 				"ExampleDataPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				],
 				"ExampleLoaderPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				],
 				"ExampleViewPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				],
 				"ExampleTransformationPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				],
 				"ExampleViewOpenGLPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				],
 				"ExampleWriterPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				],
 				"ExampleViewJSPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				]
 			}
 		},
 		"DimensionsViewerPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData"
 			]
 		},
 		"PcaPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData"
 			]
 		},
 		"Joint-t-SNE-Analysis": {
 			"sub_project_dependencies": {
 				"JointTsneAnalysisPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData"
 				]
 			}
 		},
 		"SimianViewerPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData",
 				"ClusterData"
 			]
 		},
 		"SimianViewerScatterplotPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData",
 				"ClusterData"
 			]
 		},
 		"SimianViewerMultExpCompPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData",
 				"ClusterData"
 			]
 		},
 		"SimianViewerPairExpCompPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData",
 				"ClusterData"
 			]
@@ -444,7 +444,7 @@
 		"MeanShiftClustering": {
 			"sub_project_dependencies": {
 				"MeanShiftClusteringPlugin": [
-					"HDPS",
+					"MV_Application",
 					"PointData",
 					"ClusterData"
 				]
@@ -452,14 +452,14 @@
 		},
 		"ViewerScatterplotPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData",
 				"ClusterData"
 			]
 		},
 		"PointDataConversionPlugin": {
 			"dependencies": [
-				"HDPS",
+				"MV_Application",
 				"PointData"
 			]
 		}

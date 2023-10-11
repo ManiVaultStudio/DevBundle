@@ -598,11 +598,11 @@ endif()\n\n"""
                     cf.write(f"add_subdirectory({repo.repo_name})\n")
             cf.write("\n")
             cf.write(
-                "set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT HDPS)\n"
+                "set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT MV_Application)\n"
             )
             if len(bin_paths) > 0:
                 cf.write(
-                    f"set_target_properties(HDPS PROPERTIES VS_DEBUGGER_ENVIRONMENT \"PATH=%PATH%;{';'.join(bin_paths)}\")"
+                    f"set_target_properties(MV_Application PROPERTIES VS_DEBUGGER_ENVIRONMENT \"PATH=%PATH%;{';'.join(bin_paths)}\")"
                 )
             cf.write("\n")
             for repo in self.config.repos:
