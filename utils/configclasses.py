@@ -583,9 +583,9 @@ endif()\n\n"""
                 else:
                     # if name ends with + this is a list to append
                     if setting[0][-1] == "+":
-                        cf.write(f"list(APPEND {setting[0][:-1]} {setting[1]})\n")
+                        cf.write(f"list(APPEND {setting[0][:-1]} {' '.join(setting[1])})\n")
                     else:
-                        cf.write(f'set({setting[0]} {setting[1]} CACHE PATH "")\n')
+                        cf.write(f'set({setting[0]} {";".join(setting[1])} CACHE PATH "")\n')
 
             for repo in self.config.repos:
                 if repo.repo_local:
