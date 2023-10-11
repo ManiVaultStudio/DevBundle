@@ -72,7 +72,7 @@ if __name__ == "__main__":
     )
 
     parser_list = subparsers.add_parser(
-        "list", help="List all HDPS development configurations", parents=[common]
+        "list", help="List all ManiVault development configurations", parents=[common]
     )
     parser_list.add_argument(
         "config_name",
@@ -133,10 +133,10 @@ skip specific 3-party binaries. e.g.
         "--- Common arguments for list,use ---"
         + common.format_help().replace(common.format_usage(), "")
         + """ 
-Purpose: Create and manage an HDPS development environment.
+Purpose: Create and manage a ManiVault development environment.
 
-        An HDPS development environment is a directory containing a top-level
-        CMakeLists.txt file to create a single project from the HDPS core and
+        A ManiVault development environment is a directory containing a top-level
+        CMakeLists.txt file to create a single project from the ManiVault core and
         a selection of plugins. The core and plugins are in subdirectories.
         This is useful way to work when you need to edit/build multiple
         plugins and the core on a development branch.

@@ -242,7 +242,7 @@ class Binaries:
 
 
 class HdpsRepo:
-    """A class holding the configuration of an HDPS related repo"""
+    """A class holding the configuration of a ManiVault related repo"""
 
     hdps_repo_root = "https://github.com/ManiVaultStudio/"
     hdps_repo_root_ssh = "git@github.com:ManiVaultStudio/"
@@ -396,7 +396,7 @@ class HdpsRepo:
 
 
 class Config:
-    """A development configuration comprising multiple HDPS
+    """A development configuration comprising multiple ManiVault
     repositories.
     """
 
@@ -572,8 +572,8 @@ class CMakeFileBuilder:
             hdps_install_dir = str(self.config.install_dir.resolve()).replace("\\", "/")
             cf.write(
                 f"""\n
-if(NOT DEFINED ENV{{HDPS_INSTALL_DIR}})
-    set(ENV{{HDPS_INSTALL_DIR}} "{hdps_install_dir}")
+if(NOT DEFINED ENV{{MV_INSTALL_DIR}})
+    set(ENV{{MV_INSTALL_DIR}} "{hdps_install_dir}")
 endif()\n\n"""
             )
             bin_paths = []
