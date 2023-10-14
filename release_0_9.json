@@ -50,7 +50,7 @@
 					"branch": "master"
 				},
 				{
-					"repo": "GradientView",
+					"repo": "SpaceWalker",
 					"branch": "master"
 				},
 				{
@@ -104,11 +104,6 @@
 				{
 					"repo": "SimianViewerPlugin",
 					"branch": "master"
-				},
-				{
-					"disable": true,
-					"repo": "SpaceWalker",
-					"branch": "?????"
 				},
 				{
 					"repo": "SpectralViewPlugin",
