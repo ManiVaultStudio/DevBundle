@@ -21,11 +21,11 @@
 					"branch": "main"
 				},
 				{
-					"repo": "CSVLoader",
+					"repo": "CsvLoader",
 					"branch": "master"
 				},
 				{
-					"repo": "CSVWriter",
+					"repo": "CsvWriter",
 					"branch": "main"
 				},
 				{
@@ -144,7 +144,7 @@
 					"branch": "main"
 				},
 				{
-					"repo": "CSVLoader",
+					"repo": "CsvLoader",
 					"branch": "master"
 				},
 				{
@@ -244,6 +244,12 @@
 			]
 		}, 
 		"CsvLoader": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
+		"CsvWriter": {
 			"dependencies": [
 				"MV_Application",
 				"PointData"
@@ -450,6 +456,27 @@
 				"MV_Application",
 				"PointData",
 				"ClusterData"
+			]
+		},
+		"ClusterDifferentialExpressionPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"ClusterData"
+			]
+		},
+		"SpectralViewPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData",
+				"ImageData"
+			]
+		},
+		"SpidrPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ImageData"
 			]
 		},
 		"PointDataConversionPlugin": {
