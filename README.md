@@ -172,6 +172,33 @@ Accesses using the **--mode** switch. Currently two modes are supported: **clean
 ### Coming soon
 * One or more **develop** modes. These will support controlled preservation/overwriting of developer changes on a per repo basis
 
+## Tips for ManiVault building on Linux
+
+### System and installs
+
+Currently the preserred OS is Ubuntu 22.04 or similar.
+
+Install (**sudo apt install**) the following packages:
+
+0. sudo apt-get update
+1. sudo apt install libtbb2-dev     (required for pstl support)
+2. sudo apt install g++-10
+
+### CMake Config and Generate and Build
+
+Currently the following compiler is supported
+
+1. gcc/g++ version 10
+
+Set the following CMake variables
+
+1. CMAKE_CXX_COMPILER /usr/bin/g++-10
+2. CMAKE_C_COMPILER /usr/bin/gcc-10
+
+### Choosing a generator in CMake
+
+Currently only the **Unix makefiles** generator is recommended. Others e.g. **Ninja** may have project dependency issues. This is being worked on (October 2023)   
+
 ## Notes
 
 If you don't use the prebuilt binaries for HDPS you will need to manually add one or more of the following definitions (depending on your bundle) in the CMake GUI:

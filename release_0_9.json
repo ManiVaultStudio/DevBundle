@@ -193,6 +193,7 @@
 					"branch": "master"
 				},
 				{
+					"disable": true,
 					"repo": "SimianViewerPairExpCompPlugin",
 					"branch": "master"
 				},
@@ -218,6 +219,7 @@
 					"branch": "master"
 				},
 				{
+					"disable": true,
 					"repo": "ViewerScatterplotPlugin",
 					"branch": "main"
 				}
@@ -228,7 +230,7 @@
 		"core": {
 			"binaries": [
 				"QT632",
-				"ZLib128"
+				"ZLib1211"
 			]
 		},
 		"CrossSpeciesViewer": {
@@ -594,6 +596,18 @@
 				"ZLIB_ROOT": "+"
 			},
 			"bin_path": "+lib"
+		},
+		"ZLib1211": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/_/zlib/1.2.11/_/0/package/127af201a4cdf8111e2e08540525c245c9b3b99e/0/conan_package.tgz",
+				"Macos": "T.B.D",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/_/zlib/1.2.11/_/0/package/d0c219631d7c692d7a95436cf4e11fe2891dc312/0/conan_package.tgz"
+			},
+			"cmake_variables": {
+				"ZLIB_ROOT": "+"
+			},
+			"bin_path": "+lib"
 		}
+
 	}
 }
