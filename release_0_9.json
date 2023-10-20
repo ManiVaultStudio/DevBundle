@@ -103,7 +103,8 @@
 				},
 				{
 					"repo": "SimianViewerPlugin",
-					"branch": "master"
+					"branch": "master",
+					"disable": true
 				},
 				{
 					"repo": "SpectralViewPlugin",
@@ -201,7 +202,8 @@
 				},
 				{
 					"repo": "SimianViewerPlugin",
-					"branch": "master"
+					"branch": "master",
+					"disable": true
 				},
 				{
 					"repo": "SpectralViewPlugin",

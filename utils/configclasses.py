@@ -569,12 +569,11 @@ class CMakeFileBuilder:
         with open(str(self.cmakelistspath), "a") as cf:
             cf.write("cmake_minimum_required(VERSION 3.17)\n\n")
             cf.write(f"\nproject({self.config.name})\n")
-            hdps_install_dir = str(self.config.install_dir.resolve()).replace("\\", "/")
+            mv_install_dir = str(self.config.install_dir.resolve()).replace("\\", "/")
             cf.write(
                 f"""\n
-if(NOT DEFINED ENV{{MV_INSTALL_DIR}})
-    set(ENV{{MV_INSTALL_DIR}} "{hdps_install_dir}")
-endif()\n\n"""
+    set(MV_INSTALL_DIR "{mv_install_dir}" CACHE PATH "Pathe where the MV core and plugins are installed")
+\n\n"""
             )
             bin_paths = []
             for setting in cmake_vars:
