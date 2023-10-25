@@ -50,7 +50,7 @@ def use(args: argparse.Namespace):
         if config is None:
             print(f"Configuration named: {args.config_name} was not found")
             return
-        config.use(args.skip_binary, args.ssh, args.mode, args.cmake)
+        config.use(args.skip_binary, args.ssh, args.mode, args.cmake, args.shallow)
 
 
 if __name__ == "__main__":
@@ -127,6 +127,11 @@ skip specific 3-party binaries. e.g.
         "--cmake",
         action="store_true",
         help="Run cmake-gui after the use command, cmake-gui needs to be on the path",
+    )
+    parser_use.add_argument(
+        "--shallow",
+        action="store_true",
+        help="Causes a git shallow (depth=1) clone, can help when network delays are an issue",
     )
     parser_use.set_defaults(func=use)
     parser.epilog = (

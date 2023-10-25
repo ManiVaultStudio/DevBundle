@@ -606,7 +606,7 @@
 			"cmake_variables": {
 				"ZLIB_ROOT": "+"
 			},
-			"bin_path": "+lib"
+			"bin_path": "+bin"
 		}
 
 	}

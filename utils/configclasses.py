@@ -124,6 +124,18 @@ class Binary:
         for var_name in var_dict: 
             variables.append((var_name, var_dict[var_name]))
 
+        bin_path = self.config.get("bin_path", None)
+        if bin_path:
+            variable_value = self.config["bin_path"]
+            if variable_value.startswith("+"):
+                variable_value = str(
+                    Path(
+                        self.bin_root,
+                        self.name,
+                        variable_value[1:],
+                    )
+                ).replace("\\", "/")
+            variables.append((None, variable_value))
         return variables
 
 
@@ -322,7 +334,7 @@ class HdpsRepo:
             os.chdir(curdir)
         return dirty
 
-    def use(self, mode="clean", ssh=False):
+    def use(self, mode="clean", ssh=False, shallow=False):
         """Switch the build repo in the current directory
         to the latest configured branch. Changes can be
         forcibly overwritten or stashed. If changes are encountered
@@ -334,6 +346,8 @@ class HdpsRepo:
             Behaviour, by default clean
         ssh : bool, optional
             Use ssh for github access (instead of https)
+        shallow: bool, optional
+            Do a shallow (depth=1) git clone
         """
         if mode == "cmake_only":
             return
@@ -345,13 +359,16 @@ class HdpsRepo:
                 print(f"Checkout: {self.repo_name}:{self.branch}")
                 repo.git.checkout(self.branch)
             else:
+                multi_options=["--recurse-submodules"]
+                if shallow:
+                    multi_options.append("--depth=1")
                 source = self.repo_url if not ssh else self.repo_ssh
                 print(f"Cloning from: {source}")
                 Repo.clone_from(
                     source,
                     to_path=self.repo_name,
                     branch=self.branch,
-                    multi_options=["--recurse-submodules"],
+                    multi_options=multi_options,
                     progress=Progress(),
                 )
         except GitCommandError as ex:
@@ -463,6 +480,7 @@ class Config:
         ssh: bool = False,
         mode: str = "clean",
         cmake: bool = False,
+        shallow: bool = False,
     ) -> None:
         """Switch all the repos to this configuration.
         Optionally clean everything first and reclone.
@@ -481,6 +499,10 @@ class Config:
             cmake_only: leave all repos perform cmake only
             update_only: Perform git pull on all repos - to update.
                     May fail if there are local changes.
+        cmake: bool, optional
+            start the cmake gui on the build dir on completion
+        shallow: bool, optional
+            do shallow (depth=1) git clones
         """
         if mode == "update_only":
             errors = []
@@ -519,7 +541,7 @@ class Config:
         binaries: set[str] = set()
         # Get all the repos
         for repo in self.repos:
-            repo.use(mode, ssh)
+            repo.use(mode, ssh, shallow)
             binaries = binaries | set(repo.binaries)
         # and any binaries they need
         # the setup returns cmake variables and values
@@ -572,7 +594,7 @@ class CMakeFileBuilder:
             mv_install_dir = str(self.config.install_dir.resolve()).replace("\\", "/")
             cf.write(
                 f"""\n
-    set(MV_INSTALL_DIR "{mv_install_dir}" CACHE PATH "Pathe where the MV core and plugins are installed")
+    set(MV_INSTALL_DIR "{mv_install_dir}" CACHE PATH "Path where the MV core and plugins are installed")
 \n\n"""
             )
             bin_paths = []
@@ -599,6 +621,7 @@ class CMakeFileBuilder:
             cf.write(
                 "set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT MV_Application)\n"
             )
+            # print(f"******** CMAKE bin paths + cmake_vars {bin_paths} {cmake_vars} ***********")
             if len(bin_paths) > 0:
                 cf.write(
                     f"set_target_properties(MV_Application PROPERTIES VS_DEBUGGER_ENVIRONMENT \"PATH=%PATH%;{';'.join(bin_paths)}\")"
