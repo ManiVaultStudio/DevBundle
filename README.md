@@ -195,17 +195,73 @@ Set the following CMake variables
 1. CMAKE_CXX_COMPILER /usr/bin/g++-10
 2. CMAKE_C_COMPILER /usr/bin/gcc-10
 
+## Tips running ManiVault Studio under Linux on WSL
+
+### OpenGL issues
+
+When running **ManiVault Studio** under Linux on WSL OpenGL issues usuall manifest as a failure to create an OpenGL context. The following settings have been found to address the issues.
+
+From WSL set the following environment variables before running **./ManiVault\ Studio** from the command line
+
+Select xcb windowing (instead of the default Wayland) and suppress logging
+
+```
+export QT_QPA_DEFAULT_PLATFORM=xcb
+export QT_LOGGING_RULES='*.debug=false:qt.qpa.*=false'
+```
+
+If your system has both Intel and NVIDIA cards (check the names of the Graphics Cards in Windows Device manager) you may wish to set the higher performance NVIDIA as default graphics card
+
+```
+export MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA
+```
+
+If the logging still shows OpenGL context problems the following has also helped sometimes: 
+
+```
+export LIBGL_ALWAYS_INDIRECT=0
+```
+
+
 ### Choosing a generator in CMake
 
 Currently only the **Unix makefiles** generator is recommended. Others e.g. **Ninja** may have project dependency issues. This is being worked on (October 2023)   
+
+## Tips for ManiVault building on Macos
+
+### System and XCode
+
+Currently the preserred OS is MacOS Monterey (12) in line with the current CI settings. The CI uses XCode 12.4 but for the local build using the current XCode 14.2 works well.
+
+### Installs 
+
+1. You will need to install OpenMP. Do this using brew : 
+
+```
+brew install libomp
+```
+
+2. Check the install setting 
+
+```
+brew --prefix libomp
+```
+
+This will be something like **/usr/local/opt/libomp**
+
+3. Add a new CMake entry **OpenMP_ROOT** in the CMake gui before Configure
+
+```
+OpenMP_ROOT  /usr/local/opt/libomp
+```
 
 ## Notes
 
 If you don't use the prebuilt binaries for HDPS you will need to manually add one or more of the following definitions (depending on your bundle) in the CMake GUI:
 
 * HDPS_INSTALL_DIR - for HDPS (environment variable)
-* QT_DIR - for HDPS (lib/cmake/Qt5)
-* Qt5_DIR - for HDPS (lib/cmake/Qt5)
+* QT_DIR - for HDPS (lib/cmake/Qt6)
+* Qt6_DIR - for HDPS (lib/cmake/Qt6)
 * FREEIMAGE_ROOT_DIR for ImageLoader (directory including lib, bin and include dirs)
 * VTK_DIR - for VolumeViewer (lib/cmake/vtk-9.1)
 ## An example of using the DevBundle - makeproject

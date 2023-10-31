@@ -303,7 +303,7 @@
 		"core": {
 			"binaries": [
 				"QT632",
-				"ZLib128"
+				"ZLib1211"
 			]
 		},
 		"CsvLoader": {
@@ -513,7 +513,7 @@
 		"QT632": {
 			"binaries": {
 				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/022b1d420cc8a03b01f26057630738d5676470ad/0/conan_package.tgz",
-				"Macos": "T.B.D",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/43a4c9a95b4f02bb5b29de34f96a99f568edd09b/0/conan_package.tgz",
 				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/8ea18de570e4abee8dca8574226a20bbb7baf1d8/0/conan_package.tgz"
 			},
 			"cmake_variables": {
@@ -533,8 +533,18 @@
 				"QT_MAJOR_VERSION": "6",
 				"OpenGL_GL_PREFERENCE": "GLVND"
 			},
+			"cmake_variables_Macos": {
+				"CMAKE_PREFIX_PATH": "+6.3.2/macos",
+				"Qt6_DIR": "+6.3.2/macos/lib/cmake/Qt6",
+				"QT_DIR": "+6.3.2/macos/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.2/macos/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.2/macos/lib/cmake",
+				"QT_MAJOR_VERSION": "6",
+				"OpenGL_GL_PREFERENCE": "GLVND"
+			},
 			"bin_path": "+6.3.2/msvc2019_64/bin",
-			"bin_path_Linux": "+6.3.2/gcc_64/bin"
+			"bin_path_Linux": "+6.3.2/gcc_64/bin",
+			"bin_path_Macos": "+6.3.2/macos/bin"
 		},
 		"VTK910QT5": {
 			"binaries": {
@@ -549,7 +559,7 @@
 		"VTK910QT6": {
 			"binaries": {
 				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/8b2121bd73ec3e8f80c9704861a0203cbadfd319/0/conan_package.tgz",
-				"Macos": "T.B.D",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/c88ffc86f59b215b854c8a01de920476f8357628/0/conan_package.tgz",
 				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/cf22046e502198619fed081b5a868a4e3d726274/0/conan_package.tgz"
 			},
 			"cmake_variables": {
@@ -560,7 +570,7 @@
 		"FreeImage3180": {
 			"binaries": {
 				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/4a5c0a134220be2f83450e0d12175db326cb51a4/0/conan_package.tgz",
-				"Macos": "T.B.D",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/3f6006ec35dc9206aa8a0bee8aa58ea336e58360/0/conan_package.tgz",
 				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/8e5b2c115f14eb4b539dce0f601671268f7aebdb/0/conan_package.tgz"
 			},
 			"cmake_variables": {
@@ -582,7 +592,7 @@
 		"ZLib1211": {
 			"binaries": {
 				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/_/zlib/1.2.11/_/0/package/127af201a4cdf8111e2e08540525c245c9b3b99e/0/conan_package.tgz",
-				"Macos": "T.B.D",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/_/zlib/1.2.11/_/0/package/647afeb69d3b0a2d3d316e80b24d38c714cc6900/0/conan_package.tgz",
 				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/_/zlib/1.2.11/_/0/package/d0c219631d7c692d7a95436cf4e11fe2891dc312/0/conan_package.tgz"
 			},
 			"cmake_variables": {
