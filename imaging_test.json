@@ -1,0 +1,379 @@
+{
+	"build_bundles": [
+		{
+			"name": "imaging_test",
+			"build_dir": "imaging_test",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				}
+			]
+		}
+	],
+	"repo_info": {
+		"core": {
+			"binaries": [
+				"QT632",
+				"ZLib128"
+			]
+		},
+		"CrossSpeciesViewer": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"HierarchicalClusterSelectionPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		}, 
+		"CsvLoader": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
+		"HDF5Loader": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"ImageLoaderPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ImageData"
+			],
+			"binaries": [
+				"FreeImage3180"
+			]
+		},
+		"ImageViewerPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"ImageData"
+			]
+		},
+		"t-SNE-Analysis": {
+			"sub_project_dependencies": {
+				"TsneAnalysisPlugin": [
+					"MV_Application",
+					"ImageData",
+					"PointData"
+				],
+				"HsneAnalysisPlugin": [
+					"MV_Application",
+					"ImageData",
+					"PointData"
+				]
+			}
+		},
+		"ENVILoader": {
+			"dependencies": [
+				"MV_Application",
+				"ImageData",
+				"PointData"
+			]
+		},
+		"VolumeLoaderPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
+		"HeatMap": {
+			"sub_project_dependencies": {
+				"HeatMapPlugin": [
+					"MV_Application",
+					"ClusterData",
+					"PointData"
+				]
+			}
+		},
+		"Scatterplot": {
+			"sub_project_dependencies": {
+				"ScatterplotPlugin": [
+					"MV_Application",
+					"ClusterData",
+					"PointData",
+					"ColorData"
+				]
+			}
+		},
+		"VolumeViewerPlugin": {
+			"binaries": [
+				"VTK910QT6"
+			],
+			"dependencies": [
+				"MV_Application",
+				"ImageData"
+			]
+		},
+		"ClustersFromPointsPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"ClusterData",
+				"PointData"
+			]
+		},
+		"ParallelCoordinatesPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
+		"BinIO": {
+			"sub_project_dependencies": {
+				"BinLoader": [
+					"MV_Application",
+					"PointData"
+				],
+				"BinExporter": [
+					"MV_Application",
+					"PointData"
+				]
+			}
+		},
+		"ExamplePlugins": {
+			"sub_project_dependencies": {
+				"ExampleAnalysisPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleDataPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleLoaderPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleViewPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleTransformationPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleViewOpenGLPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleWriterPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleViewJSPlugin": [
+					"MV_Application",
+					"PointData"
+				]
+			}
+		},
+		"DimensionsViewerPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
+		"PcaPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
+		"Joint-t-SNE-Analysis": {
+			"sub_project_dependencies": {
+				"JointTsneAnalysisPlugin": [
+					"MV_Application",
+					"PointData"
+				]
+			}
+		},
+		"SimianViewerPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"SimianViewerScatterplotPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"SimianViewerMultExpCompPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"SimianViewerPairExpCompPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"MeanShiftClustering": {
+			"sub_project_dependencies": {
+				"MeanShiftClusteringPlugin": [
+					"MV_Application",
+					"PointData",
+					"ClusterData"
+				]
+			}
+		},
+		"ViewerScatterplotPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"PointDataConversionPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		}
+	},
+	"prebuilt_binaries": {
+		"QT5152": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/5.15.2/stable/0/package/d087f699e8b1ebf5eed62da5ba34100e360b38a8/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"Qt5_DIR": "+5.15.2/msvc2019_64/lib/cmake/Qt5",
+				"QT_DIR": "+5.15.2/msvc2019_64/lib/cmake/Qt5"
+			},
+			"bin_path": "+5.15.2/msvc2019_64/bin"
+		},
+		"QT622": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl/ui/repos/tree/Properties/conan-local%2Flkeb%2Fqt%2F6.2.2%2Fstable%2F0%2Fpackage%2F2a8c2f63ce81cbd41a37bfe0d7d3c83fccfa45cf%2F0%2Fconan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"Qt6_DIR": "+6.2.2/msvc2019_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.2.2/msvc2019_64/lib/cmake/Qt6"
+			},
+			"bin_path": "+6.2.2/msvc2019_64/bin"
+		},
+		"QT631": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.1/stable/0/package/32337ff87d7ce7732bf6a3f4d5ed445bc27b241a/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"CMAKE_PREFIX_PATH": "+6.3.1/msvc2019_64",
+				"Qt6_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.3.1/msvc2019_64/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.1/msvc2019_64/lib/cmake",
+				"QT_MAJOR_VERSION": "6"
+			},
+			"bin_path": "+6.3.1/msvc2019_64/bin"
+		},
+		"QT632": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/022b1d420cc8a03b01f26057630738d5676470ad/0/conan_package.tgz",
+				"Macos": "T.B.D",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/8ea18de570e4abee8dca8574226a20bbb7baf1d8/0/conan_package.tgz"
+			},
+			"cmake_variables": {
+				"CMAKE_PREFIX_PATH": "+6.3.2/msvc2019_64",
+				"Qt6_DIR": "+6.3.2/msvc2019_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.3.2/msvc2019_64/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.2/msvc2019_64/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.2/msvc2019_64/lib/cmake",
+				"QT_MAJOR_VERSION": "6"
+			},
+			"cmake_variables_Linux": {
+				"CMAKE_PREFIX_PATH": "+6.3.2/gcc_64",
+				"Qt6_DIR": "+6.3.2/gcc_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.3.2/gcc_64/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.2/gcc_64/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.2/gcc_64/lib/cmake",
+				"QT_MAJOR_VERSION": "6",
+				"OpenGL_GL_PREFERENCE": "GLVND"
+			},
+			"bin_path": "+6.3.2/msvc2019_64/bin",
+			"bin_path_Linux": "+6.3.2/gcc_64/bin"
+		},
+		"VTK910QT5": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/280db47f62d23506cc4b2da3822ee607b1ead65d/0/conan_package.tgz",
+				"Macos": "T.B.D"
+			},
+			"cmake_variables": {
+				"VTK_DIR": "+lib/cmake/vtk-9.1"
+			},
+			"bin_path": "+bin"
+		},
+		"VTK910QT6": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/8b2121bd73ec3e8f80c9704861a0203cbadfd319/0/conan_package.tgz",
+				"Macos": "T.B.D",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/cf22046e502198619fed081b5a868a4e3d726274/0/conan_package.tgz"
+			},
+			"cmake_variables": {
+				"VTK_DIR": "+lib/cmake/vtk-9.1"
+			},
+			"bin_path": "+bin"
+		},
+		"FreeImage3180": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/4a5c0a134220be2f83450e0d12175db326cb51a4/0/conan_package.tgz",
+				"Macos": "T.B.D",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/8e5b2c115f14eb4b539dce0f601671268f7aebdb/0/conan_package.tgz"
+			},
+			"cmake_variables": {
+				"FREEIMAGE_ROOT_DIR": "+"
+			},
+			"bin_path": "+bin"
+		},
+		"ZLib128": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/_/zlib/1.2.8/_/0/package/3fb49604f9c2f729b85ba3115852006824e72cab/0/conan_package.tgz",
+				"Macos": "T.B.D",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/_/zlib/1.2.8/_/0/package/fb8dd3e9abef9bab75ae909e3661a2e15835c2cd/0/conan_package.tgz"
+			},
+			"cmake_variables": {
+				"ZLIB_ROOT": "+"
+			},
+			"bin_path": "+lib"
+		}
+	}
+}

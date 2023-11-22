@@ -188,12 +188,17 @@ Install (**sudo apt install**) the following packages:
 
 Currently the following compiler is supported
 
-1. gcc/g++ version 10
+**gcc/g++ version 10**
 
 Set the following CMake variables
 
 1. CMAKE_CXX_COMPILER /usr/bin/g++-10
 2. CMAKE_C_COMPILER /usr/bin/gcc-10
+
+**Debug or Release build**
+(See also the tip below headed **Choosing a generator in CMake on Linux**)
+
+3. CMAKE_BUILD_TYPE Debug or Release
 
 ## Tips running ManiVault Studio under Linux on WSL
 
@@ -223,9 +228,10 @@ export LIBGL_ALWAYS_INDIRECT=0
 ```
 
 
-### Choosing a generator in CMake
+### Choosing a generator in CMake on Linux
 
 Currently only the **Unix makefiles** generator is recommended. Others e.g. **Ninja** may have project dependency issues. This is being worked on (October 2023)   
+**Unix makefiles** are not multi-configuration so set the **CMAKE_BUILD_TYPE** to either Release or Debug in the cmake-gui.
 
 ## Tips for ManiVault building on Macos
 
