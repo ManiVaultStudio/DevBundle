@@ -83,6 +83,7 @@
 					"branch": "master"
 				},
 				{
+                    "disable": true,
 					"repo": "HDF5Loader",
 					"branch": "master"
 				},
@@ -92,10 +93,6 @@
 				},
 				{
 					"repo": "SimianViewerPlugin",
-					"branch": "master"
-				},
-				{
-					"repo": "Joint-t-SNE-Analysis",
 					"branch": "master"
 				},
 				{
@@ -371,6 +368,15 @@
 				]
 			}
 		},
+		"ClustersFromPointsPlugin": {
+			"sub_project_dependencies": {
+				"HeatMapPlugin": [
+					"MV_Application",
+					"ClusterData",
+					"PointData"
+				]
+			}
+		},
 		"Scatterplot": {
 			"sub_project_dependencies": {
 				"ScatterplotPlugin": [
@@ -432,6 +438,22 @@
 				"ExampleViewPlugin": [
 					"MV_Application",
 					"PointData"
+				],
+				"ExampleWriterPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleTransformationPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleViewOpenGLPlugin": [
+					"MV_Application",
+					"PointData"
+				],
+				"ExampleViewJSPlugin": [
+					"MV_Application",
+					"PointData"
 				]
 			}
 		},
@@ -440,14 +462,6 @@
 				"MV_Application",
 				"PointData"
 			]
-		},
-		"Joint-t-SNE-Analysis": {
-			"sub_project_dependencies": {
-				"JointTsneAnalysisPlugin": [
-					"MV_Application",
-					"PointData"
-				]
-			}
 		},
 		"SimianViewerPlugin": {
 			"dependencies": [
