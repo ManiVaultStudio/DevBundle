@@ -235,9 +235,15 @@ Currently only the **Unix makefiles** generator is recommended. Others e.g. **Ni
 
 ## Tips for ManiVault building on Macos
 
+## CMake 3.28 WARNING!
+
+Until this [MacOS OpenGL error](https://codereview.qt-project.org/c/qt/qtbase/+/503121/1) is fixed used a CMake version < 3.28 on macos
+
 ### System and XCode
 
 Currently the preserred OS is MacOS Monterey (12) in line with the current CI settings. The CI uses XCode 12.4 but for the local build using the current XCode 14.2 works well.
+
+Currently (December 2023) the Apple ARM architecture has not been tested. However building on M1 is possible by cross-compiling to the **x86_64** architecture. The build architecture can be changed in **Build Settings** by adding **8x86_64** to the options and removing the standard Universal architecture.
 
 ### Installs 
 
