@@ -396,13 +396,6 @@
 				"ImageData"
 			]
 		},
-		"ClustersFromPointsPlugin": {
-			"dependencies": [
-				"MV_Application",
-				"ClusterData",
-				"PointData"
-			]
-		},
 		"ParallelCoordinatesPlugin": {
 			"dependencies": [
 				"MV_Application",
