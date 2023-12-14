@@ -98,6 +98,10 @@
 				{
 					"repo": "PointDataConversionPlugin",
 					"branch": "main"
+				},
+				{
+					"repo": "PcaPlugin",
+					"branch": "main"
 				}
 			]
 		},
@@ -473,6 +477,12 @@
 			}
 		},
 		"PointDataConversionPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
+		"PcaPlugin": {
 			"dependencies": [
 				"MV_Application",
 				"PointData"
