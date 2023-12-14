@@ -247,7 +247,7 @@ class Binaries:
             print(f"Downloaded: {tar_path}")
             self.unpack(tar_path, bin_name)
 
-    def get_cmake_variables(self, bin_name: str, skip: bool = False):
+    def get_cmake_variables(self, bin_name: str):
         variables = self.binaries[bin_name].cmake_variables
         return variables
 
@@ -537,18 +537,24 @@ class Config:
             if not self.solution_dir.exists():
                 self.solution_dir.mkdir()
         os.chdir(str(self.source_dir))
+
         skip_binaries = set(skip_binaries)
         binaries: set[str] = set()
+
         # Get all the repos
+        # and any binaries they need
         for repo in self.repos:
             repo.use(mode, ssh, shallow)
             binaries = binaries | set(repo.binaries)
-        # and any binaries they need
+
+        # skip user-defined binaries
+        binaries = binaries.difference(skip_binaries)
+
         # the setup returns cmake variables and values
         cmake_vars = []
         for binary in binaries:
             self.binaries.use_binary(binary)
-            cmake_vars.extend(self.binaries.get_cmake_variables(binary, binary in skip_binaries))
+            cmake_vars.extend(self.binaries.get_cmake_variables(binary))
         os.chdir(str(self.source_dir))
         self.cmakebuilder.make(cmake_vars, cmake)
 
