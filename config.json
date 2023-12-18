@@ -98,6 +98,10 @@
 				{
 					"repo": "PointDataConversionPlugin",
 					"branch": "main"
+				},
+				{
+					"repo": "PcaPlugin",
+					"branch": "main"
 				}
 			]
 		},
@@ -396,13 +400,6 @@
 				"ImageData"
 			]
 		},
-		"ClustersFromPointsPlugin": {
-			"dependencies": [
-				"MV_Application",
-				"ClusterData",
-				"PointData"
-			]
-		},
 		"ParallelCoordinatesPlugin": {
 			"dependencies": [
 				"MV_Application",
@@ -480,6 +477,12 @@
 			}
 		},
 		"PointDataConversionPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
+		"PcaPlugin": {
 			"dependencies": [
 				"MV_Application",
 				"PointData"
