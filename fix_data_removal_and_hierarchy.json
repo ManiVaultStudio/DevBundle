@@ -1,32 +1,88 @@
 {
 	"build_bundles": [
 		{
-			"name": "imaging_test",
-			"build_dir": "imaging_test",
+			"name": "fix_data_removal_and_hierarchy",
+			"build_dir": "fix_data_removal_and_hierarchy",
 			"hdps_repos": [
 				{
 					"repo": "core",
-					"branch": "master"
+					"branch": "feature/fix_data_removal_and_hierarchy"
 				},
 				{
 					"repo": "BinIO",
-					"branch": "master"
+					"branch": "feature/fix_data_removal_and_hierarchy"
 				},
 				{
 					"repo": "ImageLoaderPlugin",
-					"branch": "master"
+					"branch": "feature/fix_data_removal_and_hierarchy"
 				},
 				{
 					"repo": "ImageViewerPlugin",
-					"branch": "master"
+					"branch": "feature/fix_data_removal_and_hierarchy"
 				},
 				{
 					"repo": "Scatterplot",
-					"branch": "master"
+					"branch": "feature/fix_data_removal_and_hierarchy"
 				},
 				{
 					"repo": "t-SNE-Analysis",
-					"branch": "master"
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "ENVILoader",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "VolumeLoaderPlugin",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "VolumeViewerPlugin",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "HeatMap",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "ParallelCoordinatesPlugin",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "ExamplePlugins",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "MeanShiftClustering",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "SimianViewerPlugin",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "PointDataConversionPlugin",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "PcaPlugin",
+					"branch": "feature/fix_data_removal_and_hierarchy"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "feature/fix_data_removal_and_hierarchy"
 				}
 			]
 		}
