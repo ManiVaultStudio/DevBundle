@@ -83,7 +83,6 @@
 					"branch": "master"
 				},
 				{
-                    "disable": true,
 					"repo": "HDF5Loader",
 					"branch": "master"
 				},
