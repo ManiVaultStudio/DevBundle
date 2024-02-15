@@ -356,14 +356,14 @@ class HdpsRepo:
         try:
             if Path(self.repo_name).exists():
                 repo = Repo(self.repo_name)
-                print(f"Checkout: {self.repo_name}:{self.branch}")
+                print(f"Checkout: {self.repo_name}: {self.branch}")
                 repo.git.checkout(self.branch)
             else:
                 multi_options=["--recurse-submodules"]
                 if shallow:
                     multi_options.append("--depth=1")
                 source = self.repo_url if not ssh else self.repo_ssh
-                print(f"Cloning from: {source}")
+                print(f"Cloning {self.repo_name} ({self.branch}) from: {source}")
                 Repo.clone_from(
                     source,
                     to_path=self.repo_name,
