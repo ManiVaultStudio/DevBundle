@@ -31,6 +31,10 @@
 					"branch": "master"
 				},
 				{
+					"repo": "CsvWriter",
+					"branch": "main"
+				},
+				{
 					"repo": "ImageLoaderPlugin",
 					"branch": "master"
 				},
@@ -101,134 +105,10 @@
 				{
 					"repo": "PcaPlugin",
 					"branch": "main"
-				}
-			]
-		},
-		{
-			"name": "redesign_group_action",
-			"build_dir": "redesign_group_action",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "feature/redesign_group_action"
 				},
 				{
-					"repo": "Scatterplot",
-					"branch": "feature/redesign_group_action"
-				},
-				{
-					"repo": "BinIO",
-					"branch": "feature/redesign_group_action"
-				},
-				{
-					"repo": "ClustersFromPointsPlugin",
-					"branch": "feature/redesign_group_action"
-				},
-				{
-					"repo": "DimensionsViewerPlugin",
-					"branch": "feature/redesign_group_action"
-				}
-			]
-		},
-		{
-			"name": "serialize_action_linkages_master",
-			"build_dir": "serialize_action_linkages_master",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "master"
-				},
-				{
-					"repo": "Scatterplot",
-					"branch": "master"
-				},
-				{
-					"repo": "BinIO",
-					"branch": "master"
-				},
-				{
-					"repo": "t-SNE-Analysis",
-					"branch": "master"
-				},
-				{
-					"repo": "ImageViewerPlugin",
-					"branch": "master"
-				},
-				{
-					"repo": "ImageLoaderPlugin",
-					"branch": "master"
-				},
-				{
-					"repo": "PointDataConversionPlugin",
-					"branch": "feature/serialize_action_linkages"
-				},
-				{
-					"repo": "ClustersFromPointsPlugin",
-					"branch": "feature/serialize_action_linkages"
-				},
-				{
-					"repo": "DimensionsViewerPlugin",
-					"branch": "feature/serialize_action_linkages"
-				}
-			]
-		},
-		{
-			"name": "progress_management",
-			"build_dir": "progress_management",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "feature/progress_management"
-				},
-				{
-					"repo": "Scatterplot",
-					"branch": "master"
-				},
-				{
-					"repo": "BinIO",
-					"branch": "master"
-				},
-				{
-					"repo": "t-SNE-Analysis",
-					"branch": "master"
-				},
-				{
-					"repo": "ImageLoaderPlugin",
-					"branch": "feature/progress_management"
-				},
-				{
-					"repo": "ClustersFromPointsPlugin",
+					"repo": "SpectralViewPlugin",
 					"branch": "main"
-				}
-			]
-		},
-		{
-			"name": "allmain_348",
-			"build_dir": "allmain_348",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "master"
-				},
-				{
-					"repo": "BinIO",
-					"branch": "master"
-				},
-				{
-					"repo": "Scatterplot",
-					"branch": "master"
-				},
-				{
-					"repo": "HDF5Loader",
-					"branch": "master"
-				},
-				{
-					"repo": "ClustersFromPointsPlugin",
-					"branch": "main"
-				},
-				{
-					"repo": "ImageLoaderPlugin",
-					"branch": "master"
 				}
 			]
 		},
@@ -307,6 +187,12 @@
 			]
 		},
 		"CsvLoader": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
+		"CsvWriter": {
 			"dependencies": [
 				"MV_Application",
 				"PointData"
@@ -485,6 +371,20 @@
 			"dependencies": [
 				"MV_Application",
 				"PointData"
+			]
+		},
+		"SpectralViewPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"SpidrPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
 			]
 		}
 	},
