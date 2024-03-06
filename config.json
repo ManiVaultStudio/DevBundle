@@ -31,6 +31,10 @@
 					"branch": "master"
 				},
 				{
+					"repo": "CsvWriter",
+					"branch": "main"
+				},
+				{
 					"repo": "ImageLoaderPlugin",
 					"branch": "master"
 				},
@@ -100,6 +104,10 @@
 				},
 				{
 					"repo": "PcaPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "SpectralViewPlugin",
 					"branch": "main"
 				}
 			]
@@ -312,6 +320,12 @@
 				"PointData"
 			]
 		},
+		"CsvWriter": {
+			"dependencies": [
+				"MV_Application",
+				"PointData"
+			]
+		},
 		"HDF5Loader": {
 			"dependencies": [
 				"MV_Application",
@@ -485,6 +499,20 @@
 			"dependencies": [
 				"MV_Application",
 				"PointData"
+			]
+		},
+		"SpectralViewPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
+		},
+		"SpidrPlugin": {
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
 			]
 		}
 	},
