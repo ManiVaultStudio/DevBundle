@@ -199,11 +199,22 @@
 			]
 		},
 		"HDF5Loader": {
-			"dependencies": [
-				"MV_Application",
-				"PointData",
-				"ClusterData"
-			]
+			"sub_project_dependencies": {
+				"H510XLoader": [
+					"MV_Application",
+					"PointData",
+					"ClusterData"
+				],
+				"H5ADLoader": [
+					"MV_Application",
+					"PointData",
+					"ClusterData"
+				],
+				"TOMELoader": [
+					"MV_Application",
+					"PointData",
+					"ClusterData"
+				]
 		},
 		"ImageLoaderPlugin": {
 			"dependencies": [
