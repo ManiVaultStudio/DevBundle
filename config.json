@@ -270,13 +270,11 @@
 			}
 		},
 		"ClustersFromPointsPlugin": {
-			"sub_project_dependencies": {
-				"HeatMapPlugin": [
-					"MV_Application",
-					"ClusterData",
-					"PointData"
-				]
-			}
+			"dependencies": [
+				"MV_Application",
+				"PointData",
+				"ClusterData"
+			]
 		},
 		"Scatterplot": {
 			"sub_project_dependencies": {
