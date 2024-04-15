@@ -600,11 +600,11 @@ class CMakeFileBuilder:
         print(f"Making {self.cmakelistspath}")
         with open(str(self.cmakelistspath), "a") as cf:
             cf.write("cmake_minimum_required(VERSION 3.17)\n\n")
-            cf.write(f"\nproject({self.config.name})\n\n\n")
+            cf.write(f"\nproject({self.config.name})\n\n")
             mv_install_dir = str(self.config.install_dir.resolve()).replace("\\", "/")
             cf.write(
                 f"""set(MV_INSTALL_DIR "{mv_install_dir}" CACHE PATH "Path where the MV core and plugins are installed")
-\n\n"""
+\n"""
             )
             bin_paths = []
             for setting in cmake_vars:
@@ -625,7 +625,7 @@ class CMakeFileBuilder:
                 else:
                     cf.write(f'set({setting[0]} {setting[1]} CACHE PATH "")\n')
 
-            if len(cmake_vars) >= 2 :
+            if len(cmake_user_vars) >= 2 :
                 print('\n')
 
             for repo in self.config.repos:
