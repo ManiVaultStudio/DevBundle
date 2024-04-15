@@ -50,7 +50,7 @@ def use(args: argparse.Namespace):
         if config is None:
             print(f"Configuration named: {args.config_name} was not found")
             return
-        config.use(args.skip_binary, args.ssh, args.mode, args.cmake, args.shallow)
+        config.use(args.skip_binary, args.ssh, args.mode, args.cmake, args.define_cmake_var, args.shallow)
 
 
 if __name__ == "__main__":
@@ -116,6 +116,18 @@ modes behaviours are are follows:
 If you prefer to use your own versions
 skip specific 3-party binaries. e.g.
 --skip_binary QT5152 --skip_binary FreeImage3180
+        """,
+    )
+    parser_use.add_argument(
+        "--define_cmake_var", "-V",
+        action="append",
+        nargs=2,
+        metavar=("VAR_NAME", "VAR_VALUE"),
+        default=[],
+        help="""
+Define a cmake variable that should be visible in all subprojects. 
+The subproject then may or may not make use of the variable, e.g.
+--define_cmake_var MV_UNITY_BUILD ON --define_cmake_var MV_USE_AVX OFF
         """,
     )
     parser_use.add_argument(
