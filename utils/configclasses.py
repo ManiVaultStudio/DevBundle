@@ -480,6 +480,7 @@ class Config:
         ssh: bool = False,
         mode: str = "clean",
         cmake: bool = False,
+        cmake_user_vars: List[str] = [],
         shallow: bool = False,
     ) -> None:
         """Switch all the repos to this configuration.
@@ -501,6 +502,8 @@ class Config:
                     May fail if there are local changes.
         cmake: bool, optional
             start the cmake gui on the build dir on completion
+        cmake_user_vars: list(str), optional
+            define cmake variables for all subprojects
         shallow: bool, optional
             do shallow (depth=1) git clones
         """
@@ -556,7 +559,8 @@ class Config:
             self.binaries.use_binary(binary)
             cmake_vars.extend(self.binaries.get_cmake_variables(binary))
         os.chdir(str(self.source_dir))
-        self.cmakebuilder.make(cmake_vars, cmake)
+
+        self.cmakebuilder.make(cmake_vars, cmake, cmake_user_vars)
 
 
 class CMakeFileBuilder:
@@ -591,16 +595,15 @@ class CMakeFileBuilder:
         cmakepath = Path(".", "CMakeLists.txt")
         cmakepath.rename(f"CMakeLists.{version_num:03}")
 
-    def make(self, cmake_vars: List[tuple], cmake: bool) -> None:
+    def make(self, cmake_vars: List[tuple], cmake: bool, cmake_user_vars: List[str]) -> None:
         self.save_numbered_cmakefile()
         print(f"Making {self.cmakelistspath}")
         with open(str(self.cmakelistspath), "a") as cf:
             cf.write("cmake_minimum_required(VERSION 3.17)\n\n")
-            cf.write(f"\nproject({self.config.name})\n")
+            cf.write(f"\nproject({self.config.name})\n\n\n")
             mv_install_dir = str(self.config.install_dir.resolve()).replace("\\", "/")
             cf.write(
-                f"""\n
-    set(MV_INSTALL_DIR "{mv_install_dir}" CACHE PATH "Path where the MV core and plugins are installed")
+                f"""set(MV_INSTALL_DIR "{mv_install_dir}" CACHE PATH "Path where the MV core and plugins are installed")
 \n\n"""
             )
             bin_paths = []
@@ -613,6 +616,17 @@ class CMakeFileBuilder:
                         cf.write(f"list(APPEND {setting[0][:-1]} {' '.join(setting[1])})\n")
                     else:
                         cf.write(f'set({setting[0]} {";".join(setting[1])} CACHE PATH "")\n')
+
+            for setting in cmake_user_vars:
+                if len(setting) != 2:
+                    continue
+                if setting[1] in ["TRUE", "FALSE", "ON", "OFF"]:
+                    cf.write(f'set({setting[0]} {setting[1]} CACHE BOOL "")\n')
+                else:
+                    cf.write(f'set({setting[0]} {setting[1]} CACHE PATH "")\n')
+
+            if len(cmake_vars) >= 2 :
+                print('\n')
 
             for repo in self.config.repos:
                 if repo.repo_local:
