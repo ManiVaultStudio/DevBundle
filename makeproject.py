@@ -119,7 +119,7 @@ skip specific 3-party binaries. e.g.
         """,
     )
     parser_use.add_argument(
-        "--define_cmake_var", "-V",
+        "--define_cmake_var", "-D",
         action="append",
         nargs=2,
         metavar=("VAR_NAME", "VAR_VALUE"),
