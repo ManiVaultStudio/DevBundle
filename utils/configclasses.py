@@ -599,7 +599,7 @@ class CMakeFileBuilder:
         self.save_numbered_cmakefile()
         print(f"Making {self.cmakelistspath}")
         with open(str(self.cmakelistspath), "a") as cf:
-            cf.write("cmake_minimum_required(VERSION 3.17)\n\n")
+            cf.write("cmake_minimum_required(VERSION 3.17)\n")
             cf.write(f"\nproject({self.config.name})\n\n")
             mv_install_dir = str(self.config.install_dir.resolve()).replace("\\", "/")
             cf.write(
@@ -607,6 +607,8 @@ class CMakeFileBuilder:
 \n"""
             )
             bin_paths = []
+
+            # cmake variables by dependencies
             for setting in cmake_vars:
                 if setting[0] is None:
                     bin_paths.append(setting[1])
@@ -617,6 +619,7 @@ class CMakeFileBuilder:
                     else:
                         cf.write(f'set({setting[0]} {";".join(setting[1])} CACHE PATH "")\n')
 
+            # cmake variables added by user with --define_cmake_var
             for setting in cmake_user_vars:
                 if len(setting) != 2:
                     continue
@@ -625,8 +628,8 @@ class CMakeFileBuilder:
                 else:
                     cf.write(f'set({setting[0]} {setting[1]} CACHE PATH "")\n')
 
-            if len(cmake_user_vars) >= 2 :
-                print('\n')
+            if len(cmake_user_vars) >= 1 :
+                cf.write('\n')
 
             for repo in self.config.repos:
                 if repo.repo_local:
@@ -644,7 +647,7 @@ class CMakeFileBuilder:
             # print(f"******** CMAKE bin paths + cmake_vars {bin_paths} {cmake_vars} ***********")
             if len(bin_paths) > 0:
                 cf.write(
-                    f"set_target_properties(MV_Application PROPERTIES VS_DEBUGGER_ENVIRONMENT \"PATH=%PATH%;{';'.join(bin_paths)}\")"
+                    f"set_target_properties(MV_Application PROPERTIES VS_DEBUGGER_ENVIRONMENT \"PATH=%PATH%;{';'.join(bin_paths)}\")\n"
                 )
             cf.write("\n")
             for repo in self.config.repos:
