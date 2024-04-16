@@ -387,14 +387,15 @@
 			"dependencies": [
 				"MV_Application",
 				"PointData",
-				"ClusterData"
+				"ClusterData",
+				"ImageData"
 			]
 		},
 		"SpidrPlugin": {
 			"dependencies": [
 				"MV_Application",
 				"PointData",
-				"ClusterData"
+				"ImageData"
 			]
 		}
 	},
