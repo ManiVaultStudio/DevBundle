@@ -17,7 +17,9 @@ If you use the prebuilt binaries the CMake will include all the necessary variab
 * Use an [alternate config file with the `--cfg_file`](#useyourownconfigfile) option
 * Use either https (default) or ssh to clone the repo 
 * Get prebuilt binaries
-* Set CMake variables (as per configuration) in the top-level CMakeLists.txt
+* Set CMake variables in the top-level CMakeLists.txt
+  * automatically added for a target as defined in the configuration
+  * manually appended by the user 
 * Set debug and release environment paths if using prebuilt binaries
 * Protect against accidental deletion of changes to a local repo. Warns:
   ```
@@ -100,11 +102,24 @@ In this example the resulting `CMakeLists.txt` will not contain the entries for 
 
 5) Use your own configuration file
 
-
 To avoid altering the default `config.json` make a copy under another name edit as required  and supply that file name using the `--cfg_file` option. For example if the file is called `my_cfg.json`:
 
 ```
 python makeproject.py use --cfg_file my_cfg.json my_bundle_name
+```
+
+6) Add cmake cache variables to the top level CMakeLists.txt 
+
+To set option that are shared by multiple tagets in a configuration, define those settings variables globally. Multiple variable definitions can be added and both boolean as well as path values are supported:
+
+```
+python makeproject.py use smalltest --define_cmake_var MV_UNITY_BUILD ON --define_cmake_var MV_USE_AVX ON
+```
+
+Is equivalent to:
+
+```
+python makeproject.py use smalltest -D MV_UNITY_BUILD ON -D MV_USE_AVX ON
 ```
 
 
