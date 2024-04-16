@@ -110,7 +110,7 @@ python makeproject.py use --cfg_file my_cfg.json my_bundle_name
 
 6) Add cmake cache variables to the top level CMakeLists.txt 
 
-To set option that are shared by multiple tagets in a configuration, define those settings variables globally. Multiple variable definitions can be added and both boolean as well as path values are supported:
+To set options that are shared by multiple targets in a configuration, define those settings variables globally. Multiple variable definitions can be added and both boolean as well as path values are supported:
 
 ```
 python makeproject.py use smalltest --define_cmake_var MV_UNITY_BUILD ON --define_cmake_var MV_USE_AVX ON
