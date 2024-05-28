@@ -167,6 +167,8 @@ class Binaries:
     provides logic to unpack the binary an return the CMake variable
     names and values.
     """
+    JfrogReadToken = "cmVmdGtuOjAxOjAwMDAwMDAwMDA6OGV4QnVZcmR0S2piU0RSWTJTbjRRQTMxYkRh"
+
 
     def __init__(self, binary_configs: dict, bin_root: Path, in_factory: bool = False):
         self.raw_config = binary_configs
@@ -208,7 +210,7 @@ class Binaries:
             url,
             stream=True,
             verify=pemPath,
-            auth=("hdpsreader", "4ead0nlyAccess"),
+            headers={"X-Jfrog-Art-Api":f"{Binaries.JfrogReadToken}"}
         ) as req:
             req.raise_for_status()
             with open(f"{local_name}", mode="wb") as tarf:
