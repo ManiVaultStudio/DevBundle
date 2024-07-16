@@ -58,12 +58,12 @@ The configuration contains 4 predefined bundles:
 2) Use the `smalltest` **with https authentication**
    ```
     > python makeproject.py use smalltest
-    Cloning from: https://github.com/hdps/core
+    Cloning from: https://github.com/ManiVaultStudio/core
     ...
-    Cloning from: https://github.com/hdps/CsvLoader
+    Cloning from: https://github.com/ManiVaultStudio/CsvLoader
     ...
-    Downloading QT5152
-    Downloaded: D:\Projects\DevBundle\binaries\QT5152.tgz
+    Downloading QT632
+    Downloaded: D:\Projects\DevBundle\binaries\QT632.tgz
     Making CMakeLists.txt
     ```
 
@@ -81,19 +81,19 @@ The configuration contains 4 predefined bundles:
 
    ```
    > python makeproject.py use smalltest --ssh
-   Cloning from: git@github.com:hdps/core.git
+   Cloning from: git@github.com:ManiVaultStudio/core.git
    ...
-   Cloning from: git@github.com:hdps/CsvLoader.git
+   Cloning from: git@github.com:ManiVaultStudio/CsvLoader.git
    ...
-   Downloading QT5152
-   Downloaded: D:\Projects\DevBundle\binaries\QT5152.tgz
+   Downloading QT632
+   Downloaded: D:\Projects\DevBundle\binaries\QT632.tgz
    Making CMakeLists.txt
    ```
 
 4) Skip specific binaries 
 
 ```
-> python makeproject.py use smalltest --skip_binary QT5152
+> python makeproject.py use smalltest --skip_binary QT632
 ```
 
 In this example the resulting `CMakeLists.txt` will not contain the entries for Qt. You may wish to do this to speed up the install process and if you have a pre-installed version of the binary in question. You will have to manually set the required CMake variables if you do this. To see what the required CMake variables are see the details of the binary your are skipping in the `config.json` file
@@ -125,14 +125,14 @@ python makeproject.py use smalltest -D MV_UNITY_BUILD ON -D MV_USE_AVX ON
 
 ### Understanding the `config.json` file
 
-The `config.json` provided contains a working example of all HDPS plugins (a `build_config`) together with the core on the main branch called `allmaster`. There are in addition a number of other configurations for illustration or testing.
+The `config.json` provided contains a working example of all ManiVault plugins (a `build_config`) together with the core on the main branch called `allmaster`. There are in addition a number of other configurations for illustration or testing.
 
 `config.json` contains three major sections: `build_bundles`, `repo_info` and `prebuilt_binaries`. 
 
 
 #### 1.  `build_bundles`
 
-&nbsp;&nbsp;&nbsp;&nbsp; A `build_bundle` defines a set of HDPS `core` plus plugins to be used in the bundle project. It defines a `name` which should be a meaningful string, a `build_dir` which will contain the `source`, `build` and `install` 
+&nbsp;&nbsp;&nbsp;&nbsp; A `build_bundle` defines a set of ManiVault `core` plus plugins to be used in the bundle project. It defines a `name` which should be a meaningful string, a `build_dir` which will contain the `source`, `build` and `install` 
 directories and a list of `hdps_repos` used in the bundle project.
 
 &nbsp;&nbsp;&nbsp;&nbsp; `build_dir` will be created relative to the path where the `makeproject.py` script is run.
@@ -163,9 +163,9 @@ A `build_bundle` contains a list of `hdps_repos`. Each repo is usually defined u
 
 #### 2. `repo_info`
 
-&nbsp;&nbsp;&nbsp;&nbsp;`repo_info` is a central list of all HDPS repos describing subprojects, if any, that are defined in the repo and their project dependencies and binary dependencies. This is essential for creating a top-level CMakeLists.txt with the correct build order dependencies.
+&nbsp;&nbsp;&nbsp;&nbsp;`repo_info` is a central list of all ManiVault repos describing subprojects, if any, that are defined in the repo and their project dependencies and binary dependencies. This is essential for creating a top-level CMakeLists.txt with the correct build order dependencies.
 
-&nbsp;&nbsp;&nbsp;&nbsp; This section shall be maintained to reflect the current status of the HDPS projects. (Note: at the moment there is no provision for different dependencies between main and branches - as a workaround a copy of this file can be created.)
+&nbsp;&nbsp;&nbsp;&nbsp; This section shall be maintained to reflect the current status of the ManiVault projects. (Note: at the moment there is no provision for different dependencies between main and branches - as a workaround a copy of this file can be created.)
 
 &nbsp;&nbsp;&nbsp;&nbsp; These dependencies only need to be listed once for each repo that will be using in the `build_bundles`.
 
@@ -284,11 +284,11 @@ OpenMP_ROOT  /usr/local/opt/libomp
 
 ## Notes
 
-If you don't use the prebuilt binaries for HDPS you will need to manually add one or more of the following definitions (depending on your bundle) in the CMake GUI:
+If you don't use the prebuilt binaries for ManiVault you will need to manually add one or more of the following definitions (depending on your bundle) in the CMake GUI:
 
-* HDPS_INSTALL_DIR - for HDPS (environment variable)
-* QT_DIR - for HDPS (lib/cmake/Qt6)
-* Qt6_DIR - for HDPS (lib/cmake/Qt6)
+* MV_INSTALL_DIR - for ManiVault (environment variable)
+* QT_DIR - for ManiVault (lib/cmake/Qt6)
+* Qt6_DIR - for ManiVault (lib/cmake/Qt6)
 * FREEIMAGE_ROOT_DIR for ImageLoader (directory including lib, bin and include dirs)
 * VTK_DIR - for VolumeViewer (lib/cmake/vtk-9.1)
 ## An example of using the DevBundle - makeproject
@@ -304,14 +304,14 @@ List the details of main
 name: main
 build dir: main
 hdps_repos:
-        repo: https://github.com/hdps/core,     project_name: core      branch: master
-        repo: https://github.com/hdps/CsvLoader,        project_name: CsvLoader branch: master
+        repo: https://github.com/ManiVaultStudio/core,     project_name: core      branch: master
+        repo: https://github.com/ManiVaultStudio/CsvLoader,        project_name: CsvLoader branch: master
                 project: CsvLoader, dependencies: HDPS PointData
-        repo: https://github.com/hdps/ImageLoaderPlugin,        project_name: ImageLoaderPlugin branch: master
+        repo: https://github.com/ManiVaultStudio/ImageLoaderPlugin,        project_name: ImageLoaderPlugin branch: master
                 project: ImageLoaderPlugin, dependencies: HDPS
-        repo: https://github.com/hdps/ImageViewerPlugin,        project_name: ImageViewerPlugin branch: master
+        repo: https://github.com/ManiVaultStudio/ImageViewerPlugin,        project_name: ImageViewerPlugin branch: master
                 project: ImageViewerPlugin, dependencies: HDPS ImageData
-        repo: https://github.com/hdps/t-SNE-Analysis,   project_name: t-SNE-Analysis    branch: master
+        repo: https://github.com/ManiVaultStudio/t-SNE-Analysis,   project_name: t-SNE-Analysis    branch: master
                 project: TsneAnalysisPlugin, dependencies: HDPS ImageData PointData
                 project: HsneAnalysisPlugin, dependencies: HDPS ImageData PointData
 ```
