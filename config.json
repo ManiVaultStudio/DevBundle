@@ -182,8 +182,7 @@
 	"repo_info": {
 		"core": {
 			"binaries": [
-				"QT632",
-				"ZLib1211"
+				"QT632"
 			]
 		},
 		"CsvLoader": {
@@ -527,6 +526,5 @@
 			},
 			"bin_path": "+bin"
 		}
-
 	}
 }
