@@ -96,7 +96,7 @@
 				},
 				{
 					"repo": "UMAP-Plugin",
-					"branch": "master"
+					"branch": "main"
 				},
 				{
 					"repo": "PointDataConversionPlugin",
