@@ -95,7 +95,7 @@
 					"branch": "master"
 				},
 				{
-					"repo": "SimianViewerPlugin",
+					"repo": "UMAP-Plugin",
 					"branch": "master"
 				},
 				{
@@ -354,11 +354,10 @@
 				"PointData"
 			]
 		},
-		"SimianViewerPlugin": {
+		"UMAP-Plugin": {
 			"dependencies": [
 				"MV_Application",
-				"PointData",
-				"ClusterData"
+				"PointData"
 			]
 		},
 		"MeanShiftClustering": {
