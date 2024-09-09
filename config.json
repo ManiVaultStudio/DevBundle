@@ -438,7 +438,7 @@
 		"QT632": {
 			"binaries": {
 				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/022b1d420cc8a03b01f26057630738d5676470ad/0/conan_package.tgz",
-				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/43a4c9a95b4f02bb5b29de34f96a99f568edd09b/0/conan_package.tgz",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/8bf8ed10535def5fcf11955bf551831218a50c62/0/conan_package.tgz",
 				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/8ea18de570e4abee8dca8574226a20bbb7baf1d8/0/conan_package.tgz"
 			},
 			"cmake_variables": {
