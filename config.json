@@ -112,6 +112,44 @@
 				}
 			]
 		},
+        {
+			"name": "common",
+			"build_dir": "common",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+                {
+					"repo": "ExamplePlugins",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "master"
+				},
+                {
+					"repo": "CsvWriter",
+					"branch": "main"
+				},
+                {
+					"repo": "BinIO",
+					"branch": "master"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "master"
+				}
+			]
+		},
 		{
 			"name": "smallmain",
 			"build_dir": "smallmain",
