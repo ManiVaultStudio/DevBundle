@@ -271,20 +271,8 @@ class HdpsRepo:
             self.repo_local = repo_config["local"]
 
         self.repo_name = repo_config["repo"]
-        self.project_dependencies = {}
         self.__binaries = []
         if self.repo_name in repo_info:
-            # Sometimes the project is a single entity with dependencies
-            if "dependencies" in repo_info[self.repo_name]:
-                self.project_dependencies[self.repo_name] = repo_info[self.repo_name][
-                    "dependencies"
-                ]
-            # Sometimes it comprises named sub-projects each with dependencies
-            if "sub_project_dependencies" in repo_info[self.repo_name]:
-                for project in repo_info[self.repo_name]["sub_project_dependencies"]:
-                    self.project_dependencies[project] = repo_info[self.repo_name][
-                        "sub_project_dependencies"
-                    ][project]
 
             if "binaries" in repo_info[self.repo_name]:
                 self.__binaries = repo_info[self.repo_name]["binaries"]
@@ -304,11 +292,6 @@ class HdpsRepo:
             The readable string
         """
         res_str = f"repo: {self.repo_url},\n\t\tbranch: {self.branch}"
-        if len(self.project_dependencies) > 0:
-            for project in self.project_dependencies:
-                res_str += f"\n\t\tproject: {project}\tdependencies: {' '.join(self.project_dependencies[project])}"
-        # else:
-        #    print(f"\n\t\tproject_name: {self.repo_name}")
         if len(self.__binaries) > 0:
             res_str += f"\n\t\tbinaries: {' '.join(self.__binaries)}"
         return res_str
@@ -652,11 +635,7 @@ class CMakeFileBuilder:
                     f"set_target_properties(MV_Application PROPERTIES VS_DEBUGGER_ENVIRONMENT \"PATH=%PATH%;{';'.join(bin_paths)}\")\n"
                 )
             cf.write("\n")
-            for repo in self.config.repos:
-                for project in repo.project_dependencies:
-                    cf.write(
-                        f"add_dependencies({project} {' '.join(repo.project_dependencies[project])})\n"
-                    )
+
         if cmake:
             print(
                 f"Starting Cmake GUI source {self.config.source_dir} build {self.config.solution_dir}"
