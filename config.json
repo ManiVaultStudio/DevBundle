@@ -19,6 +19,20 @@
 			]
 		},
 		{
+			"name": "image_transformations",
+			"build_dir": "image_transformations",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageTransformationsPlugin",
+					"branch": "main"
+				}
+			]
+		},
+		{
 			"name": "allmain",
 			"build_dir": "allmain",
 			"hdps_repos": [
@@ -231,6 +245,11 @@
 		"VolumeViewerPlugin": {
 			"binaries": [
 				"VTK910QT6"
+			]
+		},
+		"ImageTransformationsPlugin": {
+			"binaries": [
+				"ITK530"
 			]
 		}
 	},
