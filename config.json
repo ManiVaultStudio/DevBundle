@@ -19,16 +19,24 @@
 			]
 		},
 		{
-			"name": "image_transformations",
-			"build_dir": "image_transformations",
+			"name": "image_transformation",
+			"build_dir": "image_transformation",
 			"hdps_repos": [
 				{
 					"repo": "core",
 					"branch": "master"
 				},
 				{
-					"repo": "ImageTransformationsPlugin",
+					"repo": "ImageTransformationPlugin",
 					"branch": "main"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "master"
 				}
 			]
 		},
@@ -55,6 +63,10 @@
 				{
 					"repo": "ImageViewerPlugin",
 					"branch": "master"
+				},
+				{
+					"repo": "ImageTransformationPlugin",
+					"branch": "main"
 				},
 				{
 					"repo": "t-SNE-Analysis",
@@ -245,11 +257,6 @@
 		"VolumeViewerPlugin": {
 			"binaries": [
 				"VTK910QT6"
-			]
-		},
-		"ImageTransformationsPlugin": {
-			"binaries": [
-				"ITK530"
 			]
 		}
 	},
