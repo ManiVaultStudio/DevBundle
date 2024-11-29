@@ -223,11 +223,6 @@
 				"QT632"
 			]
 		},
-		"ImageLoaderPlugin": {
-			"binaries": [
-				"FreeImage3180"
-			]
-		},
 		"VolumeViewerPlugin": {
 			"binaries": [
 				"VTK910QT6"
