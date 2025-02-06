@@ -567,9 +567,9 @@ class CMakeFileBuilder:
         # and get a sorted list of the cersion numbers
         versions = sorted(
             [
-                int(re.match("\.(\d{3})", x.suffix).group(1))
+                int(re.match(r"\.(\d{3})", x.suffix).group(1))
                 for x in files
-                if re.match("\.\d{3}", x.suffix) is not None
+                if re.match(r"\.\d{3}", x.suffix) is not None
             ]
         )
         # Create the next version number
