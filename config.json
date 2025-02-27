@@ -423,34 +423,34 @@
 				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.2/stable/0/package/7355a0955c554f3298c6c068db503e6480992d76/0/conan_package.tgz"
 			},
 			"cmake_variables": {
-				"CMAKE_PREFIX_PATH": "+6.8.2/msvc2019_64",
-				"Qt6_DIR": "+6.8.2/msvc2019_64/lib/cmake/Qt6",
-				"QT_DIR": "+6.8.2/msvc2019_64/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.8.2/msvc2019_64/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.8.2/msvc2019_64/lib/cmake",
+				"CMAKE_PREFIX_PATH": "",
+				"Qt6_DIR": "+lib/cmake/Qt6",
+				"QT_DIR": "+lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+lib/cmake",
 				"QT_MAJOR_VERSION": "6"
 			},
 			"cmake_variables_Linux": {
-				"CMAKE_PREFIX_PATH": "+6.8.2/gcc_64",
-				"Qt6_DIR": "+6.8.2/gcc_64/lib/cmake/Qt6",
-				"QT_DIR": "+6.8.2/gcc_64/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.8.2/gcc_64/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.8.2/gcc_64/lib/cmake",
+				"CMAKE_PREFIX_PATH": "",
+				"Qt6_DIR": "+lib/cmake/Qt6",
+				"QT_DIR": "+lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+lib/cmake",
 				"QT_MAJOR_VERSION": "6",
 				"OpenGL_GL_PREFERENCE": "GLVND"
 			},
 			"cmake_variables_Macos": {
-				"CMAKE_PREFIX_PATH": "+6.8.2/macos",
-				"Qt6_DIR": "+6.8.2/macos/lib/cmake/Qt6",
-				"QT_DIR": "+6.8.2/macos/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.8.2/macos/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.8.2/macos/lib/cmake",
+				"CMAKE_PREFIX_PATH": "",
+				"Qt6_DIR": "+lib/cmake/Qt6",
+				"QT_DIR": "+lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+lib/cmake",
 				"QT_MAJOR_VERSION": "6",
 				"OpenGL_GL_PREFERENCE": "GLVND"
 			},
-			"bin_path": "+6.8.2/msvc2019_64/bin",
-			"bin_path_Linux": "+6.8.2/gcc_64/bin",
-			"bin_path_Macos": "+6.8.2/macos/bin"
+			"bin_path": "+bin",
+			"bin_path_Linux": "+bin",
+			"bin_path_Macos": "+bin"
 		},
 		"VTK910QT5": {
 			"binaries": {
