@@ -19,6 +19,26 @@
 			]
 		},
 		{
+			"name": "theming",
+			"build_dir": "theming",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/upgrade_theming"
+				}
+			]
+		},
+		{
+			"name": "sentry",
+			"build_dir": "sentry",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/sentry_integration"
+				}
+			]
+		},
+		{
 			"name": "allmain",
 			"build_dir": "allmain",
 			"hdps_repos": [
@@ -109,6 +129,100 @@
 				{
 					"repo": "SpectralViewPlugin",
 					"branch": "main"
+				}
+			]
+		},
+		{
+			"name": "allmaintheming",
+			"build_dir": "allmaintheming",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "CsvWriter",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "ENVILoader",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "VolumeLoaderPlugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "HeatMap",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "VolumeViewerPlugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "ParallelCoordinatesPlugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "ExamplePlugins",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "MeanShiftClustering",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "UMAP-Plugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "PointDataConversionPlugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "PcaPlugin",
+					"branch": "feature/upgrade_theming"
+				},
+				{
+					"repo": "SpectralViewPlugin",
+					"branch": "feature/upgrade_theming"
 				}
 			]
 		},
@@ -220,7 +334,7 @@
 	"repo_info": {
 		"core": {
 			"binaries": [
-				"QT632"
+				"QT682"
 			]
 		},
 		"VolumeViewerPlugin": {
@@ -265,6 +379,78 @@
 			"bin_path": "+6.3.2/msvc2019_64/bin",
 			"bin_path_Linux": "+6.3.2/gcc_64/bin",
 			"bin_path_Macos": "+6.3.2/macos/bin"
+		},
+		"QT673": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.7.3/stable/0/package/497c3f45b36908301ccc018a7b5ac5bc3c60bce9/0/conan_package.tgz",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.7.3/stable/0/package/8026916414419107cc843fa843f86968674f6e97/0/conan_package.tgz",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.7.3/stable/0/package/7355a0955c554f3298c6c068db503e6480992d76/0/conan_package.tgz"
+			},
+			"cmake_variables": {
+				"CMAKE_PREFIX_PATH": "+6.7.3/msvc2019_64",
+				"Qt6_DIR": "+6.7.3/msvc2019_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.7.3/msvc2019_64/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.7.3/msvc2019_64/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.7.3/msvc2019_64/lib/cmake",
+				"QT_MAJOR_VERSION": "6"
+			},
+			"cmake_variables_Linux": {
+				"CMAKE_PREFIX_PATH": "+6.7.3/gcc_64",
+				"Qt6_DIR": "+6.7.3/gcc_64/lib/cmake/Qt6",
+				"QT_DIR": "+6.7.3/gcc_64/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.7.3/gcc_64/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.7.3/gcc_64/lib/cmake",
+				"QT_MAJOR_VERSION": "6",
+				"OpenGL_GL_PREFERENCE": "GLVND"
+			},
+			"cmake_variables_Macos": {
+				"CMAKE_PREFIX_PATH": "+6.7.3/macos",
+				"Qt6_DIR": "+6.7.3/macos/lib/cmake/Qt6",
+				"QT_DIR": "+6.7.3/macos/lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.7.3/macos/lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.7.3/macos/lib/cmake",
+				"QT_MAJOR_VERSION": "6",
+				"OpenGL_GL_PREFERENCE": "GLVND"
+			},
+			"bin_path": "+6.7.3/msvc2019_64/bin",
+			"bin_path_Linux": "+6.7.3/gcc_64/bin",
+			"bin_path_Macos": "+6.7.3/macos/bin"
+		},
+		"QT682": {
+			"binaries": {
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.2/stable/0/package/497c3f45b36908301ccc018a7b5ac5bc3c60bce9/0/conan_package.tgz",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.2/stable/0/package/8026916414419107cc843fa843f86968674f6e97/0/conan_package.tgz",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.2/stable/0/package/7355a0955c554f3298c6c068db503e6480992d76/0/conan_package.tgz"
+			},
+			"cmake_variables": {
+				"CMAKE_PREFIX_PATH": "",
+				"Qt6_DIR": "+lib/cmake/Qt6",
+				"QT_DIR": "+lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+lib/cmake",
+				"QT_MAJOR_VERSION": "6"
+			},
+			"cmake_variables_Linux": {
+				"CMAKE_PREFIX_PATH": "",
+				"Qt6_DIR": "+lib/cmake/Qt6",
+				"QT_DIR": "+lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+lib/cmake",
+				"QT_MAJOR_VERSION": "6",
+				"OpenGL_GL_PREFERENCE": "GLVND"
+			},
+			"cmake_variables_Macos": {
+				"CMAKE_PREFIX_PATH": "",
+				"Qt6_DIR": "+lib/cmake/Qt6",
+				"QT_DIR": "+lib/cmake/Qt6",
+				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+lib/cmake",
+				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+lib/cmake",
+				"QT_MAJOR_VERSION": "6",
+				"OpenGL_GL_PREFERENCE": "GLVND"
+			},
+			"bin_path": "+bin",
+			"bin_path_Linux": "+bin",
+			"bin_path_Macos": "+bin"
 		},
 		"VTK910QT5": {
 			"binaries": {
