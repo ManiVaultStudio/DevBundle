@@ -380,21 +380,11 @@
 			"bin_path_Linux": "+bin",
 			"bin_path_Macos": "+bin"
 		},
-		"VTK910QT5": {
-			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/280db47f62d23506cc4b2da3822ee607b1ead65d/0/conan_package.tgz",
-				"Macos": "T.B.D"
-			},
-			"cmake_variables": {
-				"VTK_DIR": "+lib/cmake/vtk-9.1"
-			},
-			"bin_path": "+bin"
-		},
 		"VTK910QT6": {
 			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/8b2121bd73ec3e8f80c9704861a0203cbadfd319/0/conan_package.tgz",
-				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/c88ffc86f59b215b854c8a01de920476f8357628/0/conan_package.tgz",
-				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/cf22046e502198619fed081b5a868a4e3d726274/0/conan_package.tgz"
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.4.1/stable/0/package/d37511870cb35109f6747f55cc5dbf7faffd291d/0/conan_package.tgz",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.4.1/stable/0/package/f6cd64db2f40bc243226a59feec9ac98673d9a36/0/conan_package.tgz",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.4.1/stable/0/package/543080919e58f0d9bffa6c1f2d711400eb27d37b/0/conan_package.tgz"
 			},
 			"cmake_variables": {
 				"VTK_DIR": "+lib/cmake/vtk-9.1"
