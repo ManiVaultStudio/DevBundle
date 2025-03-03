@@ -472,17 +472,6 @@
 				"VTK_DIR": "+lib/cmake/vtk-9.1"
 			},
 			"bin_path": "+bin"
-		},
-		"FreeImage3180": {
-			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/4a5c0a134220be2f83450e0d12175db326cb51a4/0/conan_package.tgz",
-				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/3f6006ec35dc9206aa8a0bee8aa58ea336e58360/0/conan_package.tgz",
-				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/8e5b2c115f14eb4b539dce0f601671268f7aebdb/0/conan_package.tgz"
-			},
-			"cmake_variables": {
-				"FREEIMAGE_ROOT_DIR": "+"
-			},
-			"bin_path": "+bin"
 		}
 	}
 }
