@@ -258,78 +258,6 @@
 		}
 	},
 	"prebuilt_binaries": {
-		"QT632": {
-			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/702320e9581c4b647628625f3475cef741a3b4dc/0/conan_package.tgz",
-				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/b708ec4b3cd5afe713245ff04b22e32e91f8c6f1/0/conan_package.tgz",
-				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.3.2/stable/0/package/8fcc6d48bf557c35c237172b953fccb5d6cc5eb6/0/conan_package.tgz"
-			},
-			"cmake_variables": {
-				"CMAKE_PREFIX_PATH": "+6.3.2/msvc2019_64",
-				"Qt6_DIR": "+6.3.2/msvc2019_64/lib/cmake/Qt6",
-				"QT_DIR": "+6.3.2/msvc2019_64/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.2/msvc2019_64/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.2/msvc2019_64/lib/cmake",
-				"QT_MAJOR_VERSION": "6"
-			},
-			"cmake_variables_Linux": {
-				"CMAKE_PREFIX_PATH": "+6.3.2/gcc_64",
-				"Qt6_DIR": "+6.3.2/gcc_64/lib/cmake/Qt6",
-				"QT_DIR": "+6.3.2/gcc_64/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.2/gcc_64/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.2/gcc_64/lib/cmake",
-				"QT_MAJOR_VERSION": "6",
-				"OpenGL_GL_PREFERENCE": "GLVND"
-			},
-			"cmake_variables_Macos": {
-				"CMAKE_PREFIX_PATH": "+6.3.2/macos",
-				"Qt6_DIR": "+6.3.2/macos/lib/cmake/Qt6",
-				"QT_DIR": "+6.3.2/macos/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.3.2/macos/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.3.2/macos/lib/cmake",
-				"QT_MAJOR_VERSION": "6",
-				"OpenGL_GL_PREFERENCE": "GLVND"
-			},
-			"bin_path": "+6.3.2/msvc2019_64/bin",
-			"bin_path_Linux": "+6.3.2/gcc_64/bin",
-			"bin_path_Macos": "+6.3.2/macos/bin"
-		},
-		"QT673": {
-			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.7.3/stable/0/package/497c3f45b36908301ccc018a7b5ac5bc3c60bce9/0/conan_package.tgz",
-				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.7.3/stable/0/package/8026916414419107cc843fa843f86968674f6e97/0/conan_package.tgz",
-				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.7.3/stable/0/package/7355a0955c554f3298c6c068db503e6480992d76/0/conan_package.tgz"
-			},
-			"cmake_variables": {
-				"CMAKE_PREFIX_PATH": "+6.7.3/msvc2019_64",
-				"Qt6_DIR": "+6.7.3/msvc2019_64/lib/cmake/Qt6",
-				"QT_DIR": "+6.7.3/msvc2019_64/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.7.3/msvc2019_64/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.7.3/msvc2019_64/lib/cmake",
-				"QT_MAJOR_VERSION": "6"
-			},
-			"cmake_variables_Linux": {
-				"CMAKE_PREFIX_PATH": "+6.7.3/gcc_64",
-				"Qt6_DIR": "+6.7.3/gcc_64/lib/cmake/Qt6",
-				"QT_DIR": "+6.7.3/gcc_64/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.7.3/gcc_64/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.7.3/gcc_64/lib/cmake",
-				"QT_MAJOR_VERSION": "6",
-				"OpenGL_GL_PREFERENCE": "GLVND"
-			},
-			"cmake_variables_Macos": {
-				"CMAKE_PREFIX_PATH": "+6.7.3/macos",
-				"Qt6_DIR": "+6.7.3/macos/lib/cmake/Qt6",
-				"QT_DIR": "+6.7.3/macos/lib/cmake/Qt6",
-				"QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH": "+6.7.3/macos/lib/cmake",
-				"QT_ADDITIONAL_PACKAGES_PREFIX_PATH": "+6.7.3/macos/lib/cmake",
-				"QT_MAJOR_VERSION": "6",
-				"OpenGL_GL_PREFERENCE": "GLVND"
-			},
-			"bin_path": "+6.7.3/msvc2019_64/bin",
-			"bin_path_Linux": "+6.7.3/gcc_64/bin",
-			"bin_path_Macos": "+6.7.3/macos/bin"
-		},
 		"QT682": {
 			"binaries": {
 				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.2/stable/0/package/497c3f45b36908301ccc018a7b5ac5bc3c60bce9/0/conan_package.tgz",
@@ -366,35 +294,14 @@
 			"bin_path_Linux": "+bin",
 			"bin_path_Macos": "+bin"
 		},
-		"VTK910QT5": {
-			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/280db47f62d23506cc4b2da3822ee607b1ead65d/0/conan_package.tgz",
-				"Macos": "T.B.D"
-			},
-			"cmake_variables": {
-				"VTK_DIR": "+lib/cmake/vtk-9.1"
-			},
-			"bin_path": "+bin"
-		},
 		"VTK910QT6": {
 			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/8b2121bd73ec3e8f80c9704861a0203cbadfd319/0/conan_package.tgz",
-				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/c88ffc86f59b215b854c8a01de920476f8357628/0/conan_package.tgz",
-				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.1.0/stable/0/package/cf22046e502198619fed081b5a868a4e3d726274/0/conan_package.tgz"
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.4.1/stable/0/package/d37511870cb35109f6747f55cc5dbf7faffd291d/0/conan_package.tgz",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.4.1/stable/0/package/f6cd64db2f40bc243226a59feec9ac98673d9a36/0/conan_package.tgz",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.4.1/stable/0/package/543080919e58f0d9bffa6c1f2d711400eb27d37b/0/conan_package.tgz"
 			},
 			"cmake_variables": {
 				"VTK_DIR": "+lib/cmake/vtk-9.1"
-			},
-			"bin_path": "+bin"
-		},
-		"FreeImage3180": {
-			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/4a5c0a134220be2f83450e0d12175db326cb51a4/0/conan_package.tgz",
-				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/3f6006ec35dc9206aa8a0bee8aa58ea336e58360/0/conan_package.tgz",
-				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/freeimage/3.18.0/stable/0/package/8e5b2c115f14eb4b539dce0f601671268f7aebdb/0/conan_package.tgz"
-			},
-			"cmake_variables": {
-				"FREEIMAGE_ROOT_DIR": "+"
 			},
 			"bin_path": "+bin"
 		}
