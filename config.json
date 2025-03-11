@@ -19,16 +19,6 @@
 			]
 		},
 		{
-			"name": "theming",
-			"build_dir": "theming",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "feature/upgrade_theming"
-				}
-			]
-		},
-		{
 			"name": "sentry",
 			"build_dir": "sentry",
 			"hdps_repos": [
@@ -129,100 +119,6 @@
 				{
 					"repo": "SpectralViewPlugin",
 					"branch": "main"
-				}
-			]
-		},
-		{
-			"name": "allmaintheming",
-			"build_dir": "allmaintheming",
-			"hdps_repos": [
-				{
-					"repo": "core",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "CsvLoader",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "CsvWriter",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "ImageLoaderPlugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "ImageViewerPlugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "t-SNE-Analysis",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "ENVILoader",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "VolumeLoaderPlugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "HeatMap",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "DimensionsViewerPlugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "Scatterplot",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "VolumeViewerPlugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "ClustersFromPointsPlugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "ParallelCoordinatesPlugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "BinIO",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "ExamplePlugins",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "HDF5Loader",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "MeanShiftClustering",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "UMAP-Plugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "PointDataConversionPlugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "PcaPlugin",
-					"branch": "feature/upgrade_theming"
-				},
-				{
-					"repo": "SpectralViewPlugin",
-					"branch": "feature/upgrade_theming"
 				}
 			]
 		},
@@ -327,6 +223,24 @@
 				{
 					"repo": "CsvLoader",
 					"branch": "master"
+				}
+			]
+		},
+		{
+			"name": "fixscatterplot",
+			"build_dir": "fixscatterplot",
+			"hdps_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "feature/fix_entire_view"
 				}
 			]
 		}
