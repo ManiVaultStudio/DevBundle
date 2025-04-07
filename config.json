@@ -253,7 +253,7 @@
 		},
 		"VolumeViewerPlugin": {
 			"binaries": [
-				"VTK910QT6"
+				"VTK941QT6"
 			]
 		}
 	},
@@ -294,7 +294,7 @@
 			"bin_path_Linux": "+bin",
 			"bin_path_Macos": "+bin"
 		},
-		"VTK910QT6": {
+		"VTK941QT6": {
 			"binaries": {
 				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.4.1/stable/0/package/d37511870cb35109f6747f55cc5dbf7faffd291d/0/conan_package.tgz",
 				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/vtk/9.4.1/stable/0/package/f6cd64db2f40bc243226a59feec9ac98673d9a36/0/conan_package.tgz",
