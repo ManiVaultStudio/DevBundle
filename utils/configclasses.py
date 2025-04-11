@@ -584,7 +584,7 @@ class CMakeFileBuilder:
         self.save_numbered_cmakefile()
         print(f"Making {self.cmakelistspath}")
         with open(str(self.cmakelistspath), "a") as cf:
-            cf.write("cmake_minimum_required(VERSION 3.17)\n")
+            cf.write("cmake_minimum_required(VERSION 3.22)\n")
             cf.write(f"\nproject({self.config.name})\n\n")
             mv_install_dir = str(self.config.install_dir.resolve()).replace("\\", "/")
             cf.write(
