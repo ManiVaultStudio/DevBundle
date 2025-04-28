@@ -248,7 +248,7 @@
 	"repo_info": {
 		"core": {
 			"binaries": [
-				"QT682"
+				"QT683"
 			]
 		},
 		"VolumeViewerPlugin": {
@@ -258,11 +258,11 @@
 		}
 	},
 	"prebuilt_binaries": {
-		"QT682": {
+		"QT683": {
 			"binaries": {
-				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.2/stable/0/package/497c3f45b36908301ccc018a7b5ac5bc3c60bce9/0/conan_package.tgz",
-				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.2/stable/0/package/8026916414419107cc843fa843f86968674f6e97/0/conan_package.tgz",
-				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.2/stable/0/package/7355a0955c554f3298c6c068db503e6480992d76/0/conan_package.tgz"
+				"Windows": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.3/stable/0/package/497c3f45b36908301ccc018a7b5ac5bc3c60bce9/0/conan_package.tgz",
+				"Macos": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.3/stable/0/package/8026916414419107cc843fa843f86968674f6e97/0/conan_package.tgz",
+				"Linux": "https://lkeb-artifactory.lumc.nl:443/artifactory/conan-local/lkeb/qt/6.8.3/stable/0/package/7355a0955c554f3298c6c068db503e6480992d76/0/conan_package.tgz"
 			},
 			"cmake_variables": {
 				"CMAKE_PREFIX_PATH": "",
