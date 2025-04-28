@@ -1,10 +1,10 @@
 ## What is DevBundle - makeproject?
 
-This project allows you create one or more development bundles of HDPS 
+This project allows you create one or more development bundles of ManiVault 
 repositories to facilitate project development. It clones the repos and 
 generates a CMakeLists.txt file that can be used to COnfigure, Generate, Open Project.
 
-If you use the prebuilt binaries the CMake will include all the necessary variables for
+If you use the prebuilt binaries the CMake will include all the necessary variables.
 
 
 ## Functionality 
@@ -62,8 +62,8 @@ The configuration contains 4 predefined bundles:
     ...
     Cloning from: https://github.com/ManiVaultStudio/CsvLoader
     ...
-    Downloading QT632
-    Downloaded: D:\Projects\DevBundle\binaries\QT632.tgz
+    Downloading QT683
+    Downloaded: D:\Projects\DevBundle\binaries\QT683.tgz
     Making CMakeLists.txt
     ```
 
@@ -85,15 +85,15 @@ The configuration contains 4 predefined bundles:
    ...
    Cloning from: git@github.com:ManiVaultStudio/CsvLoader.git
    ...
-   Downloading QT632
-   Downloaded: D:\Projects\DevBundle\binaries\QT632.tgz
+   Downloading QT683
+   Downloaded: D:\Projects\DevBundle\binaries\QT683.tgz
    Making CMakeLists.txt
    ```
 
 4) Skip specific binaries 
 
 ```
-> python makeproject.py use smalltest --skip_binary QT632
+> python makeproject.py use smalltest --skip_binary QT683
 ```
 
 In this example the resulting `CMakeLists.txt` will not contain the entries for Qt. You may wish to do this to speed up the install process and if you have a pre-installed version of the binary in question. You will have to manually set the required CMake variables if you do this. To see what the required CMake variables are see the details of the binary your are skipping in the `config.json` file
