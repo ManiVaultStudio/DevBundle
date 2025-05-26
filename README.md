@@ -90,7 +90,15 @@ The configuration contains 4 predefined bundles:
    Making CMakeLists.txt
    ```
 
-4) Skip specific binaries 
+4) Auto start the CMake gui
+
+If the CMake gui (cmake-gui) is on your PATH then adding `--cmake` to the command will automatically start the CMake gui
+
+```
+> python makeproject.py use smalltest --cmake
+```
+
+5) Skip specific binaries 
 
 ```
 > python makeproject.py use smalltest --skip_binary QT683
@@ -100,7 +108,7 @@ In this example the resulting `CMakeLists.txt` will not contain the entries for 
 
 <div id="useyourownconfigfile"/>
 
-5) Use your own configuration file
+6) Use your own configuration file
 
 To avoid altering the default `config.json` make a copy under another name edit as required  and supply that file name using the `--cfg_file` option. For example if the file is called `my_cfg.json`:
 
@@ -108,7 +116,7 @@ To avoid altering the default `config.json` make a copy under another name edit 
 python makeproject.py use --cfg_file my_cfg.json my_bundle_name
 ```
 
-6) Add cmake cache variables to the top level CMakeLists.txt 
+7) Add cmake cache variables to the top level CMakeLists.txt 
 
 To set options that are shared by multiple targets in a configuration, define those settings variables globally. Multiple variable definitions can be added and both boolean as well as path values are supported:
 
