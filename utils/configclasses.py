@@ -414,9 +414,7 @@ class Config:
         self.install_dir = Path(self.build_dir, "install")
         self.solution_dir = Path(self.build_dir, "build")
         self.bin_root = Path(Path(__file__).parents[1], "binaries")
-        self.branch = build_config.get("branch", None)
         self.repos = []
-        self.branch = build_config.get("branch", None)
         for repo_config in build_config["hdps_repos"]:
             repo = HdpsRepo(repo_config, common_dependencies)
             if repo.enabled:
@@ -434,8 +432,6 @@ class Config:
         """
         res_str = f"name: {self.name}\n"
         res_str += f"build dir: {self.build_dir}\n"
-        if self.branch is not None:
-            res_str += f"branch: {self.branch}\n"
         res_str += "mv_repos: \n"
         for repo in self.repos:
             res_str += "\t" + str(repo) + "\n"
