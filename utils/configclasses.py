@@ -415,10 +415,20 @@ class Config:
         self.solution_dir = Path(self.build_dir, "build")
         self.bin_root = Path(Path(__file__).parents[1], "binaries")
         self.repos = []
-        for repo_config in build_config["hdps_repos"]:
-            repo = HdpsRepo(repo_config, common_dependencies)
-            if repo.enabled:
-                self.repos.append(repo)
+      
+        if "mv_repos" in build_config:
+            for repo_config in build_config["mv_repos"]:
+                repo = ManiVaultRepo(repo_config, common_dependencies)
+                if repo.enabled:
+                    self.repos.append(repo)
+
+        # old naming, kept for backwards compatibility
+        if "hdps_repos" in build_config:
+            for repo_config in build_config["hdps_repos"]:
+                repo = ManiVaultRepo(repo_config, common_dependencies)
+                if repo.enabled:
+                    self.repos.append(repo)
+
         self.cmakebuilder = CMakeFileBuilder(self)
         self.binaries = Binaries(binary_config, self.bin_root)
 
