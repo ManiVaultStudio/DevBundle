@@ -277,7 +277,10 @@ class ManiVaultRepo:
             if "binaries" in repo_info[self.repo_name]:
                 self.__binaries = repo_info[self.repo_name]["binaries"]
 
-        self.branch = repo_config.get("branch", default_branch)
+        if "tag" in repo_config:
+            self.branch = repo_config.get("tag")
+        else:
+             self.branch = repo_config.get("branch", default_branch)
 
     @property
     def binaries(self):

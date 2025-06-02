@@ -227,20 +227,16 @@
 			]
 		},
 		{
-			"name": "fixscatterplot",
-			"build_dir": "fixscatterplot",
-			"hdps_repos": [
+			"name": "tag_test",
+			"build_dir": "tag_test",
+			"mv_repos": [
 				{
 					"repo": "core",
-					"branch": "master"
+					"tag": "v1.3"
 				},
 				{
-					"repo": "ImageLoaderPlugin",
+					"repo": "ExamplePlugins",
 					"branch": "master"
-				},
-				{
-					"repo": "Scatterplot",
-					"branch": "feature/fix_entire_view"
 				}
 			]
 		}
