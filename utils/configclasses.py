@@ -443,7 +443,7 @@ class Config:
         str
             The readable string
         """
-        res_str = f"name: {self.name}\n"
+        res_str  = f"name: {self.name}\n"
         res_str += f"build dir: {self.build_dir}\n"
         res_str += "mv_repos: \n"
         for repo in self.repos:
