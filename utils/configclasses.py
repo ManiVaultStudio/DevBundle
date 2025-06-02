@@ -255,16 +255,16 @@ class Binaries:
 
 
 
-class HdpsRepo:
+class ManiVaultRepo:
     """A class holding the configuration of a ManiVault related repo"""
 
-    hdps_repo_root = "https://github.com/ManiVaultStudio/"
-    hdps_repo_root_ssh = "git@github.com:ManiVaultStudio/"
+    mv_repo_root = "https://github.com/ManiVaultStudio/"
+    mv_repo_root_ssh = "git@github.com:ManiVaultStudio/"
 
-    def __init__(self, repo_config: dict, repo_info: dict, default_branch: str = None):
+    def __init__(self, repo_config: dict, repo_info: dict, default_branch: str = "main"):
         self.enabled = not repo_config.get("disable", False)
-        self.repo_url = f"{self.hdps_repo_root}{repo_config['repo']}"
-        self.repo_ssh = f"{self.hdps_repo_root_ssh}{repo_config['repo']}.git"
+        self.repo_url = f"{self.mv_repo_root}{repo_config['repo']}"
+        self.repo_ssh = f"{self.mv_repo_root_ssh}{repo_config['repo']}.git"
         self.repo_local = None
         # Local allow the user to configure a local path
         if "local" in repo_config:
@@ -436,7 +436,7 @@ class Config:
         res_str += f"build dir: {self.build_dir}\n"
         if self.branch is not None:
             res_str += f"branch: {self.branch}\n"
-        res_str += "hdps_repos: \n"
+        res_str += "mv_repos: \n"
         for repo in self.repos:
             res_str += "\t" + str(repo) + "\n"
 
@@ -450,8 +450,8 @@ class Config:
         res_str += str(used_binaries)
         return res_str
 
-    def _get_dirty_repo_list(self, source_dir) -> List[HdpsRepo]:
-        dirty: List[HdpsRepo] = []
+    def _get_dirty_repo_list(self, source_dir) -> List[ManiVaultRepo]:
+        dirty: List[ManiVaultRepo] = []
         if not source_dir.exists():
             return dirty
         for repo in self.repos:

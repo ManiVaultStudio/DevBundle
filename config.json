@@ -3,7 +3,7 @@
 		{
 			"name": "basic",
 			"build_dir": "basic",
-			"hdps_repos": [
+			"mv_repos": [
 				{
 					"repo": "core",
 					"branch": "master"
@@ -21,7 +21,7 @@
 		{
 			"name": "sentry",
 			"build_dir": "sentry",
-			"hdps_repos": [
+			"mv_repos": [
 				{
 					"repo": "core",
 					"branch": "feature/sentry_integration"
@@ -31,7 +31,7 @@
 		{
 			"name": "allmain",
 			"build_dir": "allmain",
-			"hdps_repos": [
+			"mv_repos": [
 				{
 					"repo": "core",
 					"branch": "master"
@@ -125,7 +125,7 @@
         {
 			"name": "common",
 			"build_dir": "common",
-			"hdps_repos": [
+			"mv_repos": [
 				{
 					"repo": "core",
 					"branch": "master"
@@ -163,7 +163,7 @@
 		{
 			"name": "smallmain",
 			"build_dir": "smallmain",
-			"hdps_repos": [
+			"mv_repos": [
 				{
 					"repo": "core",
 					"branch": "master"
@@ -189,7 +189,7 @@
 		{
 			"name": "branchexample",
 			"build_dir": "feat_serial",
-			"hdps_repos": [
+			"mv_repos": [
 				{
 					"repo": "core",
 					"branch": "feature/serialization"
@@ -215,7 +215,7 @@
 		{
 			"name": "smalltest",
 			"build_dir": "smalltest",
-			"hdps_repos": [
+			"mv_repos": [
 				{
 					"repo": "core",
 					"branch": "master"
