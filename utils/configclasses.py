@@ -255,16 +255,16 @@ class Binaries:
 
 
 
-class HdpsRepo:
+class ManiVaultRepo:
     """A class holding the configuration of a ManiVault related repo"""
 
-    hdps_repo_root = "https://github.com/ManiVaultStudio/"
-    hdps_repo_root_ssh = "git@github.com:ManiVaultStudio/"
+    mv_repo_root = "https://github.com/ManiVaultStudio/"
+    mv_repo_root_ssh = "git@github.com:ManiVaultStudio/"
 
-    def __init__(self, repo_config: dict, repo_info: dict, default_branch: str = None):
+    def __init__(self, repo_config: dict, repo_info: dict, default_branch: str = "main"):
         self.enabled = not repo_config.get("disable", False)
-        self.repo_url = f"{self.hdps_repo_root}{repo_config['repo']}"
-        self.repo_ssh = f"{self.hdps_repo_root_ssh}{repo_config['repo']}.git"
+        self.repo_url = f"{self.mv_repo_root}{repo_config['repo']}"
+        self.repo_ssh = f"{self.mv_repo_root_ssh}{repo_config['repo']}.git"
         self.repo_local = None
         # Local allow the user to configure a local path
         if "local" in repo_config:
@@ -277,7 +277,10 @@ class HdpsRepo:
             if "binaries" in repo_info[self.repo_name]:
                 self.__binaries = repo_info[self.repo_name]["binaries"]
 
-        self.branch = repo_config.get("branch", default_branch)
+        if "tag" in repo_config:
+            self.branch = repo_config.get("tag")
+        else:
+             self.branch = repo_config.get("branch", default_branch)
 
     @property
     def binaries(self):
@@ -414,13 +417,21 @@ class Config:
         self.install_dir = Path(self.build_dir, "install")
         self.solution_dir = Path(self.build_dir, "build")
         self.bin_root = Path(Path(__file__).parents[1], "binaries")
-        self.branch = build_config.get("branch", None)
         self.repos = []
-        self.branch = build_config.get("branch", None)
-        for repo_config in build_config["hdps_repos"]:
-            repo = HdpsRepo(repo_config, common_dependencies)
-            if repo.enabled:
-                self.repos.append(repo)
+      
+        if "mv_repos" in build_config:
+            for repo_config in build_config["mv_repos"]:
+                repo = ManiVaultRepo(repo_config, common_dependencies)
+                if repo.enabled:
+                    self.repos.append(repo)
+
+        # old naming, kept for backwards compatibility
+        if "hdps_repos" in build_config:
+            for repo_config in build_config["hdps_repos"]:
+                repo = ManiVaultRepo(repo_config, common_dependencies)
+                if repo.enabled:
+                    self.repos.append(repo)
+
         self.cmakebuilder = CMakeFileBuilder(self)
         self.binaries = Binaries(binary_config, self.bin_root)
 
@@ -432,11 +443,9 @@ class Config:
         str
             The readable string
         """
-        res_str = f"name: {self.name}\n"
+        res_str  = f"name: {self.name}\n"
         res_str += f"build dir: {self.build_dir}\n"
-        if self.branch is not None:
-            res_str += f"branch: {self.branch}\n"
-        res_str += "hdps_repos: \n"
+        res_str += "mv_repos: \n"
         for repo in self.repos:
             res_str += "\t" + str(repo) + "\n"
 
@@ -450,8 +459,8 @@ class Config:
         res_str += str(used_binaries)
         return res_str
 
-    def _get_dirty_repo_list(self, source_dir) -> List[HdpsRepo]:
-        dirty: List[HdpsRepo] = []
+    def _get_dirty_repo_list(self, source_dir) -> List[ManiVaultRepo]:
+        dirty: List[ManiVaultRepo] = []
         if not source_dir.exists():
             return dirty
         for repo in self.repos:
