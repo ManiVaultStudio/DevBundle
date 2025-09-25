@@ -122,6 +122,40 @@
 				}
 			]
 		},
+		{
+			"name": "cs_hmba",
+			"build_dir": "cs_hmba",
+			"mv_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "master"
+				},
+				{
+					"repo": "UMAP-Plugin",
+					"branch": "main"
+				},
+				{
+					"repo": "PcaPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ExtCsvLoader",
+					"branch": "main"
+				}
+			]
+		},
         {
 			"name": "common",
 			"build_dir": "common",
