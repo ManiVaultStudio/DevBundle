@@ -1,11 +1,4 @@
-smallmain
-allmain
-allqt6
-allmaster
-feat_serial
-smalltest
 binaries
-ActionLinking
 **/__pycache__
 .vs/
 .vscode/
@@ -39,3 +32,7 @@ GeneSurferRelease2
 renderer_upgrade
 samplescope
 fix_space_walker
+*/build
+*/install
+*/source
+
