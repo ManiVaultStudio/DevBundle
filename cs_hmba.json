@@ -1,0 +1,146 @@
+{
+	"name": "cs_hmba",
+	"build_dir": "cs_hmba",
+	"mv_repos": [
+		{
+			"repo": "core",
+			"branch": "release/bican_bg"
+		},
+		{
+			"repo": "Scatterplot",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "HDF5Loader",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "t-SNE-Analysis",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "PcaPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "ExtCsvLoader",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "DifferentialExpressionPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "DE-MultiSpeciesPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "RefinePlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "SunburstClusterPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "UMAP-Plugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "SparseH5DataAccessPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "CellMorphologyData",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "EphysData",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "MEView",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "ProjectionExplorer",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "DimensionPlot",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "LinePlotViewPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "GradientSurferPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "GradientSurferTransformationPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "SubsetFromSelectionPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "ProjectAveragesPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "GeneSurfer",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "ATACControllerPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "ChartLegendViewPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "ClusterDifferentialExpressionPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "SimianViewerPairExpCompPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "SimianViewerMultExpCompPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "SimianViewerPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "CrossSpeciesComparisonTreeData",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "CrossSpeciesComparisonTreeMetaData",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "CrossSpeciesComparisonPhyTVuPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "CrossSpeciesComparisonLoaderPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "CrossSpeciesComparisonClusterRankPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		},
+		{
+			"repo": "CrossSpeciesComparisonGeneDetectPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+		}
+	]
+}
