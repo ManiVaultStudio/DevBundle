@@ -19,6 +19,36 @@
 			]
 		},
 		{
+			"name": "basic_vcpkg",
+			"build_dir": "basic_vcpkg",
+			"mv_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvLoader",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "ExamplePlugins",
+					"branch": "master"
+				},
+				{
+					"repo": "VolumeProjectorPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "JupyterPlugin",
+					"branch": "main"
+				}
+			]
+		},
+		{
 			"name": "sentry",
 			"build_dir": "sentry",
 			"mv_repos": [

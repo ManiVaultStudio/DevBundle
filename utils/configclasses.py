@@ -1,15 +1,19 @@
 import os
+import sys
+import json
 import platform
 import shutil
 import re
 import subprocess
 import requests
 import tarfile
-from typing import TypedDict
+from dataclasses import dataclass, field
+from typing import TypedDict, Self
 from git import Repo, GitCommandError
 from git.remote import RemoteProgress
 from pathlib import Path
 from typing import List, Set, Dict, Tuple, Optional
+from deepdiff import DeepDiff
 
 
 class Progress(RemoteProgress):
@@ -51,17 +55,19 @@ def onerror(func, path, exc_info):
     else:
         raise
 
+
 def get_system_name() -> str:
-        system_name = "Windows"
-        if platform.system() == "Darwin":
-            system_name = "Macos"
-        if platform.system() == "Linux":
-            system_name = "Linux"
-        return system_name
+    system_name = "Windows"
+    if platform.system() == "Darwin":
+        system_name = "Macos"
+    if platform.system() == "Linux":
+        system_name = "Linux"
+    return system_name
+
 
 class Binary:
     """
-    The detailed configuration for a prebuilt binary 
+    The detailed configuration for a prebuilt binary
     including the associated cmake variables.
     Largely a wrapper for the dictionary that supports
 
@@ -81,8 +87,8 @@ class Binary:
         for var_tup in cmake_vars:
             result += f"\n\t {var_tup[0]}: {var_tup[1]}"
         return result
-    
-    def _abs_path(self, path: str) -> str :
+
+    def _abs_path(self, path: str) -> str:
         new_path = path
         if path.startswith("+"):
             new_path = str(
@@ -97,14 +103,14 @@ class Binary:
     @property
     def cmake_variables(self) -> List[tuple]:
         """
-            Retun a list of tuples of CMake var name and value
+        Retun a list of tuples of CMake var name and value
 
-            The config can have a sequence of common cmake_variables 
-            and system specific cmake_variables: cmake_variables_<SYSTEM>,
-            <SYSTEM> is one of Windows, Macos or Linux.
+        The config can have a sequence of common cmake_variables
+        and system specific cmake_variables: cmake_variables_<SYSTEM>,
+        <SYSTEM> is one of Windows, Macos or Linux.
 
-            Where the variable name is both in common and system specific
-            the system specific variable over writes the common value
+        Where the variable name is both in common and system specific
+        the system specific variable over writes the common value
         """
         var_dict = dict()
         system_name = get_system_name()
@@ -112,16 +118,20 @@ class Binary:
 
         if "cmake_variables" in self.config:
             for variable_name in self.config["cmake_variables"].keys():
-                variable_value = self._abs_path(self.config["cmake_variables"][variable_name])
+                variable_value = self._abs_path(
+                    self.config["cmake_variables"][variable_name]
+                )
                 var_dict[variable_name] = [variable_value]
 
         if specific_variables in self.config:
             for variable_name in self.config["cmake_variables"].keys():
-                variable_value = self._abs_path(self.config[specific_variables][variable_name])
-                var_dict[variable_name] = [variable_value]     
+                variable_value = self._abs_path(
+                    self.config[specific_variables][variable_name]
+                )
+                var_dict[variable_name] = [variable_value]
 
         variables: list[tuple] = []
-        for var_name in var_dict: 
+        for var_name in var_dict:
             variables.append((var_name, var_dict[var_name]))
 
         bin_path = self.config.get("bin_path", None)
@@ -138,37 +148,39 @@ class Binary:
             variables.append((None, variable_value))
         return variables
 
-
     @property
     def bin_url(self) -> str:
         """
-            Returns the url that can be used to fetch the package from artifactory
+        Returns the url that can be used to fetch the package from artifactory
         """
         system_name = get_system_name()
         system_binaries = self.config["binaries"]
         return system_binaries.get(system_name, "T.B.D")
-    
+
     @property
     def bin_path(self) -> str:
         """
-            Returns an absolute bin path
+        Returns an absolute bin path
         """
         system_name = get_system_name()
         system_binary_path = f"bin_path_{system_name}"
-        return self._abs_path(self.config.get(system_binary_path, self.config["bin_path"]))
-    
+        return self._abs_path(
+            self.config.get(system_binary_path, self.config["bin_path"])
+        )
+
 
 class BinaryDict(TypedDict):
     name: str
-    binary : Binary
+    binary: Binary
+
 
 class Binaries:
     """A class holding configuration for a pre-built binary
     provides logic to unpack the binary an return the CMake variable
     names and values.
     """
-    JfrogReadToken = "cmVmdGtuOjAxOjAwMDAwMDAwMDA6OGV4QnVZcmR0S2piU0RSWTJTbjRRQTMxYkRh"
 
+    JfrogReadToken = "cmVmdGtuOjAxOjAwMDAwMDAwMDA6OGV4QnVZcmR0S2piU0RSWTJTbjRRQTMxYkRh"
 
     def __init__(self, binary_configs: dict, bin_root: Path, in_factory: bool = False):
         self.raw_config = binary_configs
@@ -191,9 +203,9 @@ class Binaries:
             result += f"\n\n {str(self.binaries[bin_name])}"
 
         return result
-    
+
     def get_subset(self, names: List[str]):
-        subset = Binaries(self.raw_config, self.bin_root, in_factory = True)
+        subset = Binaries(self.raw_config, self.bin_root, in_factory=True)
         for name in names:
             subset.binaries[name] = Binary(name, self.raw_config[name], self.bin_root)
         return subset
@@ -210,7 +222,7 @@ class Binaries:
             url,
             stream=True,
             verify=pemPath,
-            headers={"X-Jfrog-Art-Api":f"{Binaries.JfrogReadToken}"}
+            headers={"X-Jfrog-Art-Api": f"{Binaries.JfrogReadToken}"},
         ) as req:
             req.raise_for_status()
             with open(f"{local_name}", mode="wb") as tarf:
@@ -254,14 +266,15 @@ class Binaries:
         return variables
 
 
-
 class ManiVaultRepo:
     """A class holding the configuration of a ManiVault related repo"""
 
     mv_repo_root = "https://github.com/ManiVaultStudio/"
     mv_repo_root_ssh = "git@github.com:ManiVaultStudio/"
 
-    def __init__(self, repo_config: dict, repo_info: dict, default_branch: str = "main"):
+    def __init__(
+        self, repo_config: dict, repo_info: dict, default_branch: str = "main"
+    ):
         self.enabled = not repo_config.get("disable", False)
         self.repo_url = f"{self.mv_repo_root}{repo_config['repo']}"
         self.repo_ssh = f"{self.mv_repo_root_ssh}{repo_config['repo']}.git"
@@ -280,7 +293,7 @@ class ManiVaultRepo:
         if "tag" in repo_config:
             self.branch = repo_config.get("tag")
         else:
-             self.branch = repo_config.get("branch", default_branch)
+            self.branch = repo_config.get("branch", default_branch)
 
     @property
     def binaries(self):
@@ -347,7 +360,7 @@ class ManiVaultRepo:
                 print(f"Checkout: {self.repo_name}: {self.branch}")
                 repo.git.checkout(self.branch)
             else:
-                multi_options=["--recurse-submodules"]
+                multi_options = ["--recurse-submodules"]
                 if shallow:
                     multi_options.append("--depth=1")
                 source = self.repo_url if not ssh else self.repo_ssh
@@ -418,7 +431,7 @@ class Config:
         self.solution_dir = Path(self.build_dir, "build")
         self.bin_root = Path(Path(__file__).parents[1], "binaries")
         self.repos = []
-      
+
         if "mv_repos" in build_config:
             for repo_config in build_config["mv_repos"]:
                 repo = ManiVaultRepo(repo_config, common_dependencies)
@@ -443,14 +456,14 @@ class Config:
         str
             The readable string
         """
-        res_str  = f"name: {self.name}\n"
+        res_str = f"name: {self.name}\n"
         res_str += f"build dir: {self.build_dir}\n"
         res_str += "mv_repos: \n"
         for repo in self.repos:
             res_str += "\t" + str(repo) + "\n"
 
         # Get all the binaries used by the
-        # repos in this config 
+        # repos in this config
         binaries_set: set[str] = set()
         for repo in self.repos:
             binaries_set = binaries_set | set(repo.binaries)
@@ -547,6 +560,9 @@ class Config:
         # skip user-defined binaries
         binaries = binaries.difference(skip_binaries)
 
+        vcpkgBuilder = VcpkgJsonBuilder(self)
+        vcpkgBuilder.create_merged_vcpg(self.name)
+
         # the setup returns cmake variables and values
         cmake_vars = []
         for binary in binaries:
@@ -555,6 +571,219 @@ class Config:
         os.chdir(str(self.source_dir))
 
         self.cmakebuilder.make(cmake_vars, cmake, cmake_user_vars)
+
+
+@dataclass
+class ManualResolve:
+    """Represents information over a dependency clash between two repos"""
+
+    name: str
+    repo_a: str
+    constraint_a: dict
+    repo_b: str
+    constraint_b: dict
+
+    def __str__(self) -> str:
+        def fmt(repo, constraint):
+            if not constraint:
+                return f"  {repo}: (no version constraint)"
+            parts = ", ".join(f"{k}: {v}" for k, v in constraint.items())
+            return f"  {repo}: {parts}"
+
+        return (
+            f"VERSION CLASH: {self.name}\n"
+            f"{fmt(self.repo_a, self.constraint_a)}\n"
+            f"{fmt(self.repo_b, self.constraint_b)}"
+        )
+
+
+def input_choice(preamble: str, options: list[str], postamble: str = ""):
+    prompt = preamble + " \n"
+    for pos, opt in enumerate(options, start=1):
+        prompt += f"{pos}) {opt} \n"
+    prompt += postamble
+
+    while True:
+        user_input = input(prompt)
+        input_choice = int(user_input)
+        if input_choice > 0 and input_choice <= len(options):
+            return input_choice
+        if input_choice == -1:
+            return -1
+        print(f"choose a value between 1 and {len(options)}")
+
+@dataclass 
+class Override:
+    """Represents a vcpkg override"""
+
+    name: str
+    constraint: dict = field(default_factory=dict)
+    source_repo: str = ""
+
+    @classmethod
+    def normalized_dict(cls, override: str | dict) -> dict:
+        if isinstance(override, str):
+            return {"name": override}
+        return override
+    
+    @classmethod
+    def create(cls, override: str | dict, source_repo: str) -> Self:
+        constraint = Override.normalized_dict(override)
+        name = constraint["name"]
+        return Override(name, constraint, source_repo)
+    
+    def to_vcpkg(self) -> dict | str:
+        if not self.constraint:
+            return self.name
+        return {"name": self.name, **self.constraint}
+@dataclass
+class Dependency:
+    """Represents a vcpkg dependency"""
+
+    name: str
+    constraint: dict = field(default_factory=dict)
+    source_repo: str = ""
+
+    @classmethod
+    def normalized_dict(cls, dep: str | dict) -> dict:
+        if isinstance(dep, str):
+            return {"name": dep}
+        return dep
+
+    @classmethod
+    def create(cls, dep: str | dict, source_repo: str) -> Self:
+        constraint = Dependency.normalized_dict(dep)
+        name = constraint["name"]
+        return Dependency(name, constraint, source_repo)
+
+    def to_vcpkg(self) -> dict | str:
+        if not self.constraint:
+            return self.name
+        return {"name": self.name, **self.constraint}
+
+    def check_clash(self, other_dep: Self) -> ManualResolve | None:
+        common_constraint_keys = set(self.constraint.keys()) & set(
+            other_dep.constraint.keys()
+        )
+        for key in common_constraint_keys:
+            diff = DeepDiff(self.constraint, other_dep.constraint, ignore_order=True)
+            if len(diff.affected_paths) > 0:
+                if (
+                    choice := input_choice(
+                        f"Resolve the dependency clash between {self.source_repo} and"
+                        f" {other_dep.source_repo}, \n"
+                        f" {diff} on {self.constraint['name']}\n"
+                        "choose one of the options below \n",
+                        [
+                            self.source_repo + ": " + str(self.constraint),
+                            other_dep.source_repo + ": " + str(other_dep.constraint),
+                        ],
+                        "-1) to manually unresolved later: ",
+                    )
+                ) == -1:
+                    return ManualResolve(
+                        self.name,
+                        self.source_repo,
+                        self.constraint,
+                        other_dep.source_repo,
+                        other_dep.constraint,
+                    )
+                else:
+                    if choice == 2:
+                        self.constraint = other_dep.constraint
+                        self.source_repo = other_dep.source_repo
+
+        return None
+
+
+class VcpkgJsonBuilder:
+    """For vcpkg support - build a vcpkg.json that is the
+    union of the vcpkg.json dependencies in all the
+    repos."""
+
+    def __init__(self, config: Config) -> None:
+        self.config = config
+        self.vcpkgpath = Path(config.build_dir, "vcpkg.json")
+        self.sourcepath = config.source_dir
+        self.vcpkgFiles = self.__collect_source_dirs()
+
+    def __collect_source_dirs(self) -> List[Path]:
+        vckpgList = self.sourcepath.glob("**/vcpkg.json")
+        return vckpgList
+
+    def __merge_repo_vcpkgs(self, name: str):
+        merged_dependencies: dict[str, Dependency] = {}
+        merged_overrides: dict[str, Override] = {}
+        manual_resolves: list[ManualResolve] = []
+        for manifest_path in self.vcpkgFiles:
+            try:
+                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as e:
+                print(f"  ERROR: Failed to parse {manifest_path}: {e}")
+                sys.exit(1)
+
+            raw_deps = manifest.get("dependencies", [])
+            print(f"  {manifest_path.parent.stem}: found {len(raw_deps)} dependencies")
+            source_repo = manifest_path.parent.stem
+
+            for raw_dep in raw_deps:
+                dep = Dependency.create(raw_dep, source_repo)
+
+                # Skip internal libs — they are built via add_subdirectory
+                # This filters any internal libs - not sure if it's relevant
+                # if name in internal_names:
+                #    continue
+
+                if dep.name not in merged_dependencies:
+                    merged_dependencies[dep.name] = dep
+                else:
+                    existing = merged_dependencies[dep.name]
+                    if manual_resolve := existing.check_clash(dep):
+                        manual_resolves.append(manual_resolve)
+                    else:
+                        # No clash — use whichever has a constraint (more specific wins)
+                        if dep.constraint and not existing.constraint:
+                            merged_dependencies[dep.name].constraint = dep.constraint
+                            merged_dependencies[dep.name].source_repo = dep.repo
+
+            raw_overrides = manifest.get("overrides", [])
+            print(f"  {manifest_path.parent.stem}: found {len(raw_deps)} overrides")
+            for raw_override in raw_overrides:
+                override = Override.create(raw_override, source_repo)
+                merged_overrides[override.name] = override
+
+        bundle_manifest = {
+            "name": f"{name}",
+            "version": "0.1.0",
+            "dependencies": [
+                dep.to_vcpkg()
+                for dep in sorted(merged_dependencies.values(), key=lambda d: d.name)
+            ],
+            "overrides" : [
+                override.to_vcpkg()
+                for override in sorted(merged_overrides.values(), key=lambda d: d.name)
+            ]
+        }
+        return bundle_manifest, manual_resolves
+
+    def create_merged_vcpg(self, name: str):
+        manifest, manual_resolves = self.__merge_repo_vcpkgs(name)
+        if len(manual_resolves) > 0:
+            print("\n" + "=" * 60)
+            print(
+                f"FOUND {len(manual_resolves)} VERSION CLASH(ES) — bundle manifest NOT written."
+            )
+            print("=" * 60)
+            for resolve in manual_resolves:
+                print(f"\n{json.dumps(resolve.constraint_a)}")
+                print(f"\n{json.dumps(resolve.constraint_b)}")
+            print("\nResolve clashes by aligning version constraints in the")
+            print("affected sub-repo vcpkg.json files before re-running.")
+
+        self.vcpkgpath.write_text(
+            json.dumps(manifest, indent=2) + "\n",
+            encoding="utf-8",
+        )
 
 
 class CMakeFileBuilder:
@@ -589,7 +818,9 @@ class CMakeFileBuilder:
         cmakepath = Path(".", "CMakeLists.txt")
         cmakepath.rename(f"CMakeLists.{version_num:03}")
 
-    def make(self, cmake_vars: List[tuple], cmake: bool, cmake_user_vars: List[str]) -> None:
+    def make(
+        self, cmake_vars: List[tuple], cmake: bool, cmake_user_vars: List[str]
+    ) -> None:
         self.save_numbered_cmakefile()
         print(f"Making {self.cmakelistspath}")
         with open(str(self.cmakelistspath), "a") as cf:
@@ -609,9 +840,13 @@ class CMakeFileBuilder:
                 else:
                     # if name ends with + this is a list to append
                     if setting[0][-1] == "+":
-                        cf.write(f"list(APPEND {setting[0][:-1]} {' '.join(setting[1])})\n")
+                        cf.write(
+                            f"list(APPEND {setting[0][:-1]} {' '.join(setting[1])})\n"
+                        )
                     else:
-                        cf.write(f'set({setting[0]} {";".join(setting[1])} CACHE PATH "")\n')
+                        cf.write(
+                            f'set({setting[0]} {";".join(setting[1])} CACHE PATH "")\n'
+                        )
 
             # cmake variables added by user with --define_cmake_var
             for setting in cmake_user_vars:
@@ -622,32 +857,36 @@ class CMakeFileBuilder:
                 else:
                     cf.write(f'set({setting[0]} {setting[1]} CACHE PATH "")\n')
 
-            if len(cmake_user_vars) >= 1 :
-                cf.write('\n')
+            if len(cmake_user_vars) >= 1:
+                cf.write("\n")
 
             for repo in self.config.repos:
                 if repo.repo_local:
                     # must add a binary dir if the repo is not in the tree
                     Path(".").parent
                     cf.write(
-                        f"add_subdirectory({repo.repo_local} {Path(Path('.').resolve().parent, 'build', repo.repo_name).as_posix()})\n"
+                        f"add_subdirectory({repo.repo_local}"
+                        f" {Path(Path('.').resolve().parent, 'build', repo.repo_name).as_posix()})\n"
                     )
                 else:
                     cf.write(f"add_subdirectory({repo.repo_name})\n")
             cf.write("\n")
             cf.write(
-                "set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT MV_Application)\n"
+                "set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY"
+                " VS_STARTUP_PROJECT MV_Application)\n"
             )
             # print(f"******** CMAKE bin paths + cmake_vars {bin_paths} {cmake_vars} ***********")
             if len(bin_paths) > 0:
                 cf.write(
-                    f"set_target_properties(MV_Application PROPERTIES VS_DEBUGGER_ENVIRONMENT \"PATH=%PATH%;{';'.join(bin_paths)}\")\n"
+                    "set_target_properties(MV_Application PROPERTIES"
+                    f" VS_DEBUGGER_ENVIRONMENT \"PATH=%PATH%;{';'.join(bin_paths)}\")\n"
                 )
             cf.write("\n")
 
         if cmake:
             print(
-                f"Starting Cmake GUI source {self.config.source_dir} build {self.config.solution_dir}"
+                f"Starting Cmake GUI source {self.config.source_dir} build"
+                f" {self.config.solution_dir}"
             )
             subprocess.run(
                 [
