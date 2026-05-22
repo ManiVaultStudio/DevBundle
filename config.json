@@ -45,6 +45,10 @@
 				{
 					"repo": "JupyterPlugin",
 					"branch": "main"
+				},
+				{
+					"repo": "SparseH5DataAccessPlugin",
+					"branch": "main"
 				}
 			]
 		},

@@ -13,7 +13,8 @@ from git import Repo, GitCommandError
 from git.remote import RemoteProgress
 from pathlib import Path
 from typing import List, Set, Dict, Tuple, Optional
-from deepdiff import DeepDiff
+
+from .vcpkg_utils import VcpkgJsonBuilder
 
 
 class Progress(RemoteProgress):
@@ -560,8 +561,8 @@ class Config:
         # skip user-defined binaries
         binaries = binaries.difference(skip_binaries)
 
-        vcpkgBuilder = VcpkgJsonBuilder(self)
-        vcpkgBuilder.create_merged_vcpg(self.name)
+        vcpkgBuilder = VcpkgJsonBuilder(self.build_dir, self.source_dir)
+        vcpkgBuilder.create_merged_vcpkg(self.name)
 
         # the setup returns cmake variables and values
         cmake_vars = []
@@ -571,220 +572,6 @@ class Config:
         os.chdir(str(self.source_dir))
 
         self.cmakebuilder.make(cmake_vars, cmake, cmake_user_vars)
-
-
-@dataclass
-class ManualResolve:
-    """Represents information over a dependency clash between two repos"""
-
-    name: str
-    repo_a: str
-    constraint_a: dict
-    repo_b: str
-    constraint_b: dict
-
-    def __str__(self) -> str:
-        def fmt(repo, constraint):
-            if not constraint:
-                return f"  {repo}: (no version constraint)"
-            parts = ", ".join(f"{k}: {v}" for k, v in constraint.items())
-            return f"  {repo}: {parts}"
-
-        return (
-            f"VERSION CLASH: {self.name}\n"
-            f"{fmt(self.repo_a, self.constraint_a)}\n"
-            f"{fmt(self.repo_b, self.constraint_b)}"
-        )
-
-
-def input_choice(preamble: str, options: list[str], postamble: str = ""):
-    prompt = preamble + " \n"
-    for pos, opt in enumerate(options, start=1):
-        prompt += f"{pos}) {opt} \n"
-    prompt += postamble
-
-    while True:
-        user_input = input(prompt)
-        input_choice = int(user_input)
-        if input_choice > 0 and input_choice <= len(options):
-            return input_choice
-        if input_choice == -1:
-            return -1
-        print(f"choose a value between 1 and {len(options)}")
-
-@dataclass 
-class Override:
-    """Represents a vcpkg override"""
-
-    name: str
-    constraint: dict = field(default_factory=dict)
-    source_repo: str = ""
-
-    @classmethod
-    def normalized_dict(cls, override: str | dict) -> dict:
-        if isinstance(override, str):
-            return {"name": override}
-        return override
-    
-    @classmethod
-    def create(cls, override: str | dict, source_repo: str) -> Self:
-        constraint = Override.normalized_dict(override)
-        name = constraint["name"]
-        return Override(name, constraint, source_repo)
-    
-    def to_vcpkg(self) -> dict | str:
-        if not self.constraint:
-            return self.name
-        return {"name": self.name, **self.constraint}
-@dataclass
-class Dependency:
-    """Represents a vcpkg dependency"""
-
-    name: str
-    constraint: dict = field(default_factory=dict)
-    source_repo: str = ""
-
-    @classmethod
-    def normalized_dict(cls, dep: str | dict) -> dict:
-        if isinstance(dep, str):
-            return {"name": dep}
-        return dep
-
-    @classmethod
-    def create(cls, dep: str | dict, source_repo: str) -> Self:
-        constraint = Dependency.normalized_dict(dep)
-        name = constraint["name"]
-        return Dependency(name, constraint, source_repo)
-
-    def to_vcpkg(self) -> dict | str:
-        if not self.constraint:
-            return self.name
-        return {"name": self.name, **self.constraint}
-
-    def check_clash(self, other_dep: Self) -> ManualResolve | None:
-        common_constraint_keys = set(self.constraint.keys()) & set(
-            other_dep.constraint.keys()
-        )
-        for key in common_constraint_keys:
-            diff = DeepDiff(self.constraint, other_dep.constraint, ignore_order=True)
-            if len(diff.affected_paths) > 0:
-                if (
-                    choice := input_choice(
-                        f"Resolve the dependency clash between {self.source_repo} and"
-                        f" {other_dep.source_repo}, \n"
-                        f" {diff} on {self.constraint['name']}\n"
-                        "choose one of the options below \n",
-                        [
-                            self.source_repo + ": " + str(self.constraint),
-                            other_dep.source_repo + ": " + str(other_dep.constraint),
-                        ],
-                        "-1) to manually unresolved later: ",
-                    )
-                ) == -1:
-                    return ManualResolve(
-                        self.name,
-                        self.source_repo,
-                        self.constraint,
-                        other_dep.source_repo,
-                        other_dep.constraint,
-                    )
-                else:
-                    if choice == 2:
-                        self.constraint = other_dep.constraint
-                        self.source_repo = other_dep.source_repo
-
-        return None
-
-
-class VcpkgJsonBuilder:
-    """For vcpkg support - build a vcpkg.json that is the
-    union of the vcpkg.json dependencies in all the
-    repos."""
-
-    def __init__(self, config: Config) -> None:
-        self.config = config
-        self.vcpkgpath = Path(config.build_dir, "vcpkg.json")
-        self.sourcepath = config.source_dir
-        self.vcpkgFiles = self.__collect_source_dirs()
-
-    def __collect_source_dirs(self) -> List[Path]:
-        vckpgList = self.sourcepath.glob("**/vcpkg.json")
-        return vckpgList
-
-    def __merge_repo_vcpkgs(self, name: str):
-        merged_dependencies: dict[str, Dependency] = {}
-        merged_overrides: dict[str, Override] = {}
-        manual_resolves: list[ManualResolve] = []
-        for manifest_path in self.vcpkgFiles:
-            try:
-                manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-            except json.JSONDecodeError as e:
-                print(f"  ERROR: Failed to parse {manifest_path}: {e}")
-                sys.exit(1)
-
-            raw_deps = manifest.get("dependencies", [])
-            print(f"  {manifest_path.parent.stem}: found {len(raw_deps)} dependencies")
-            source_repo = manifest_path.parent.stem
-
-            for raw_dep in raw_deps:
-                dep = Dependency.create(raw_dep, source_repo)
-
-                # Skip internal libs — they are built via add_subdirectory
-                # This filters any internal libs - not sure if it's relevant
-                # if name in internal_names:
-                #    continue
-
-                if dep.name not in merged_dependencies:
-                    merged_dependencies[dep.name] = dep
-                else:
-                    existing = merged_dependencies[dep.name]
-                    if manual_resolve := existing.check_clash(dep):
-                        manual_resolves.append(manual_resolve)
-                    else:
-                        # No clash — use whichever has a constraint (more specific wins)
-                        if dep.constraint and not existing.constraint:
-                            merged_dependencies[dep.name].constraint = dep.constraint
-                            merged_dependencies[dep.name].source_repo = dep.repo
-
-            raw_overrides = manifest.get("overrides", [])
-            print(f"  {manifest_path.parent.stem}: found {len(raw_deps)} overrides")
-            for raw_override in raw_overrides:
-                override = Override.create(raw_override, source_repo)
-                merged_overrides[override.name] = override
-
-        bundle_manifest = {
-            "name": f"{name}",
-            "version": "0.1.0",
-            "dependencies": [
-                dep.to_vcpkg()
-                for dep in sorted(merged_dependencies.values(), key=lambda d: d.name)
-            ],
-            "overrides" : [
-                override.to_vcpkg()
-                for override in sorted(merged_overrides.values(), key=lambda d: d.name)
-            ]
-        }
-        return bundle_manifest, manual_resolves
-
-    def create_merged_vcpg(self, name: str):
-        manifest, manual_resolves = self.__merge_repo_vcpkgs(name)
-        if len(manual_resolves) > 0:
-            print("\n" + "=" * 60)
-            print(
-                f"FOUND {len(manual_resolves)} VERSION CLASH(ES) — bundle manifest NOT written."
-            )
-            print("=" * 60)
-            for resolve in manual_resolves:
-                print(f"\n{json.dumps(resolve.constraint_a)}")
-                print(f"\n{json.dumps(resolve.constraint_b)}")
-            print("\nResolve clashes by aligning version constraints in the")
-            print("affected sub-repo vcpkg.json files before re-running.")
-
-        self.vcpkgpath.write_text(
-            json.dumps(manifest, indent=2) + "\n",
-            encoding="utf-8",
-        )
-
 
 class CMakeFileBuilder:
     """Build a cmake file for the configuration"""
