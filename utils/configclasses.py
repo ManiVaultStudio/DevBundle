@@ -268,10 +268,13 @@ class Binaries:
 
 
 class ManiVaultRepo:
-    """A class holding the configuration of a ManiVault related repo"""
-
-    mv_repo_root = "https://github.com/ManiVaultStudio/"
-    mv_repo_root_ssh = "git@github.com:ManiVaultStudio/"
+    """A class holding the configuration of a ManiVault related repo
+       By defining a DEVBUNDLE_ROOT an alternative org can be
+       used for testing purposes"""
+    
+    root_org = os.environ.get("DEVBUNDLE_ROOT", "ManiVaultStudio")
+    mv_repo_root = f"https://github.com/{root_org}/"
+    mv_repo_root_ssh = f"git@github.com:{root_org}/"
 
     def __init__(
         self, repo_config: dict, repo_info: dict, default_branch: str = "main"
