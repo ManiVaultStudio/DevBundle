@@ -49,7 +49,7 @@ class VcpkgBaselines:
 
         if latest_baseline == "":
             print("Using latest sha tag for vcpkg baseline")
-            latest_baseline = self.baseline_sha_dict[known_shas[-1]]
+            latest_baseline = self.baseline_sha_dict[list(known_shas)[-1]]
 
         return latest_baseline
             
@@ -241,7 +241,7 @@ class VcpkgJsonBuilder:
             for feature in features.keys():
                 all_features[feature] = features[feature]
 
-            baseline = manifest.get("builtin-baseline")
+            baseline = manifest.get("builtin-baseline", "")
             if len(baseline) > 0:
                 baseline_shas.append(baseline)
             
