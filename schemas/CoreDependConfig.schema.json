@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A JSON schema for ManiVaultStudio CoreDependConfig.json. The file comprises 1 or more core bundles of repos",
+  "$defs": {
+    "repo_spec" : {
+      "description": "Specifies a repo name and branch",
+      "type" : "object",
+      "required" : ["repo", "branch"],
+      "properties" : {
+        "repo" : {
+          "type": "string",
+          "minLength": 1
+        },
+        "branch" : {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "core_bundle" : {
+      "description": "Specified a bundle (list) of core extension repos",
+      "type" : "object",
+      "required": ["name", "repos"],
+      "properties": {
+        "name" : {
+          "type": "string",
+          "minLength": 1,
+          "description": "Name of the dependency list"
+        },
+        "repos" : {
+          "type": "array",
+          "items": { "$ref": "#/$defs/repo_spec" }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "name": {"type": "string", "const": "core_bundles"},
+    "bundles" : {
+      "description": "All the core repo bundles, the first having the name default",
+      "type": "array",
+      "prefixItems": [
+        {
+          "description": "The first bundle is called default",
+          "allOf": [
+            {"$ref": "#/$defs/core_bundle"},
+            { 
+              "properties": {
+                "name": {"const": "default"}
+              }
+            }
+          ]
+      }
+    ],
+    "items" : {"$ref": "#/$defs/core_bundle"},
+    "minItems": 1
+    }
+  }
+}
