@@ -3,6 +3,7 @@ import argparse
 import json
 from utils.configclasses import Config
 from argparse import RawDescriptionHelpFormatter
+from utils.corebundle import CoreBundle
 from pathlib import Path
 
 
@@ -15,6 +16,12 @@ def get_config_dict(config_input: dict) -> dict:
         configs[c.name] = c
     return configs
 
+
+def get_core_ext(args: argparse.Namespace): 
+  """Return the active core extension bundle from the current diretory
+  """
+  core_bundled = CoreBundle(Path(args.source_dir))
+  print(f"{core_bundled.repos}")
 
 def list(args: argparse.Namespace):
     """Implement the list subcommand
@@ -70,6 +77,18 @@ if __name__ == "__main__":
     subparsers = parser.add_subparsers(
         help="Commands to list and use the defined environments"
     )
+    parser_core_ext = subparsers.add_parser(
+        "get_core_ext", help="Return a json formatted list of the repos in the CoreDependConfig.json if any", parents=[common]
+    )
+
+    parser_core_ext.add_argument(
+        "source_dir",
+        type=str,
+        default="",
+        nargs="?",
+        help="A source directory containing a CoreDependConfig.json",
+    )
+    parser_core_ext.set_defaults(func=get_core_ext)
 
     parser_list = subparsers.add_parser(
         "list", help="List all ManiVault development configurations", parents=[common]

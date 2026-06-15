@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import List, Set, Dict, Tuple, Optional
 
 from .vcpkg_utils import VcpkgJsonBuilder
+from .corebundle import CoreBundle
 
 
 class Progress(RemoteProgress):
@@ -435,6 +436,8 @@ class Config:
         self.solution_dir = Path(self.build_dir, "build")
         self.bin_root = Path(Path(__file__).parents[1], "binaries")
         self.repos = []
+        self.core_ext_repos = []
+        self.common_dependencies = common_dependencies
 
         if "mv_repos" in build_config:
             for repo_config in build_config["mv_repos"]:
@@ -476,14 +479,49 @@ class Config:
         res_str += str(used_binaries)
         return res_str
 
-    def _get_dirty_repo_list(self, source_dir) -> List[ManiVaultRepo]:
+    def _get_dirty_repo_list(self, source_dir, repos) -> List[ManiVaultRepo]:
         dirty: List[ManiVaultRepo] = []
         if not source_dir.exists():
             return dirty
-        for repo in self.repos:
+        for repo in repos:
             if repo.is_dirty(source_dir):
                 dirty.append(repo)
         return dirty
+
+    def _handle_update_only(self, repo_list, mode, ssh): 
+      if mode == "update_only":
+          errors = []
+          for repo in repo_list:
+              try:
+                  repo.update(self.source_dir, ssh)
+              except UserWarning as w:
+                  errors.append(w)
+          if len(errors) > 0:
+              print("There were errors during the update")
+              for e in errors:
+                  print(e.message)
+
+    def _handle_cmake_only(self, repo_list, mode): 
+        if mode != "cmake_only":
+            if mode == "clean" and self.build_dir.exists():
+                dirty_repos = self._get_dirty_repo_list(self.source_dir, repo_list)
+                if len(dirty_repos) > 0:
+                    print("\n***CHANGES PREVENT REPOSITORY CLEANING**")
+                    print("========================================")
+                    print("The following repos have local changes or untracked files:")
+                    for repo in dirty_repos:
+                        print(f"{repo.repo_name}")
+                    print("Resolve these issues manually before running ")
+                    return
+                shutil.rmtree(self.build_dir, onexc=onerror)
+            if not self.build_dir.exists():
+                self.build_dir.mkdir(parents=True)
+            if not self.source_dir.exists():
+                self.source_dir.mkdir()
+            if not self.install_dir.exists():
+                self.install_dir.mkdir()
+            if not self.solution_dir.exists():
+                self.solution_dir.mkdir()    
 
     def use(
         self,
@@ -518,38 +556,11 @@ class Config:
         shallow: bool, optional
             do shallow (depth=1) git clones
         """
-        if mode == "update_only":
-            errors = []
-            for repo in self.repos:
-                try:
-                    repo.update(self.source_dir, ssh)
-                except UserWarning as w:
-                    errors.append(w)
-            if len(errors) > 0:
-                print("There were errors during the update")
-                for e in errors:
-                    print(e.message)
 
-        if mode != "cmake_only":
-            if mode == "clean" and self.build_dir.exists():
-                dirty_repos = self._get_dirty_repo_list(self.source_dir)
-                if len(dirty_repos) > 0:
-                    print("\n***CHANGES PREVENT REPOSITORY CLEANING**")
-                    print("========================================")
-                    print("The following repos have local changes or untracked files:")
-                    for repo in dirty_repos:
-                        print(f"{repo.repo_name}")
-                    print("Resolve these issues manually before running ")
-                    return
-                shutil.rmtree(self.build_dir, onerror=onerror)
-            if not self.build_dir.exists():
-                self.build_dir.mkdir(parents=True)
-            if not self.source_dir.exists():
-                self.source_dir.mkdir()
-            if not self.install_dir.exists():
-                self.install_dir.mkdir()
-            if not self.solution_dir.exists():
-                self.solution_dir.mkdir()
+        # 1st pass - get the explicit repos
+        self._handle_update_only(self.repos, mode, ssh)
+        self._handle_cmake_only(self.repos, mode)
+
         os.chdir(str(self.source_dir))
 
         skip_binaries = set(skip_binaries)
@@ -558,6 +569,22 @@ class Config:
         # Get all the repos
         # and any binaries they need
         for repo in self.repos:
+            repo.use(mode, ssh, shallow)
+            binaries = binaries | set(repo.binaries)
+
+        # 2nd pass - get the core repo dependencies from the source
+        # Go through the repos and get the cored config bundle repos
+        # perform the necessary cleanups
+        core_bundle = CoreBundle(self.source_dir)
+        for core_repo in core_bundle.repos:
+          repo = ManiVaultRepo(core_repo, self.common_dependencies)
+          if repo.enabled:
+              self.core_ext_repos.append(repo)
+
+        self._handle_update_only(self.core_ext_repos, mode, ssh)
+        self._handle_cmake_only(self.core_ext_repos, mode)
+
+        for repo in self.core_ext_repos:
             repo.use(mode, ssh, shallow)
             binaries = binaries | set(repo.binaries)
 

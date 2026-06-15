@@ -18,7 +18,7 @@
       }
     },
     "core_bundle" : {
-      "description": "Specified a bundle (list) of core extension repos",
+      "description": "Specifies a bundle (list) of core extension repos",
       "type" : "object",
       "required": ["name", "repos"],
       "properties": {
