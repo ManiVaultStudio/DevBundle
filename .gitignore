@@ -35,4 +35,5 @@ fix_space_walker
 */build
 */install
 */source
-
+/configs
+/core
