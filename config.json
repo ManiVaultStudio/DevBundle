@@ -131,10 +131,6 @@
 					"branch": "master"
 				},
 				{
-					"repo": "CsvLoader",
-					"branch": "master"
-				},
-				{
 					"repo": "CsvWriter",
 					"branch": "main"
 				},
@@ -155,10 +151,6 @@
 					"branch": "main"
 				},
 				{
-					"repo": "VolumeLoaderPlugin",
-					"branch": "main"
-				},
-				{
 					"repo": "HeatMap",
 					"branch": "master"
 				},
@@ -169,10 +161,6 @@
 				{
 					"repo": "Scatterplot",
 					"branch": "master"
-				},
-				{
-					"repo": "VolumeViewerPlugin",
-					"branch": "main"
 				},
 				{
 					"repo": "ClustersFromPointsPlugin",
