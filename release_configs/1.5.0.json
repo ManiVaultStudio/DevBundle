@@ -1,0 +1,114 @@
+{
+	"build_bundles": [
+		{
+			"name": "150",
+			"build_dir": "150",
+			"mv_repos": [
+				{
+					"repo": "core",
+					"branch": "master"
+				},
+				{
+					"repo": "CsvWriter",
+					"branch": "main"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "master"
+				},
+				{
+					"repo": "ENVILoader",
+					"branch": "main"
+				},
+				{
+					"repo": "HeatMap",
+					"branch": "master"
+				},
+				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "Scatterplot",
+					"branch": "master"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ParallelCoordinatesPlugin",
+					"branch": "master"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "master"
+				},
+				{
+					"repo": "ExamplePlugins",
+					"branch": "master"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "master"
+				},
+				{
+					"repo": "MeanShiftClustering",
+					"branch": "master"
+				},
+				{
+					"repo": "UMAP-Plugin",
+					"branch": "main"
+				},
+				{
+					"repo": "PointDataConversionPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "PcaPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "SpectralViewPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ClusterMeansPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ClusterIOPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ExtCsvLoader",
+					"branch": "main"
+				},
+				{
+					"repo": "JupyterPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ImageTransformationPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "ImageTransformationPlugin",
+					"branch": "main"
+				},
+				{
+					"repo": "DimensionsViewerPlugin",
+					"branch": "main"
+				}
+			]
+		}
+	]
+}
