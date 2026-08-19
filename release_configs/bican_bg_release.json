@@ -1,0 +1,130 @@
+{
+	"build_bundles": [
+		{
+            "name": "bican_bg_release",
+            "build_dir": "bican_bg_release",
+            "hdps_repos": [
+                {
+                    "repo": "core",
+					"branch": "release/bican_bg"
+                },
+			{
+				"repo": "Scatterplot",
+				"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "HDF5Loader",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "t-SNE-Analysis",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "PcaPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "ExtCsvLoader",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "DifferentialExpressionPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "DE-MultiSpecies",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "RefinePlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "SunburstClusterPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "UMAP-Plugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "LinePlotViewPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "GradientSurferPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "GradientSurferTransformationPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "SubsetFromSelectionPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "ProjectAveragesPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "GeneSurfer",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "ATACControllerPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "ChartLegendViewPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "ClusterDifferentialExpressionPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "SimianViewerPairExpCompPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "SimianViewerMultExpCompPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "SimianViewerPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "XSCTreeData",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "XSCTreeMetaData",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "XSCPhyTVuPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "XSCLoaderPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "XSCClusterRankPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "XSCGeneDetectPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			},
+			{
+				"repo": "AtacViewPlugin",
+			"branch": "release/core_bican_bg/bican_bg"
+			}
+            ]
+        }
+	]
+}
