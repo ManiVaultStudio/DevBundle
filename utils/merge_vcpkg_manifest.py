@@ -217,6 +217,61 @@ def dep_name(dep):
     return dep if isinstance(dep, str) else dep["name"]
 
 
+def merge_features(all_features_with_source):
+    """
+    all_features_with_source:
+        list of (feature_name, feature_definition, source_file)
+
+    Returns merged features dictionary.
+    """
+    by_name = {}
+
+    for name, feature, source in all_features_with_source:
+        by_name.setdefault(name, []).append((feature, source))
+
+    merged = {}
+
+    for name in sorted(by_name):
+        entries = by_name[name]
+
+        descriptions = {
+            f.get("description")
+            for f, _ in entries
+            if "description" in f
+        }
+
+        if len(descriptions) > 1:
+            print(
+                f"WARNING: feature '{name}' has different descriptions "
+                f"across input manifests; using the first.",
+                file=sys.stderr,
+            )
+
+        description = next(iter(descriptions), None)
+
+        deps = []
+        for f, source in entries:
+            for dep in f.get("dependencies", []):
+                deps.append((dep, source))
+
+            # Copy any feature fields we don't explicitly merge
+            for k, v in f.items():
+                if k not in ("description", "dependencies"):
+                    merged_feature[k] = v
+
+        merged_feature = {}
+
+        if description:
+            merged_feature["description"] = description
+
+        if deps:
+            merged_feature["dependencies"] = merge_dependencies(deps)
+
+        merged[name] = merged_feature
+
+    return merged
+
+
 def merge_dependencies(all_deps_with_source):
     """all_deps_with_source: list of (dep_entry, source_file).
     Returns a sorted list of merged dependency entries."""
@@ -345,6 +400,7 @@ def main():
 
     all_deps = []
     all_overrides = []
+    all_features = []
     baselines = []
 
     for path in args.manifests:
@@ -353,6 +409,9 @@ def main():
 
         for dep in data.get("dependencies", []):
             all_deps.append((dep, src))
+
+        for feat_name, feat_def in data.get("features", {}).items():
+            all_features.append((feat_name, feat_def, src))
 
         for ov in data.get("overrides", []):
             all_overrides.append((ov, src))
@@ -363,12 +422,16 @@ def main():
 
     merged_deps = merge_dependencies(all_deps)
     merged_overrides = merge_overrides(all_overrides)
+    merged_features = merge_features(all_features)
 
     result = {
         "name": args.name,
         "version": args.version,
         "dependencies": merged_deps,
     }
+
+    if merged_features:
+        result["features"] = merged_features
 
     if baselines:
         resolver = VcpkgRepoResolver()
