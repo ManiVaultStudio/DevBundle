@@ -55,7 +55,7 @@ def use(args: argparse.Namespace):
 
 if __name__ == "__main__":
     common = argparse.ArgumentParser(
-        prog="dev_hdps",
+        prog="dev_mv",
         add_help=False,
         formatter_class=argparse.RawTextHelpFormatter,
     )

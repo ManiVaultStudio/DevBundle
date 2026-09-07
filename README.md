@@ -141,20 +141,20 @@ The `config.json` provided contains a working example of all ManiVault plugins (
 #### 1.  `build_bundles`
 
 &nbsp;&nbsp;&nbsp;&nbsp; A `build_bundle` defines a set of ManiVault `core` plus plugins to be used in the bundle project. It defines a `name` which should be a meaningful string, a `build_dir` which will contain the `source`, `build` and `install` 
-directories and a list of `hdps_repos` used in the bundle project.
+directories and a list of `mv_repos` used in the bundle project.
 
 &nbsp;&nbsp;&nbsp;&nbsp; `build_dir` will be created relative to the path where the `makeproject.py` script is run.
 
 ###### 1.1 Using a local development repo
 
-A `build_bundle` contains a list of `hdps_repos`. Each repo is usually defined using the repo name and branch. However if you have already checked out a repo for development purposes or are creating a new plugin that is not yet in GitHub it may be useful to point to a local path. This can be achieved using the `local` property in the repos configuration. For example if I have MyNewPlugin locally I can include it in a bundle thus: 
+A `build_bundle` contains a list of `mv_repos`. Each repo is usually defined using the repo name and branch. However if you have already checked out a repo for development purposes or are creating a new plugin that is not yet in GitHub it may be useful to point to a local path. This can be achieved using the `local` property in the repos configuration. For example if I have MyNewPlugin locally I can include it in a bundle thus: 
 
 ```
 	"build_bundles": [
 		{
 			"name": "myplugin_dev",
 			"build_dir": "myplugin_dev",
-			"hdps_repos": [
+			"mv_repos": [
 				{
 					"repo": "core",
 					"branch": "feature/qt_6"
@@ -250,23 +250,12 @@ If the logging still shows OpenGL context problems the following has also helped
 export LIBGL_ALWAYS_INDIRECT=0
 ```
 
-
 ### Choosing a generator in CMake on Linux
 
 Currently only the **Unix makefiles** generator is recommended. Others e.g. **Ninja** may have project dependency issues. This is being worked on (October 2023)   
 **Unix makefiles** are not multi-configuration so set the **CMAKE_BUILD_TYPE** to either Release or Debug in the cmake-gui.
 
 ## Tips for ManiVault building on Macos
-
-## CMake 3.28 WARNING!
-
-Until this [MacOS OpenGL error](https://codereview.qt-project.org/c/qt/qtbase/+/503121/1) is fixed used a CMake version < 3.28 on macos
-
-### System and XCode
-
-Currently the preserred OS is MacOS Monterey (12) in line with the current CI settings. The CI uses XCode 12.4 but for the local build using the current XCode 14.2 works well.
-
-Currently (December 2023) the Apple ARM architecture has not been tested. However building on M1 is possible by cross-compiling to the **x86_64** architecture. The build architecture can be changed in **Build Settings** by adding **8x86_64** to the options and removing the standard Universal architecture.
 
 ### Installs 
 
@@ -297,35 +286,4 @@ If you don't use the prebuilt binaries for ManiVault you will need to manually a
 * MV_INSTALL_DIR - for ManiVault (environment variable)
 * QT_DIR - for ManiVault (lib/cmake/Qt6)
 * Qt6_DIR - for ManiVault (lib/cmake/Qt6)
-* FREEIMAGE_ROOT_DIR for ImageLoader (directory including lib, bin and include dirs)
 * VTK_DIR - for VolumeViewer (lib/cmake/vtk-9.1)
-## An example of using the DevBundle - makeproject
-
-Example: main
-
-List the all defined projects. These are some default test projects defined in the )
-
-List the details of main
-
-```shell
- py makeproject.py list main
-name: main
-build dir: main
-hdps_repos:
-        repo: https://github.com/ManiVaultStudio/core,     project_name: core      branch: master
-        repo: https://github.com/ManiVaultStudio/CsvLoader,        project_name: CsvLoader branch: master
-                project: CsvLoader, dependencies: HDPS PointData
-        repo: https://github.com/ManiVaultStudio/ImageLoaderPlugin,        project_name: ImageLoaderPlugin branch: master
-                project: ImageLoaderPlugin, dependencies: HDPS
-        repo: https://github.com/ManiVaultStudio/ImageViewerPlugin,        project_name: ImageViewerPlugin branch: master
-                project: ImageViewerPlugin, dependencies: HDPS ImageData
-        repo: https://github.com/ManiVaultStudio/t-SNE-Analysis,   project_name: t-SNE-Analysis    branch: master
-                project: TsneAnalysisPlugin, dependencies: HDPS ImageData PointData
-                project: HsneAnalysisPlugin, dependencies: HDPS ImageData PointData
-```
-
-
-
-
-
-

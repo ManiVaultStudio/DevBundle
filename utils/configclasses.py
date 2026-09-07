@@ -425,13 +425,6 @@ class Config:
                 if repo.enabled:
                     self.repos.append(repo)
 
-        # old naming, kept for backwards compatibility
-        if "hdps_repos" in build_config:
-            for repo_config in build_config["hdps_repos"]:
-                repo = ManiVaultRepo(repo_config, common_dependencies)
-                if repo.enabled:
-                    self.repos.append(repo)
-
         self.cmakebuilder = CMakeFileBuilder(self)
         self.binaries = Binaries(binary_config, self.bin_root)
 
