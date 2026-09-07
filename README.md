@@ -250,23 +250,12 @@ If the logging still shows OpenGL context problems the following has also helped
 export LIBGL_ALWAYS_INDIRECT=0
 ```
 
-
 ### Choosing a generator in CMake on Linux
 
 Currently only the **Unix makefiles** generator is recommended. Others e.g. **Ninja** may have project dependency issues. This is being worked on (October 2023)   
 **Unix makefiles** are not multi-configuration so set the **CMAKE_BUILD_TYPE** to either Release or Debug in the cmake-gui.
 
 ## Tips for ManiVault building on Macos
-
-## CMake 3.28 WARNING!
-
-Until this [MacOS OpenGL error](https://codereview.qt-project.org/c/qt/qtbase/+/503121/1) is fixed used a CMake version < 3.28 on macos
-
-### System and XCode
-
-Currently the preserred OS is MacOS Monterey (12) in line with the current CI settings. The CI uses XCode 12.4 but for the local build using the current XCode 14.2 works well.
-
-Currently (December 2023) the Apple ARM architecture has not been tested. However building on M1 is possible by cross-compiling to the **x86_64** architecture. The build architecture can be changed in **Build Settings** by adding **8x86_64** to the options and removing the standard Universal architecture.
 
 ### Installs 
 
@@ -297,35 +286,4 @@ If you don't use the prebuilt binaries for ManiVault you will need to manually a
 * MV_INSTALL_DIR - for ManiVault (environment variable)
 * QT_DIR - for ManiVault (lib/cmake/Qt6)
 * Qt6_DIR - for ManiVault (lib/cmake/Qt6)
-* FREEIMAGE_ROOT_DIR for ImageLoader (directory including lib, bin and include dirs)
 * VTK_DIR - for VolumeViewer (lib/cmake/vtk-9.1)
-## An example of using the DevBundle - makeproject
-
-Example: main
-
-List the all defined projects. These are some default test projects defined in the )
-
-List the details of main
-
-```shell
- py makeproject.py list main
-name: main
-build dir: main
-mv_repos:
-        repo: https://github.com/ManiVaultStudio/core,     project_name: core      branch: master
-        repo: https://github.com/ManiVaultStudio/CsvLoader,        project_name: CsvLoader branch: master
-                project: CsvLoader, dependencies: core PointData
-        repo: https://github.com/ManiVaultStudio/ImageLoaderPlugin,        project_name: ImageLoaderPlugin branch: master
-                project: ImageLoaderPlugin, dependencies: core
-        repo: https://github.com/ManiVaultStudio/ImageViewerPlugin,        project_name: ImageViewerPlugin branch: master
-                project: ImageViewerPlugin, dependencies: core ImageData
-        repo: https://github.com/ManiVaultStudio/t-SNE-Analysis,   project_name: t-SNE-Analysis    branch: master
-                project: TsneAnalysisPlugin, dependencies: core ImageData PointData
-                project: HsneAnalysisPlugin, dependencies: core ImageData PointData
-```
-
-
-
-
-
-
