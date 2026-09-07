@@ -141,20 +141,20 @@ The `config.json` provided contains a working example of all ManiVault plugins (
 #### 1.  `build_bundles`
 
 &nbsp;&nbsp;&nbsp;&nbsp; A `build_bundle` defines a set of ManiVault `core` plus plugins to be used in the bundle project. It defines a `name` which should be a meaningful string, a `build_dir` which will contain the `source`, `build` and `install` 
-directories and a list of `hdps_repos` used in the bundle project.
+directories and a list of `mv_repos` used in the bundle project.
 
 &nbsp;&nbsp;&nbsp;&nbsp; `build_dir` will be created relative to the path where the `makeproject.py` script is run.
 
 ###### 1.1 Using a local development repo
 
-A `build_bundle` contains a list of `hdps_repos`. Each repo is usually defined using the repo name and branch. However if you have already checked out a repo for development purposes or are creating a new plugin that is not yet in GitHub it may be useful to point to a local path. This can be achieved using the `local` property in the repos configuration. For example if I have MyNewPlugin locally I can include it in a bundle thus: 
+A `build_bundle` contains a list of `mv_repos`. Each repo is usually defined using the repo name and branch. However if you have already checked out a repo for development purposes or are creating a new plugin that is not yet in GitHub it may be useful to point to a local path. This can be achieved using the `local` property in the repos configuration. For example if I have MyNewPlugin locally I can include it in a bundle thus: 
 
 ```
 	"build_bundles": [
 		{
 			"name": "myplugin_dev",
 			"build_dir": "myplugin_dev",
-			"hdps_repos": [
+			"mv_repos": [
 				{
 					"repo": "core",
 					"branch": "feature/qt_6"
@@ -311,17 +311,17 @@ List the details of main
  py makeproject.py list main
 name: main
 build dir: main
-hdps_repos:
+mv_repos:
         repo: https://github.com/ManiVaultStudio/core,     project_name: core      branch: master
         repo: https://github.com/ManiVaultStudio/CsvLoader,        project_name: CsvLoader branch: master
-                project: CsvLoader, dependencies: HDPS PointData
+                project: CsvLoader, dependencies: core PointData
         repo: https://github.com/ManiVaultStudio/ImageLoaderPlugin,        project_name: ImageLoaderPlugin branch: master
-                project: ImageLoaderPlugin, dependencies: HDPS
+                project: ImageLoaderPlugin, dependencies: core
         repo: https://github.com/ManiVaultStudio/ImageViewerPlugin,        project_name: ImageViewerPlugin branch: master
-                project: ImageViewerPlugin, dependencies: HDPS ImageData
+                project: ImageViewerPlugin, dependencies: core ImageData
         repo: https://github.com/ManiVaultStudio/t-SNE-Analysis,   project_name: t-SNE-Analysis    branch: master
-                project: TsneAnalysisPlugin, dependencies: HDPS ImageData PointData
-                project: HsneAnalysisPlugin, dependencies: HDPS ImageData PointData
+                project: TsneAnalysisPlugin, dependencies: core ImageData PointData
+                project: HsneAnalysisPlugin, dependencies: core ImageData PointData
 ```
 
 
