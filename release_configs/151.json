@@ -1,0 +1,110 @@
+{
+	"build_bundles": [
+		{
+            "name": "rel_151",
+            "build_dir": "rel_151",
+            "mv_repos": [
+                {
+                    "repo": "core",
+					"branch": "release/1.5.1"
+                },
+				{
+					"repo": "Scatterplot",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "HDF5Loader",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "t-SNE-Analysis",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "PcaPlugin",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "ExtCsvLoader",
+					"branch": "release/core_1.5.1/0.3.0"
+				},
+				{
+					"repo": "DifferentialExpressionPlugin",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "UMAP-Plugin",
+					"branch": "release/core_1.5.1/1.4.0"
+				},
+				{
+					"repo": "ClusterDifferentialExpressionPlugin",
+					"branch": "release/core_1.5.1/0.5"
+				},
+				{
+					"repo": "BinIO",
+					"branch": "release/core_1.5.1/0.5"
+				},
+				{
+					"repo": "ClusteringPlugin",
+					"branch": "release/core_1.5.1/0.1.1"
+				},
+				{
+					"repo": "ClusterIO",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "ClusterMeansPlugin",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "ClustersFromPointsPlugin",
+					"branch": "release/core_1.5.1/1.1.0"
+				},
+				{
+					"repo": "CsvWriter",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "ENVILoader",
+					"branch": "release/core_1.5.1/0.1.0"
+				},
+				{
+					"repo": "HeatMap",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "ImageLoaderPlugin",
+					"branch": "release/core_1.5.1/0.1.0"
+				},
+				{
+					"repo": "ImageTransformationPlugin",
+					"branch": "release/core_1.5.1/1.3.0"
+				},
+				{
+					"repo": "ImageViewerPlugin",
+					"branch": "release/core_1.5.1/0.1.0"
+				},
+				{
+					"repo": "JupyterPlugin",
+					"branch": "release/core_1.5.1/0.6.1"
+				},
+				{
+					"repo": "MeanShiftClustering",
+					"branch": "release/core_1.5.1/0.7.0"
+				},
+				{
+					"repo": "ParallelCoordinatesPlugin",
+					"branch": "release/core_1.5.1/0.1.0"
+				},
+				{
+					"repo": "PointDataConversionPlugin",
+					"branch": "release/core_1.5.1/1.0.0"
+				},
+				{
+					"repo": "SpectralViewPlugin",
+					"branch": "release/core_1.5.1/1.0.0"
+				}
+            ]
+        }
+	]
+}
