@@ -42,7 +42,7 @@
 				},
 				{
 					"repo": "BinIO",
-					"branch": "release/core_1.5.1/0.5"
+					"branch": "release/core_1.5.1/1.0.0"
 				},
 				{
 					"repo": "ClusteringPlugin",
@@ -86,7 +86,7 @@
 				},
 				{
 					"repo": "JupyterPlugin",
-					"branch": "release/core_1.5.1/0.6.1"
+					"branch": "release/core_1.5.1/0.6.2"
 				},
 				{
 					"repo": "MeanShiftClustering",
