@@ -29,6 +29,16 @@
 			]
 		},
 		{
+			"name": "behavioral_testing",
+			"build_dir": "behavioral_testing",
+			"mv_repos": [
+				{
+					"repo": "core",
+					"branch": "feature/behavioral-testing"
+				}
+			]
+		},
+		{
 			"name": "allmain",
 			"build_dir": "allmain",
 			"mv_repos": [

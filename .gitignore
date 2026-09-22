@@ -39,3 +39,5 @@ fix_space_walker
 /core
 emsdk/
 wasm/*
+behavioral_testing/*
+core_only/*
