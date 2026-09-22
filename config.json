@@ -19,12 +19,12 @@
 			]
 		},
 		{
-			"name": "sentry",
-			"build_dir": "sentry",
+			"name": "core_only",
+			"build_dir": "core_only",
 			"mv_repos": [
 				{
 					"repo": "core",
-					"branch": "feature/sentry_integration"
+					"branch": "master"
 				}
 			]
 		},

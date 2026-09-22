@@ -38,3 +38,4 @@ fix_space_walker
 /configs
 /core
 emsdk/
+wasm/*
