@@ -536,6 +536,10 @@ class Config:
         Optionally clean everything first and reclone.
         Alternatively stash changes or force overwrite
         per repo.
+        To handle the CoreDependConfig.json
+        repo cloning is actually done in two passes. 
+        Pass A - get the repos defined in the used config
+        Pass B - Get the core extension repos from the CoreDependConfig.json files
 
         Parameters
         ----------
@@ -557,7 +561,7 @@ class Config:
             do shallow (depth=1) git clones
         """
 
-        # 1st pass - get the explicit repos
+        # Pass A: - get the explicit repos
         self._handle_update_only(self.repos, mode, ssh)
         self._handle_cmake_only(self.repos, mode)
 
@@ -572,7 +576,7 @@ class Config:
             repo.use(mode, ssh, shallow)
             binaries = binaries | set(repo.binaries)
 
-        # 2nd pass - get the core repo dependencies from the source
+        # Pass B: - get the core repo dependencies from the source
         # Go through the repos and get the cored config bundle repos
         # perform the necessary cleanups
         core_bundle = CoreBundle(self.source_dir)

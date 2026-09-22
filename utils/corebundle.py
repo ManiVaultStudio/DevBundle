@@ -59,12 +59,12 @@ class CoreBundle:
   def _get_selected_corebundles(self, sourceDir: Path):
     paths = sorted(sourceDir.glob(f'**/{CoreBundle.BUNDLE_NAME}'))
     # For all the core bundles found validate the json 
-    # add the bundle correcponding to the branch name to the
+    # add the bundle corresponding to the branch name to the
     # list self.__bundles or the default bundle if not matching bundles is found
     for path in paths:
       bundle_json = json.loads(path.read_bytes())
       bundle_repo = Repo(sourceDir)
-      branch = bundle_repo.active_branch
+      branch = bundle_repo.active_branch.name
       print(f"Get bundle for repo at {str(sourceDir)} on branch: {branch}")
       try:
         Draft202012Validator(self._schema).validate(bundle_json)
@@ -78,10 +78,10 @@ class CoreBundle:
         raise
       bundleNames = [x["name"] for x in bundle_json['bundles']]
       print(f"{len(bundleNames)} Bundles names: {bundleNames} branch: {branch}")
-      if str(branch) not in bundleNames:
+      if branch not in bundleNames:
         branch = "default"
         print(f"Using default core bundle for repo at {path}")
-      self._bundles.append([x for x in bundle_json['bundles'] if x["name"] == str(branch)][0])
+      self._bundles.append([x for x in bundle_json['bundles'] if x["name"] == branch][0])
 
   def _merge_core_bundles(self):
     for bundle in self._bundles:

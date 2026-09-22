@@ -4,14 +4,15 @@
 
     Merging a number of vcpkg.json files translates, when looked at simply,
     to merging a number of python dictionaries which may contain clashes.
-    This code take a pragmatic approach, it does not try to automatically
+    This code takes a pragmatic approach, it does not try to automatically
     resolve all the issues itself. Instead dependency clashes will 
     produce user prompts but other clashes may appear in the file.
 
-    No all top level items in the vcpkg.json are covered just the ones 
-    present in ManiVault projects at the time of creation.
+    The vcpkg.json items that are merged are just the ones 
+    present in ManiVault projects at the time of creation. So
+    the algorithm is not exhaustive w.r.t. the vcpkg specification.
 
-    It is expected that this will need to be extended as more complex
+    It is expected that the algorithm will need to be extended as more complex
     vcpkg.json files are encountered. A reasonable strategy in many cases
     may be to write duplicates to the output file and ask the user to
     resolve these manually.
