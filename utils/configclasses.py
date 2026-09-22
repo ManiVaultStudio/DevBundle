@@ -551,11 +551,15 @@ class Config:
 
 
 class CMakeFileBuilder:
-    """Build a cmake file for the configuration"""
+    """Build a cmake file for the configuration
+       Assumes that the current working directory "."
+       is set to the source_dir.  
+    """
 
     def __init__(self, config: Config) -> None:
         self.config = config
         self.cmakelistspath = Path(".", "CMakeLists.txt")
+        self.cmakesupportpath = Path(".","cmake" )
 
     def save_numbered_cmakefile(self) -> None:
         """
@@ -582,11 +586,24 @@ class CMakeFileBuilder:
         cmakepath = Path(".", "CMakeLists.txt")
         cmakepath.rename(f"CMakeLists.{version_num:03}")
 
+    def install_deploy_support(self) -> None:
+        """Add the cmake deploy support subdirectory 
+          to the DevBundle output source directory 
+        """
+        if self.cmakesupportpath.exists():
+            shutil.rmtree(self.cmakesupportpath)
+        cmakeSrc = Path(Path(__file__).parents[1], "cmake")
+        print(f"Retrieving cmake from {cmakeSrc.absolute()}")
+        shutil.copytree(cmakeSrc, self.cmakesupportpath)
+
     def make(self, cmake_vars: List[tuple], cmake: bool, cmake_user_vars: List[str]) -> None:
         self.save_numbered_cmakefile()
+        self.install_deploy_support()
+
         print(f"Making {self.cmakelistspath}")
         with open(str(self.cmakelistspath), "a") as cf:
             cf.write("cmake_minimum_required(VERSION 3.22)\n")
+            cf.write("include(\"${CMAKE_CURRENT_LIST_DIR}/cmake/deploy_helper.cmake\")")
             cf.write(f"\nproject({self.config.name})\n\n")
             mv_install_dir = str(self.config.install_dir.resolve()).replace("\\", "/")
             cf.write(
