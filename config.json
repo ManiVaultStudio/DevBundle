@@ -29,12 +29,12 @@
 			]
 		},
 		{
-			"name": "behavioral_testing",
-			"build_dir": "behavioral_testing",
+			"name": "core_testing",
+			"build_dir": "core_testing",
 			"mv_repos": [
 				{
 					"repo": "core",
-					"branch": "feature/behavioral-testing"
+					"branch": "master"
 				}
 			]
 		},
